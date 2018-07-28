@@ -38,7 +38,9 @@ defmodule CSys.Mixfile do
       {:phoenix_ecto, "~> 3.2"},
       {:postgrex, ">= 0.0.0"},
       {:gettext, "~> 0.11"},
-      {:cowboy, "~> 1.0"}
+      {:cowboy, "~> 1.0"},
+      {:bcrypt_elixir, "~> 1.0"}, # Password Crypt
+      {:corsica, "~> 1.0"} # CORS
     ]
   end
 

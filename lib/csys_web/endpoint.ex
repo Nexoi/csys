@@ -35,6 +35,13 @@ defmodule CSysWeb.Endpoint do
     key: "_csys_key",
     signing_salt: "CDQfAVk4"
 
+  # 自定义的 CORS 配置
+  plug Corsica,
+    origins: "http://localhost:4000",
+    log: [rejected: :error, invalid: :warn, accepted: :debug],
+    allow_headers: ["content-type"],
+    allow_credentials: true
+
   plug CSysWeb.Router
 
   @doc """

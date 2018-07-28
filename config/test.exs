@@ -12,8 +12,10 @@ config :logger, level: :warn
 # Configure your database
 config :csys, CSys.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
+  username: "neo",
+  password: "",
   database: "csys_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
+
+config :bcrypt_elixir, :log_rounds, 4
