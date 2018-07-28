@@ -3,24 +3,42 @@ defmodule CSysWeb.UserControllerTest do
 
   alias CSys.Auth
   alias CSys.Auth.User
+  alias Plug.Test
 
   @create_attrs %{is_active: true, password: "some password", uid: "some uid"}
   @update_attrs %{is_active: false, password: "some updated password", uid: "some updated uid"}
   @invalid_attrs %{is_active: nil, password: nil, uid: nil}
+  @current_user_attrs %{
+    uid: "some current user uid",
+    is_active: true,
+    password: "some current user password"
+  }
 
   def fixture(:user) do
     {:ok, user} = Auth.create_user(@create_attrs)
     user
   end
 
+  def fixture(:current_user) do
+    {:ok, current_user} = Auth.create_user(@current_user_attrs)
+    current_user
+  end
+
   setup %{conn: conn} do
-    {:ok, conn: put_req_header(conn, "accept", "application/json")}
+    {:ok, conn: conn, current_user: current_user} = setup_current_user(conn)
+    {:ok, conn: put_req_header(conn, "accept", "application/json"), current_user: current_user}
   end
 
   describe "index" do
-    test "lists all users", %{conn: conn} do
+    test "lists all users", %{conn: conn, current_user: current_user} do
       conn = get conn, user_path(conn, :index)
-      assert json_response(conn, 200)["data"] == []
+      assert json_response(conn, 200)["data"] == [
+        %{
+          "id" => current_user.id,
+          "uid" => current_user.uid,
+          "is_active" => current_user.is_active
+        }
+      ]
     end
   end
 
@@ -76,8 +94,39 @@ defmodule CSysWeb.UserControllerTest do
     end
   end
 
+  describe "sign_in user" do
+    test "renders user when user credentials are good", %{conn: conn, current_user: current_user} do
+      conn =
+        post(
+          conn,
+          user_path(conn, :sign_in, %{
+            uid: current_user.uid,
+            password: @current_user_attrs.password
+          })
+        )
+
+      assert json_response(conn, 200)["data"] == %{
+               "user" => %{"id" => current_user.id, "uid" => current_user.uid}
+             }
+    end
+
+    test "renders errors when user credentials are bad", %{conn: conn} do
+      conn = post(conn, user_path(conn, :sign_in, %{uid: "nonexistent uid", password: ""}))
+      assert json_response(conn, 401)["errors"] == %{"detail" => "Wrong password"}
+    end
+  end
+
   defp create_user(_) do
     user = fixture(:user)
     {:ok, user: user}
+  end
+
+  defp setup_current_user(conn) do
+    current_user = fixture(:current_user)
+
+    {:ok,
+     conn: Test.init_test_session(conn, current_user_id: current_user.id),
+     current_user: current_user
+    }
   end
 end

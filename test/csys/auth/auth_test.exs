@@ -69,5 +69,13 @@ defmodule CSys.AuthTest do
       user = user_fixture()
       assert %Ecto.Changeset{} = Auth.change_user(user)
     end
+
+    # 权限验证
+    test "authenticate_user/2 authenticates the user" do
+      user = user_fixture()
+      assert {:error, "Wrong password"} = Auth.authenticate_user("wrong uid", "")
+      assert {:ok, authenticated_user} = Auth.authenticate_user(user.uid, @valid_attrs.password)
+      assert %User{user | password: nil} == authenticated_user
+    end
   end
 end

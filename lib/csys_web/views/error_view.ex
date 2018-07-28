@@ -17,4 +17,12 @@ defmodule CSysWeb.ErrorView do
   def render("401.json", %{message: message}) do
     %{errors: %{detail: message}}
   end
+
+  def render("404.json", _assigns) do
+    %{errors: %{detail: "Not Found"}}
+  end
+
+  def render("500.json", _assigns) do
+    %{errors: %{detail: "Internal Server Error"}}
+  end
 end
