@@ -1,5 +1,6 @@
 defmodule CSysWeb.UserController do
   use CSysWeb, :controller
+  use PhoenixSwagger # 注入 Swagger
 
   alias CSys.Auth
   alias CSys.Auth.User

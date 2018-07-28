@@ -36,4 +36,15 @@ defmodule CSysWeb.Router do
       |> halt()
     end
   end
+
+  # swagger info
+  def swagger_info do
+    %{
+      info: %{
+        version: "1.0",
+        title: "Jwxt-En",
+        host: "mix.red"
+      }
+    }
+  end
 end
