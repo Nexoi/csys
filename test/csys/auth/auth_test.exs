@@ -73,7 +73,7 @@ defmodule CSys.AuthTest do
     # 权限验证
     test "authenticate_user/2 authenticates the user" do
       user = user_fixture()
-      assert {:error, "Wrong password"} = Auth.authenticate_user("wrong uid", "")
+      assert {:error, "Sorry! You do not have authentication to sign in this site."} = Auth.authenticate_user("wrong uid", "")
       assert {:ok, authenticated_user} = Auth.authenticate_user(user.uid, @valid_attrs.password)
       assert %User{user | password: nil} == authenticated_user
     end

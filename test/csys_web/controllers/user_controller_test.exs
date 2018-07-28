@@ -112,7 +112,7 @@ defmodule CSysWeb.UserControllerTest do
 
     test "renders errors when user credentials are bad", %{conn: conn} do
       conn = post(conn, user_path(conn, :sign_in, %{uid: "nonexistent uid", password: ""}))
-      assert json_response(conn, 401)["errors"] == %{"detail" => "Wrong password"}
+      assert json_response(conn, 401)["errors"] == %{"detail" => "Sorry! You do not have authentication to sign in this site."}
     end
   end
 

@@ -40,7 +40,9 @@ defmodule CSys.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:bcrypt_elixir, "~> 1.0"}, # Password Crypt
-      {:corsica, "~> 1.0"} # CORS
+      {:corsica, "~> 1.0"}, # CORS
+      {:floki, "~> 0.20.0"},
+      {:httpoison, "~> 1.0"}
     ]
   end
 
