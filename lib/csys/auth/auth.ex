@@ -116,7 +116,7 @@ defmodule CSys.Auth do
     {:error, "Sorry! You do not have authentication to sign in this site."}
   end
 
-  # 使用本地密码验证，验证不过则使用 CAS 验证
+  # 使用本地密码验证，验证不过则使用 CAS 验证（账号必须在本地服务器存在）
   defp verify_password(user, password) do
     if Bcrypt.verify_pass(password, user.password_hash) do
       {:ok, user}
