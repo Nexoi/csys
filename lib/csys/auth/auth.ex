@@ -113,14 +113,30 @@ defmodule CSys.Auth do
   defp verify_password(nil, _) do
     # Perform a dummy check to make user enumeration more difficult
     Bcrypt.no_user_verify()
-    {:error, "Wrong password"}
+    {:error, "Sorry! You do not have authentication to sign in this site."}
   end
 
+  # 使用本地密码验证，验证不过则使用 CAS 验证
   defp verify_password(user, password) do
     if Bcrypt.verify_pass(password, user.password_hash) do
       {:ok, user}
     else
-      {:error, "Wrong password"}
+      verify_password_cas(user, password)
+      # {:error, "Wrong password"}
     end
+  end
+
+  # CAS 验证
+  defp verify_password_cas(user, password) do
+      Core.CASConnector.obtain_tgc(user.uid, password)
+      |> case do
+        {:ok, tgc} ->
+          if tgc |> String.contains?("TGC=") do
+            {:ok, user}
+          else
+            {:error, "Wrong Password"}
+          end
+        {:error} -> {:error, "Wrong Password"}
+      end
   end
 end
