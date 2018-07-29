@@ -1,6 +1,7 @@
 defmodule CSysWeb.Router do
   use CSysWeb, :router
   # alias UserController
+  # alias CSysWeb.Normal.TrainingProgramController
 
   pipeline :api do
     plug :accepts, ["json"]
@@ -15,6 +16,7 @@ defmodule CSysWeb.Router do
   scope "/api", CSysWeb do
     pipe_through :api
     post "/users/sign_in", UserController, :sign_in
+    get "/normal/training_programs", Normal.TrainingProgramController, :index
   end
 
   # 需要权限验证的 API

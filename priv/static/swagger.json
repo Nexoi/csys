@@ -36,6 +36,25 @@
         "operationId": "CSysWeb.UserController.index",
         "description": "Sign In"
       }
+    },
+    "/api/normal/training_programs": {
+      "get": {
+        "tags": [
+          "TrainingProgram"
+        ],
+        "summary": "",
+        "responses": {
+          "401": {
+            "description": "failure"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [],
+        "operationId": "CSysWeb.Normal.TrainingProgramController.index",
+        "description": "列出所有的培养方案（父子目录）"
+      }
     }
   },
   "info": {
