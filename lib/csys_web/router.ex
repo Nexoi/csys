@@ -36,4 +36,19 @@ defmodule CSysWeb.Router do
       |> halt()
     end
   end
+
+  scope "/api/swagger" do
+    forward "/", PhoenixSwagger.Plug.SwaggerUI, otp_app: :csys, swagger_file: "swagger.json"
+  end
+
+  # swagger info
+  def swagger_info do
+    %{
+      info: %{
+        version: "1.0",
+        title: "Jwxt-En",
+        host: "mix.red"
+      }
+    }
+  end
 end

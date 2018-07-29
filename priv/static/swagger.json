@@ -1,0 +1,48 @@
+{
+  "swagger": "2.0",
+  "paths": {
+    "/api/users/sign_in": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "",
+        "responses": {
+          "401": {
+            "description": "failure"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "x-example": "11610001",
+            "type": "string",
+            "required": true,
+            "name": "uid",
+            "in": "query",
+            "description": "Student ID"
+          },
+          {
+            "x-example": "123456",
+            "type": "string",
+            "required": true,
+            "name": "password",
+            "in": "query",
+            "description": "Password"
+          }
+        ],
+        "operationId": "CSysWeb.UserController.index",
+        "description": "Sign In"
+      }
+    }
+  },
+  "info": {
+    "version": "1.0",
+    "title": "Jwxt-En",
+    "host": "mix.red"
+  },
+  "host": "localhost:4000",
+  "definitions": {}
+}
