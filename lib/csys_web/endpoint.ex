@@ -32,8 +32,8 @@ defmodule CSysWeb.Endpoint do
   # Set :encryption_salt if you would also like to encrypt it.
   plug Plug.Session,
     store: :cookie,
-    key: "_csys_key",
-    signing_salt: "CDQfAVk4"
+    key: "yangxiaosu",
+    signing_salt: "lovesusu"
 
   # 自定义的 CORS 配置
   plug Corsica,

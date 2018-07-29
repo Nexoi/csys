@@ -7,6 +7,17 @@ defmodule CSysWeb.UserController do
 
   action_fallback CSysWeb.FallbackController
 
+  swagger_path :index do
+    post "/api/users/sign_in"
+    description "Sign In"
+    parameters do
+      uid :query, :string, "Student ID", required: true, example: "11610001"
+      password :query, :string, "Password", required: true, example: "123456"
+    end
+    response 200, "success"
+    response 401, "failure"
+  end
+
   def sign_in(conn, %{"uid" => uid, "password" => password}) do
     case CSys.Auth.authenticate_user(uid, password) do
       {:ok, user} ->

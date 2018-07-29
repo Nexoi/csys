@@ -23,6 +23,22 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:user_id]
 
+# Swagger
+config :csys, :phoenix_swagger,
+  swagger_files: %{
+    "priv/static/swagger.json" => [
+      router: CSysWeb.Router,     # phoenix routes will be converted to swagger paths
+      endpoint: CSysWeb.Endpoint  # (optional) endpoint config used to set host, port and https schemes.
+    ]
+  }
+
+# config :csys, :phoenix_swagger,
+#   swagger_files: %{
+#     # "booking-api.json" => [router: CSys.BookingRouter],
+#     # "reports-api.json" => [router: CSys.ReportsRouter],
+#     "priv/static/student-api.json" => [router: CSysWeb.Router]
+#   }
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"
