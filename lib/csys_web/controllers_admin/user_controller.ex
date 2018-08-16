@@ -26,6 +26,9 @@ defmodule CSysWeb.Admin.UserController do
   swagger_path :create do
     post "/admin/api/users"
     description "Add User"
+    parameters do
+      uid :body, :string, "Student ID", required: true, example: "11610001"
+    end
   end
 
   swagger_path :update do
@@ -48,17 +51,31 @@ defmodule CSysWeb.Admin.UserController do
 
   """
 
-  def index(conn, _params) do
-    users = Auth.list_users()
-    render(conn, "index.json", users: users)
+  def index(conn, params) do
+    page_number = params |> Dict.get("page", 1)
+    page_size = params |> Dict.get("page_size", 10)
+
+    users_page =
+    %{
+      page: page_number,
+      page_size: page_size
+    }
+    |> Auth.list_users()
+    # |> IO.inspect(label: ">>>> CSysWeb.Admin.UserController#index\n")
+    render(conn, CSysWeb.UserView, "page.json", page: users_page)
   end
 
   def create(conn, %{"user" => user_params}) do
-    with {:ok, %User{} = user} <- Auth.create_user(user_params) do
+    # user_params |> IO.inspect(label: ">>>> CSysWeb.Admin.UserController#create\n")
+    attr = user_params
+    |> Map.put("password", "yangxiaosu")
+    |> Map.put("is_active", true)
+
+    with {:ok, %User{} = user} <- Auth.create_user(attr) do
       conn
       |> put_status(:created)
       |> put_resp_header("location", user_path(conn, :show, user))
-      |> render("show.json", user: user)
+      |> render(CSysWeb.UserView,"show.json", user: user)
     end
   end
 
@@ -71,7 +88,7 @@ defmodule CSysWeb.Admin.UserController do
     user = Auth.get_user!(id)
 
     with {:ok, %User{} = user} <- Auth.update_user(user, user_params) do
-      render(conn, "show.json", user: user)
+      render(conn, CSysWeb.UserView, "show.json", user: user)
     end
   end
 

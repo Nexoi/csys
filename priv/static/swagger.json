@@ -119,7 +119,16 @@
         ],
         "summary": "",
         "responses": {},
-        "parameters": [],
+        "parameters": [
+          {
+            "x-example": "11610001",
+            "schema": "string",
+            "required": true,
+            "name": "uid",
+            "in": "body",
+            "description": "Student ID"
+          }
+        ],
         "operationId": "CSysWeb.Admin.UserController.create",
         "description": "Add User"
       },
