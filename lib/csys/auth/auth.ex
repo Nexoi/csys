@@ -21,6 +21,12 @@ defmodule CSys.Auth do
     Repo.all(User)
   end
 
+  def list_users(page) do
+    # Repo.all(User)
+    User
+    |> Repo.paginate(page)
+  end
+
   @doc """
   Gets a single user.
 
