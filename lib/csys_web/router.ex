@@ -20,9 +20,10 @@ defmodule CSysWeb.Router do
   end
 
   # 需要权限验证的 API
-  scope "/api", CSysWeb do
-    pipe_through [:api, :api_auth]
-    resources "/users", UserController, except: [:new, :edit]
+  scope "/admin/api", CSysWeb do
+    # pipe_through [:api, :api_auth]
+    pipe_through :api
+    resources "/users", Admin.UserController, except: [:new, :edit]
   end
 
   # 权限验证，验证失败就 401
@@ -34,7 +35,7 @@ defmodule CSysWeb.Router do
     else
       conn
       |> put_status(:unauthorized)
-      |> render(MyAppWeb.ErrorView, "401.json", message: "Unauthenticated user")
+      |> render(CSysWeb.ErrorView, "401.json", message: "Unauthenticated user")
       |> halt()
     end
   end

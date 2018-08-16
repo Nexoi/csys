@@ -4,7 +4,7 @@
     "/api/users/sign_in": {
       "post": {
         "tags": [
-          "User"
+          "SIGN IN"
         ],
         "summary": "",
         "responses": {
@@ -33,7 +33,7 @@
             "description": "Password"
           }
         ],
-        "operationId": "CSysWeb.UserController.index",
+        "operationId": "CSysWeb.UserController.sign_in",
         "description": "Sign In"
       }
     },
@@ -54,6 +54,101 @@
         "parameters": [],
         "operationId": "CSysWeb.Normal.TrainingProgramController.index",
         "description": "列出所有的培养方案（父子目录）"
+      }
+    },
+    "/admin/api/users/{id}": {
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "summary": "",
+        "responses": {},
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "id, not uid"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.UserController.update",
+        "description": "Edit User"
+      },
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "",
+        "responses": {},
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "id, not uid"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.UserController.show",
+        "description": "List One"
+      },
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "summary": "",
+        "responses": {},
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "id, not uid"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.UserController.delete",
+        "description": "Delete User"
+      }
+    },
+    "/admin/api/users": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "",
+        "responses": {},
+        "parameters": [],
+        "operationId": "CSysWeb.Admin.UserController.create",
+        "description": "Add User"
+      },
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "",
+        "responses": {},
+        "parameters": [
+          {
+            "type": "integer",
+            "required": false,
+            "name": "page_size",
+            "minimum": 1,
+            "in": "query",
+            "description": "Number of elements per page"
+          },
+          {
+            "type": "integer",
+            "required": false,
+            "name": "page",
+            "minimum": 1,
+            "in": "query",
+            "description": "Number of the page"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.UserController.index",
+        "description": "List All"
       }
     }
   },
