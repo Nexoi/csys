@@ -1,4 +1,5 @@
 #export ENV=test
 #export MIX_ENV=test
+export PORT=4002
 export USERNAME=postgres
 export PASSWORD=postgres
