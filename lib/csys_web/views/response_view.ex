@@ -8,6 +8,10 @@ defmodule CSysWeb.RView do
     }
   end
 
+  def render("203.json", _) do
+    %{message: "资源删除成功"}
+  end
+
   def render("204.json", %{message: message}) do
     %{message: message}
   end

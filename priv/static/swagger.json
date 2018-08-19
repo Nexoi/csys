@@ -222,6 +222,109 @@
         "operationId": "CSysWeb.Admin.Normal.XiaoliController.index",
         "description": "获取校历文件的url链接"
       }
+    },
+    "/admin/api/normal/training_programs/{id}": {
+      "put": {
+        "tags": [
+          "TrainingProgram"
+        ],
+        "summary": "",
+        "responses": {
+          "401": {
+            "description": "failure"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "id integer"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "title",
+            "in": "query",
+            "description": "title string"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.Normal.TrainingProgramController.update",
+        "description": "修改培养方案组合名"
+      },
+      "delete": {
+        "tags": [
+          "TrainingProgram"
+        ],
+        "summary": "",
+        "responses": {
+          "401": {
+            "description": "failure"
+          },
+          "204": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "id integer"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.Normal.TrainingProgramController.delete",
+        "description": "修改培养方案组合名"
+      }
+    },
+    "/admin/api/normal/training_programs": {
+      "post": {
+        "tags": [
+          "TrainingProgram"
+        ],
+        "summary": "",
+        "responses": {
+          "401": {
+            "description": "failure"
+          },
+          "201": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "title",
+            "in": "query",
+            "description": "title string"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.Normal.TrainingProgramController.create",
+        "description": "添加培养方案组合名"
+      },
+      "get": {
+        "tags": [
+          "TrainingProgram"
+        ],
+        "summary": "",
+        "responses": {
+          "401": {
+            "description": "failure"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [],
+        "operationId": "CSysWeb.Admin.Normal.TrainingProgramController.index",
+        "description": "列出所有的培养方案（父子目录）"
+      }
     }
   },
   "info": {
