@@ -37,7 +37,7 @@ defmodule CSysWeb.Endpoint do
 
   # 自定义的 CORS 配置
   plug Corsica,
-    origins: "http://localhost:4000",
+    origins: ["http://localhost:4002", "http://localhost:4000", "http://jwxt.sustc.seeuio.com"],
     log: [rejected: :error, invalid: :warn, accepted: :debug],
     allow_headers: ["content-type"],
     allow_credentials: true
@@ -52,7 +52,8 @@ defmodule CSysWeb.Endpoint do
   """
   def init(_key, config) do
     if config[:load_from_system_env] do
-      port = System.get_env("PORT") || raise "expected the PORT environment variable to be set"
+      # port = 4002 || System.get_env("PORT") || raise "expected the PORT environment variable to be set"
+      port = 4002
       {:ok, Keyword.put(config, :http, [:inet6, port: port])}
     else
       {:ok, config}
