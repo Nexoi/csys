@@ -1,0 +1,4 @@
+#export ENV=test
+#export MIX_ENV=test
+export USERNAME=postgres
+export PASSWORD=postgres
