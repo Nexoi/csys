@@ -37,6 +37,25 @@
         "description": "Sign In"
       }
     },
+    "/api/normal/xiaoli": {
+      "get": {
+        "tags": [
+          "Xiaoli"
+        ],
+        "summary": "",
+        "responses": {
+          "204": {
+            "description": "empty"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [],
+        "operationId": "CSysWeb.Normal.XiaoliController.index",
+        "description": "获取校历文件的url链接"
+      }
+    },
     "/api/normal/training_programs": {
       "get": {
         "tags": [
@@ -158,6 +177,50 @@
         ],
         "operationId": "CSysWeb.Admin.UserController.index",
         "description": "List All"
+      }
+    },
+    "/admin/api/normal/xiaoli": {
+      "post": {
+        "tags": [
+          "Xiaoli"
+        ],
+        "summary": "",
+        "responses": {
+          "204": {
+            "description": "empty"
+          },
+          "201": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "url",
+            "in": "query",
+            "description": "full url string"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.Normal.XiaoliController.create",
+        "description": "添加校历文件url"
+      },
+      "get": {
+        "tags": [
+          "Xiaoli"
+        ],
+        "summary": "",
+        "responses": {
+          "204": {
+            "description": "empty"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [],
+        "operationId": "CSysWeb.Admin.Normal.XiaoliController.index",
+        "description": "获取校历文件的url链接"
       }
     }
   },
