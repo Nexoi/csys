@@ -21,7 +21,6 @@ defmodule CSysWeb.Admin.Normal.XiaoliController do
       url :query, :string, "full url string", required: true
     end
     response 201, "success"
-    response 204, "empty"
   end
 
   def index(conn, _) do
@@ -31,6 +30,7 @@ defmodule CSysWeb.Admin.Normal.XiaoliController do
         |> render(XiaoliView, "xiaoli.json", xiaoli: xiaoli)
       {:error, msg} ->
         conn
+        |> put_status(:no_content)
         |> render(CSysWeb.RView, "204.json", message: msg)
     end
   end
@@ -40,6 +40,7 @@ defmodule CSysWeb.Admin.Normal.XiaoliController do
     if url do
       {:ok, xiaoli} = XiaoliDao.create_xiaoli(%{url: url})
       conn
+      |> put_status(:created)
       |> render(CSysWeb.RView, "201.json", data: xiaoli.url)
     end
   end

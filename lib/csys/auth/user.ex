@@ -2,12 +2,15 @@ defmodule CSys.Auth.User do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias CSys.Normal.NotificationRecord
 
   schema "users" do
     field :is_active, :boolean, default: false
     field :uid, :string
     field :password, :string, virtual: true
     field :password_hash, :string
+
+    has_many :notifications, NotificationRecord
 
     timestamps()
   end

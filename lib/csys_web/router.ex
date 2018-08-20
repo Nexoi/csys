@@ -27,7 +27,8 @@ defmodule CSysWeb.Router do
     # pipe_through [:api, :api_auth]
     pipe_through :api
     resources "/users", Admin.UserController, only: [:index, :show, :create, :update, :delete]
-    resources "/normal/training_programs", Admin.Normal.TrainingProgramController, only: [:index, :create, :update, :delete]
+    resources "/normal/training_programs", Admin.Normal.TrainingProgramController, only: [:index, :show, :create, :update, :delete]
+    resources "/normal/training_program/items", Admin.Normal.TrainingProgramItemController, only: [:create, :update, :delete]
     resources "/normal/xiaoli", Admin.Normal.XiaoliController, only: [:index, :create]
   end
 

@@ -186,9 +186,6 @@
         ],
         "summary": "",
         "responses": {
-          "204": {
-            "description": "empty"
-          },
           "201": {
             "description": "success"
           }
@@ -265,7 +262,7 @@
           "401": {
             "description": "failure"
           },
-          "204": {
+          "203": {
             "description": "success"
           }
         },
@@ -325,6 +322,133 @@
         "operationId": "CSysWeb.Admin.Normal.TrainingProgramController.index",
         "description": "列出所有的培养方案（父子目录）"
       }
+    },
+    "/admin/api/normal/training_program/{id}": {
+      "get": {
+        "tags": [
+          "TrainingProgram"
+        ],
+        "summary": "",
+        "responses": {
+          "401": {
+            "description": "failure"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "id integer"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.Normal.TrainingProgramController.show",
+        "description": "根据id获取某一培养方案"
+      }
+    },
+    "/admin/api/normal/training_program/items/{id}": {
+      "put": {
+        "tags": [
+          "TrainingProgramItem"
+        ],
+        "summary": "",
+        "responses": {
+          "401": {
+            "description": "failure"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "id integer"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "title",
+            "in": "query",
+            "description": "title string"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "res_url",
+            "in": "query",
+            "description": "res_url string"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.Normal.TrainingProgramItemController.update",
+        "description": "修改培养方案子项组合名"
+      },
+      "delete": {
+        "tags": [
+          "TrainingProgramItem"
+        ],
+        "summary": "",
+        "responses": {
+          "401": {
+            "description": "failure"
+          },
+          "203": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "id integer"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.Normal.TrainingProgramItemController.delete",
+        "description": "修改培养方案子项组合名"
+      }
+    },
+    "/admin/api/normal/training_program/items": {
+      "post": {
+        "tags": [
+          "TrainingProgramItem"
+        ],
+        "summary": "",
+        "responses": {
+          "401": {
+            "description": "failure"
+          },
+          "201": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "title",
+            "in": "query",
+            "description": "title string"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "res_url",
+            "in": "query",
+            "description": "res_url string"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.Normal.TrainingProgramItemController.create",
+        "description": "添加培养方案子项"
+      }
     }
   },
   "info": {
@@ -332,6 +456,5 @@
     "title": "Jwxt-En",
     "host": "jwxt.sustc.seeuio.com"
   },
-  "host": "localhost:4002",
   "definitions": {}
 }
