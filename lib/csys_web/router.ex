@@ -2,10 +2,12 @@ defmodule CSysWeb.Router do
   use CSysWeb, :router
   # alias UserController
   # alias CSysWeb.Normal.TrainingProgramController
+  alias PhoenixSwagger.Plug.Validate
 
   pipeline :api do
     plug :accepts, ["json"]
     plug :fetch_session
+    # plug Validate, validation_failed_status: 422
   end
 
   pipeline :api_auth do
@@ -53,7 +55,7 @@ defmodule CSysWeb.Router do
       info: %{
         version: "1.0",
         title: "Jwxt-En",
-        host: "mix.red"
+        host: "jwxt.sustc.seeuio.com"
       }
     }
   end
