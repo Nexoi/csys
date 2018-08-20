@@ -330,8 +330,8 @@
   "info": {
     "version": "1.0",
     "title": "Jwxt-En",
-    "host": "mix.red"
+    "host": "jwxt.sustc.seeuio.com"
   },
-  "host": "localhost:4000",
+  "host": "localhost:4002",
   "definitions": {}
 }

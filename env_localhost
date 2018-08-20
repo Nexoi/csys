@@ -1,0 +1,6 @@
+#export ENV=test
+#export MIX_ENV=test
+export SUSTC_JWXT_HOSTNAME=localhost
+export SUSTC_JWXT_PORT=4002
+export USERNAME=neo
+export PASSWORD=

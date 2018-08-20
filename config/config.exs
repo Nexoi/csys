@@ -12,7 +12,7 @@ config :csys,
 
 # Configures the endpoint
 config :csys, CSysWeb.Endpoint,
-  url: [host: "localhost"],
+  url: [host: System.get_env("SUSTC_JWXT_HOSTNAME"), port: System.get_env("SUSTC_JWXT_PORT") || 4002],
   secret_key_base: "whatever_i_do_is_all_for_susu_lalalalalalalalalalalalalalalalala",
   render_errors: [view: CSysWeb.ErrorView, accepts: ~w(json)],
   pubsub: [name: CSys.PubSub,
