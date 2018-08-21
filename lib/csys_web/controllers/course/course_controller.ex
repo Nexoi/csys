@@ -6,6 +6,8 @@ defmodule CSysWeb.CourseController do
   alias CSysWeb.CourseView
   alias CSysWeb.TableView
 
+  alias CSys.Course.ConflictProcesser
+
   action_fallback CSysWeb.FallbackController
 
   swagger_path :index do
@@ -80,14 +82,22 @@ defmodule CSysWeb.CourseController do
     current_user_id = get_session(conn, :current_user_id)
 
     if current_term_id do
-      case CourseDao.chose_course(current_user_id, current_term_id, course_id) do
+      case ConflictProcesser.judge_dup(current_user_id, current_term_id, course_id)  do
         {:ok, msg} ->
-          conn
-          |> json(%{message: msg})
+          IO.puts(msg)
+          case CourseDao.chose_course(current_user_id, current_term_id, course_id) do
+            {:ok, msg} ->
+              conn
+              |> json(%{message: msg})
+            {:error, msg} ->
+              conn
+              |> put_status(:bad_request)
+              |> json(%{message: msg})
+          end
         {:error, msg} ->
           conn
-          |> put_status(:bad_request)
-          |> json(%{message: msg})
+              |> put_status(:bad_request)
+              |> json(%{message: msg})
       end
     else
       {:ok, "Current Term Unset, Please contact admin."}

@@ -55,6 +55,7 @@ defmodule CSys.CourseDao do
     |> where([user_id: ^user_id, term_id: ^term_id])
     |> preload([:course])
     |> Repo.all
+    # |> IO.inspect
   end
   def list_course_tables_by_user_id(page, user_id) do
     Table
@@ -168,7 +169,7 @@ defmodule CSys.CourseDao do
 
   def course_rest_plus(course_id) do
     if course = Course |> Repo.get(course_id) do
-      if course.current_num <= course.limit_num do
+      if course.current_num < course.limit_num do
         attrs = %{
           current_num: course.current_num + 1
         }
