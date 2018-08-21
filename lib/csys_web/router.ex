@@ -26,6 +26,7 @@ defmodule CSysWeb.Router do
   # 直接放行的 API
   scope "/api", CSysWeb do
     pipe_through [:api, :api_auth]
+    post "/users/sign_in", UserController, :sign_out
     get "/users/me", UserController, :show
     get "/normal/training_programs", Normal.TrainingProgramController, :index
     get "/normal/xiaoli", Normal.XiaoliController, :index

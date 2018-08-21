@@ -1,6 +1,10 @@
 defmodule CSysWeb.RView do
   use CSysWeb, :view
 
+  def render("200.json", %{messgae: messgae}) do
+    %{message: messgae}
+  end
+
   def render("201.json", %{data: data}) do
     %{
       message: "资源创建成功",

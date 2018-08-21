@@ -1,6 +1,22 @@
 {
   "swagger": "2.0",
   "paths": {
+    "/api/users/sign_out": {
+      "post": {
+        "tags": [
+          "SIGN IN"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [],
+        "operationId": "CSysWeb.UserController.sign_out",
+        "description": "Sign Out"
+      }
+    },
     "/api/users/sign_in": {
       "post": {
         "tags": [

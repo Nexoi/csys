@@ -19,6 +19,13 @@ defmodule CSysWeb.UserController do
     response 401, "failure"
   end
 
+  swagger_path :sign_out do
+    post "/api/users/sign_out"
+    tag "SIGN IN"
+    description "Sign Out"
+    response 200, "success"
+  end
+
   swagger_path :show do
     get "/api/users/me"
     tag "SIGN IN"
@@ -41,6 +48,14 @@ defmodule CSysWeb.UserController do
         |> put_status(:unauthorized)
         |> render(CSysWeb.ErrorView, "401.json", message: message)
     end
+  end
+
+  def sign_out(conn, _) do
+    current_user_id = get_session(conn, :current_user_id)
+    conn
+    |> delete_session(:current_user_id) # 删除会话
+    |> delete_session(:current_user_role) # 删除会话
+    |> render(CSysWeb.RView, "200.json", message: "注销成功")
   end
 
   def show(conn, _) do
