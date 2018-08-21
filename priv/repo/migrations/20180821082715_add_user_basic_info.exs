@@ -6,7 +6,7 @@ defmodule CSys.Repo.Migrations.AddUserBasicInfo do
       add :name, :string
       add :class, :string
       add :major, :string
-      add :role, :string, default: "guest"
+      add :role, :string, default: "student"
     end
   end
 end

@@ -24,16 +24,16 @@ defmodule CSys.Course.Course do
     field :gender_req, :string #
     field :is_stop, :boolean
     field :is_active, :boolean
-    field :venue, :map # {times:[] locations:[]}
+    field :venue, {:array, :map}, default: [] # {times:[] locations:[]}
 
     timestamps()
   end
 
   @doc false
-  def changeset(notification, attrs) do
-    notification
-    |> cast(attrs, [:content])
-    |> validate_required([:content])
+  def changeset(course, attrs) do
+    course
+    |> cast(attrs, [:is_active, :current_num])
+    |> validate_required([:is_active, :current_num])
   end
 
 end

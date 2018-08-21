@@ -18,12 +18,13 @@ defmodule CSysWeb.Router do
     plug :ensure_authenticated_admin
   end
 
+  # 不需要任何权限验证
   scope "/api/users", CSysWeb do
     pipe_through :api
     post "/sign_in", UserController, :sign_in
   end
 
-  # 直接放行的 API
+  # 直接放行的 API（普通用户可使用）
   scope "/api", CSysWeb do
     pipe_through [:api, :api_auth]
     post "/users/sign_in", UserController, :sign_out
@@ -33,6 +34,11 @@ defmodule CSysWeb.Router do
     get "/normal/notifications", Normal.NotoficationController, only: [:all, :show]
     get "/normal/notifications/unread", Normal.NotoficationController, :unread
     get "/normal/notifications/isread", Normal.NotoficationController, :isread
+    get "/courses", CourseController, :index
+    post "/courses/:course_id", CourseController, :chose
+    delete "/courses/:course_id", CourseController, :cancel
+    get "/tables/current", CourseController, :current_table
+    get "/tables/history/:term_id", CourseController, :table
   end
 
   # 需要权限验证的 API
@@ -44,6 +50,9 @@ defmodule CSysWeb.Router do
     resources "/normal/training_program/items", Admin.Normal.TrainingProgramItemController, only: [:create, :update, :delete]
     resources "/normal/xiaoli", Admin.Normal.XiaoliController, only: [:index, :create]
     resources "/normal/notifications", Normal.NotoficationController, only: [:index, :show, :create]
+    get "/courses", Admin.CourseController, :index
+    post "/courses/:course_id/active", Admin.CourseController, :active
+    delete "/courses/:course_id/unable", Admin.CourseController, :unable
   end
 
   # 权限验证，普通用户
@@ -61,15 +70,17 @@ defmodule CSysWeb.Router do
   # 权限验证，管理员
   defp ensure_authenticated_admin(conn, _opts) do
     current_user_id = get_session(conn, :current_user_id)
+    # |> IO.inspect(label: ">> current_user_id")
     current_user_role = get_session(conn, :current_user_role)
+    # |> IO.inspect(label: ">> current_user_role")
 
-    conn |> refuse_render
-    if current_user_id do
-      if current_user_role do
-        if String.equivalent?(current_user_role, "admin") do
-          conn
-        end
-      end
+    if current_user_id != nil
+      and current_user_role != nil
+      and String.equivalent?(current_user_role, "admin") do
+        # IO.inspect(label: ">> current_admin")
+        conn
+    else
+      conn |> refuse_render
     end
   end
 

@@ -21,9 +21,11 @@ defmodule CSys.Repo.Migrations.CreateCourse do
       add :gender_req, :string #
       add :is_stop, :boolean # 是否停课
       add :is_active, :boolean
-      add :venue, :map
+      add :venue, {:array, :map}, default: []
 
       timestamps()
     end
+
+    create index(:courses, [:code])
   end
 end

@@ -7,6 +7,7 @@ defmodule CSys.Course.Term do
   schema "terms" do
     field :term, :string # default: "2018-2019-1" ?
     field :name, :string
+    field :is_default, :boolean, default: false # 是否默认
 
     has_many :course, Table
 

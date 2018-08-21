@@ -11,8 +11,9 @@ defmodule CSys.Course.Table do
   alias CSys.Course.Course
 
   schema "course_tables" do
-    # field :course, Course
+    # field :course_id, :integer
 
+    belongs_to :course, Course
     belongs_to :user, User
     belongs_to :term, Term
 
@@ -20,10 +21,10 @@ defmodule CSys.Course.Table do
   end
 
   @doc false
-  def changeset(notification, attrs) do
-    notification
-    |> cast(attrs, [:content])
-    |> validate_required([:content])
+  def changeset(course_table, attrs) do
+    course_table
+    |> cast(attrs, [:user_id, :term_id, :course_id])
+    |> validate_required([:user_id, :term_id, :course_id])
   end
 
 end

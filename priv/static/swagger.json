@@ -69,6 +69,52 @@
         "description": "Sign In"
       }
     },
+    "/api/tables/history/{term_id}": {
+      "get": {
+        "tags": [
+          "Course"
+        ],
+        "summary": "",
+        "responses": {
+          "204": {
+            "description": "empty"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "term_id",
+            "in": "path",
+            "description": "学期id"
+          }
+        ],
+        "operationId": "CSysWeb.CourseController.table",
+        "description": "获取全部课程（历史课表）"
+      }
+    },
+    "/api/tables/current": {
+      "get": {
+        "tags": [
+          "Course"
+        ],
+        "summary": "",
+        "responses": {
+          "204": {
+            "description": "empty"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [],
+        "operationId": "CSysWeb.CourseController.current_table",
+        "description": "获取全部已选课程（当前课表）"
+      }
+    },
     "/api/normal/xiaoli": {
       "get": {
         "tags": [
@@ -172,6 +218,101 @@
         "description": "获取全部已读通知"
       }
     },
+    "/api/courses/{course_id}": {
+      "post": {
+        "tags": [
+          "Course"
+        ],
+        "summary": "",
+        "responses": {
+          "204": {
+            "description": "empty"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "course_id",
+            "in": "path",
+            "description": "课程id"
+          }
+        ],
+        "operationId": "CSysWeb.CourseController.chose",
+        "description": "选课"
+      },
+      "delete": {
+        "tags": [
+          "Course"
+        ],
+        "summary": "",
+        "responses": {
+          "204": {
+            "description": "empty"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "course_id",
+            "in": "path",
+            "description": "课程id"
+          }
+        ],
+        "operationId": "CSysWeb.CourseController.cancel",
+        "description": "退课"
+      }
+    },
+    "/api/courses": {
+      "get": {
+        "tags": [
+          "Course"
+        ],
+        "summary": "",
+        "responses": {
+          "204": {
+            "description": "empty"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": false,
+            "name": "page_size",
+            "minimum": 1,
+            "in": "query",
+            "description": "Number of elements per page"
+          },
+          {
+            "type": "integer",
+            "required": false,
+            "name": "page",
+            "minimum": 1,
+            "in": "query",
+            "description": "Number of the page"
+          },
+          {
+            "type": "string",
+            "required": false,
+            "name": "word",
+            "in": "query",
+            "description": "搜索关键词，可选"
+          }
+        ],
+        "operationId": "CSysWeb.CourseController.index",
+        "description": "获取全部课程"
+      }
+    },
     "/admin/api/users/{id}": {
       "put": {
         "tags": [
@@ -186,6 +327,38 @@
             "name": "id",
             "in": "path",
             "description": "id, not uid"
+          },
+          {
+            "x-example": "11610001",
+            "type": "string",
+            "required": true,
+            "name": "uid",
+            "in": "query",
+            "description": "Student ID"
+          },
+          {
+            "x-example": "xxx",
+            "type": "string",
+            "required": true,
+            "name": "name",
+            "in": "query",
+            "description": "name"
+          },
+          {
+            "x-example": "1601",
+            "type": "string",
+            "required": true,
+            "name": "class",
+            "in": "query",
+            "description": "class"
+          },
+          {
+            "x-example": "CS",
+            "type": "string",
+            "required": true,
+            "name": "major",
+            "in": "query",
+            "description": "major"
           }
         ],
         "operationId": "CSysWeb.Admin.UserController.update",
@@ -569,6 +742,97 @@
         ],
         "operationId": "CSysWeb.Admin.Normal.TrainingProgramItemController.create",
         "description": "添加培养方案子项"
+      }
+    },
+    "/admin/api/courses/{course_id}/unable": {
+      "delete": {
+        "tags": [
+          "Course"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "course_id",
+            "in": "path",
+            "description": "课程ID"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.CourseController.unable",
+        "description": "激活课程"
+      }
+    },
+    "/admin/api/courses/{course_id}/active": {
+      "post": {
+        "tags": [
+          "Course"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "course_id",
+            "in": "path",
+            "description": "课程ID"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.CourseController.active",
+        "description": "激活课程"
+      }
+    },
+    "/admin/api/courses": {
+      "get": {
+        "tags": [
+          "Course"
+        ],
+        "summary": "",
+        "responses": {
+          "204": {
+            "description": "empty"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": false,
+            "name": "page_size",
+            "minimum": 1,
+            "in": "query",
+            "description": "Number of elements per page"
+          },
+          {
+            "type": "integer",
+            "required": false,
+            "name": "page",
+            "minimum": 1,
+            "in": "query",
+            "description": "Number of the page"
+          },
+          {
+            "type": "string",
+            "required": false,
+            "name": "word",
+            "in": "query",
+            "description": "搜索关键词，可选"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.CourseController.index",
+        "description": "获取全部课程"
       }
     }
   },
