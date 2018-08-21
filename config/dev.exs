@@ -8,7 +8,6 @@ use Mix.Config
 # with brunch.io to recompile .js and .css sources.
 config :csys, CSysWeb.Endpoint,
   http: [port: System.get_env("SUSTC_JWXT_PORT") || 4002],
-  # url: [host: System.get_env("SUSTC_JWXT_HOSTNAME")],
   debug_errors: false,
   code_reloader: true,
   check_origin: false,

@@ -20,6 +20,9 @@ defmodule CSysWeb.Router do
     post "/users/sign_in", UserController, :sign_in
     get "/normal/training_programs", Normal.TrainingProgramController, :index
     get "/normal/xiaoli", Normal.XiaoliController, :index
+    get "/normal/notifications", Normal.NotoficationController, only: [:all, :show]
+    get "/normal/notifications/unread", Normal.NotoficationController, :unread
+    get "/normal/notifications/isread", Normal.NotoficationController, :isread
   end
 
   # 需要权限验证的 API
@@ -30,21 +33,43 @@ defmodule CSysWeb.Router do
     resources "/normal/training_programs", Admin.Normal.TrainingProgramController, only: [:index, :show, :create, :update, :delete]
     resources "/normal/training_program/items", Admin.Normal.TrainingProgramItemController, only: [:create, :update, :delete]
     resources "/normal/xiaoli", Admin.Normal.XiaoliController, only: [:index, :create]
+    resources "/normal/notifications", Normal.NotoficationController, only: [:index, :show, :create]
   end
 
-  # 权限验证，验证失败就 401
+  # 权限验证，普通用户
   defp ensure_authenticated(conn, _opts) do
     current_user_id = get_session(conn, :current_user_id)
+    current_user_role = get_session(conn, :current_user_role)
 
     if current_user_id do
       conn
     else
+      conn |> refuse_render
+    end
+  end
+
+    # 权限验证，管理员
+    defp ensure_authenticated(conn, _opts) do
+      current_user_id = get_session(conn, :current_user_id)
+      current_user_role = get_session(conn, :current_user_role)
+
+      if current_user_id and current_user_role do
+        if String.equivalent?(current_user_role, "admin") do
+          conn
+        else
+          conn |> refuse_render
+        end
+      else
+        conn |> refuse_render
+      end
+    end
+
+    defp refuse_render(conn) do
       conn
       |> put_status(:unauthorized)
       |> render(CSysWeb.ErrorView, "401.json", message: "Unauthenticated user")
       |> halt()
     end
-  end
 
   scope "/api/swagger" do
     forward "/", PhoenixSwagger.Plug.SwaggerUI, otp_app: :csys, swagger_file: "swagger.json"

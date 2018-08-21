@@ -75,6 +75,71 @@
         "description": "列出所有的培养方案（父子目录）"
       }
     },
+    "/api/normal/notifications/{id}": {
+      "get": {
+        "tags": [
+          "Notofication"
+        ],
+        "summary": "",
+        "responses": {
+          "204": {
+            "description": "empty"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "id integer"
+          }
+        ],
+        "operationId": "CSysWeb.Normal.NotoficationController.show",
+        "description": "获取某条通知（会自动标记为已读状态）"
+      }
+    },
+    "/api/normal/notifications/unread": {
+      "get": {
+        "tags": [
+          "Notofication"
+        ],
+        "summary": "",
+        "responses": {
+          "204": {
+            "description": "empty"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [],
+        "operationId": "CSysWeb.Normal.NotoficationController.unread",
+        "description": "获取全部未读通知"
+      }
+    },
+    "/api/normal/notifications/isread": {
+      "get": {
+        "tags": [
+          "Notofication"
+        ],
+        "summary": "",
+        "responses": {
+          "204": {
+            "description": "empty"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [],
+        "operationId": "CSysWeb.Normal.NotoficationController.isread",
+        "description": "获取全部已读通知"
+      }
+    },
     "/admin/api/users/{id}": {
       "put": {
         "tags": [

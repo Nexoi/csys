@@ -7,6 +7,11 @@ defmodule CSys.Auth.User do
   schema "users" do
     field :is_active, :boolean, default: false
     field :uid, :string
+    field :name, :string
+    field :class, :string
+    field :major, :string
+    field :role, :string, default: "guest"
+
     field :password, :string, virtual: true
     field :password_hash, :string
 

@@ -23,7 +23,8 @@ defmodule CSysWeb.UserController do
     case CSys.Auth.authenticate_user(uid, password) do
       {:ok, user} ->
         conn
-        |> put_session(:current_user_id, user.id) # 注入会话
+        |> put_session(:current_user_id, user.id)     # 注入会话
+        |> put_session(:current_user_role, user.role) # 注入会话
         |> put_status(:ok)
         |> render(CSysWeb.UserView, "sign_in.json", user: user)
 
@@ -34,5 +35,7 @@ defmodule CSysWeb.UserController do
         |> render(CSysWeb.ErrorView, "401.json", message: message)
     end
   end
+
+
 
 end

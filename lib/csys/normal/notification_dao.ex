@@ -13,9 +13,58 @@ defmodule CSys.Normal.NotificationDao do
   notification
   """
   def list_notifications do
-    notifications = Notification
-                    |> Repo.all
-    {:ok, notifications}
+    Notification
+    |> Repo.all
+  end
+
+  def list_notifications_unread(uid) do
+    NotificationRecord
+    |> where([user_id: ^uid, is_read: ^false])
+    |> preload([:notification, :user])
+    |> Repo.all
+  end
+
+  def list_notifications_isread(uid) do
+    NotificationRecord
+    |> where([user_id: ^uid, is_read: ^true])
+    |> preload([:notification, :user])
+    |> Repo.all
+  end
+
+  def get_notification(id) do
+    case Notification
+        |> where(id: ^id)
+        |> Repo.all
+        |> List.first do
+      nil -> {:error, "该通知不存在"}
+      notification -> {:ok, notification}
+    end
+  end
+
+  def get_notification!(id), do: Repo.get!(Notification, id)
+
+  def get_notification_record(user_id, id) do
+    case NotificationRecord
+        |> where([id: ^id, user_id: ^user_id])
+        |> Repo.all
+        |> List.first do
+      nil -> {:error, "该通知不存在"}
+      notification -> {:ok, notification}
+    end
+  end
+
+  def get_notification_record!(id), do: Repo.get!(NotificationRecord, id)
+
+  def mark_notification_record_read(id) do
+    case get_notification_record!(id) do
+      nil -> {:error, "No such notification record"}
+      record ->
+        attr = %{
+          is_read: true
+        }
+        record
+        |> update_record(attr)
+    end
   end
 
   def create_notification(attrs \\ %{}) do
@@ -53,5 +102,11 @@ defmodule CSys.Normal.NotificationDao do
     NotificationRecord
     |> where(notification_id: ^notification_id)
     |> Repo.delete_all
+  end
+
+  def update_record(%NotificationRecord{} = record, attrs) do
+    record
+    |> NotificationRecord.changeset(attrs)
+    |> Repo.update()
   end
 end
