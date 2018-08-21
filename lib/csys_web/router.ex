@@ -14,10 +14,19 @@ defmodule CSysWeb.Router do
     plug :ensure_authenticated
   end
 
+  pipeline :api_auth_admin do
+    plug :ensure_authenticated_admin
+  end
+
+  scope "/api/users", CSysWeb do
+    pipe_through :api
+    post "/sign_in", UserController, :sign_in
+  end
+
   # 直接放行的 API
   scope "/api", CSysWeb do
-    pipe_through :api
-    post "/users/sign_in", UserController, :sign_in
+    pipe_through [:api, :api_auth]
+    get "/users/me", UserController, :show
     get "/normal/training_programs", Normal.TrainingProgramController, :index
     get "/normal/xiaoli", Normal.XiaoliController, :index
     get "/normal/notifications", Normal.NotoficationController, only: [:all, :show]
@@ -27,8 +36,8 @@ defmodule CSysWeb.Router do
 
   # 需要权限验证的 API
   scope "/admin/api", CSysWeb do
-    # pipe_through [:api, :api_auth]
-    pipe_through :api
+    pipe_through [:api, :api_auth_admin]
+    # pipe_through :api
     resources "/users", Admin.UserController, only: [:index, :show, :create, :update, :delete]
     resources "/normal/training_programs", Admin.Normal.TrainingProgramController, only: [:index, :show, :create, :update, :delete]
     resources "/normal/training_program/items", Admin.Normal.TrainingProgramItemController, only: [:create, :update, :delete]
@@ -48,28 +57,27 @@ defmodule CSysWeb.Router do
     end
   end
 
-    # 权限验证，管理员
-    defp ensure_authenticated(conn, _opts) do
-      current_user_id = get_session(conn, :current_user_id)
-      current_user_role = get_session(conn, :current_user_role)
+  # 权限验证，管理员
+  defp ensure_authenticated_admin(conn, _opts) do
+    current_user_id = get_session(conn, :current_user_id)
+    current_user_role = get_session(conn, :current_user_role)
 
-      if current_user_id and current_user_role do
+    conn |> refuse_render
+    if current_user_id do
+      if current_user_role do
         if String.equivalent?(current_user_role, "admin") do
           conn
-        else
-          conn |> refuse_render
         end
-      else
-        conn |> refuse_render
       end
     end
+  end
 
-    defp refuse_render(conn) do
-      conn
-      |> put_status(:unauthorized)
-      |> render(CSysWeb.ErrorView, "401.json", message: "Unauthenticated user")
-      |> halt()
-    end
+  defp refuse_render(conn) do
+    conn
+    |> put_status(:unauthorized)
+    |> render(CSysWeb.ErrorView, "401.json", message: "Unauthenticated user")
+    |> halt()
+  end
 
   scope "/api/swagger" do
     forward "/", PhoenixSwagger.Plug.SwaggerUI, otp_app: :csys, swagger_file: "swagger.json"

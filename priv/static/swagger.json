@@ -37,6 +37,22 @@
         "description": "Sign In"
       }
     },
+    "/api/users/me": {
+      "get": {
+        "tags": [
+          "SIGN IN"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [],
+        "operationId": "CSysWeb.UserController.show",
+        "description": "Sign In"
+      }
+    },
     "/api/normal/xiaoli": {
       "get": {
         "tags": [
@@ -206,11 +222,35 @@
         "parameters": [
           {
             "x-example": "11610001",
-            "schema": "string",
+            "type": "string",
             "required": true,
             "name": "uid",
-            "in": "body",
+            "in": "query",
             "description": "Student ID"
+          },
+          {
+            "x-example": "xxx",
+            "type": "string",
+            "required": true,
+            "name": "name",
+            "in": "query",
+            "description": "name"
+          },
+          {
+            "x-example": "1601",
+            "type": "string",
+            "required": true,
+            "name": "class",
+            "in": "query",
+            "description": "class"
+          },
+          {
+            "x-example": "CS",
+            "type": "string",
+            "required": true,
+            "name": "major",
+            "in": "query",
+            "description": "major"
           }
         ],
         "operationId": "CSysWeb.Admin.UserController.create",

@@ -2,8 +2,8 @@ defmodule CSysWeb.UserController do
   use CSysWeb, :controller
   use PhoenixSwagger # 注入 Swagger
 
-  # alias CSys.Auth
-  # alias CSys.Auth.User
+  alias CSys.Auth
+  alias CSys.Auth.User
 
   action_fallback CSysWeb.FallbackController
 
@@ -17,6 +17,13 @@ defmodule CSysWeb.UserController do
     end
     response 200, "success"
     response 401, "failure"
+  end
+
+  swagger_path :show do
+    get "/api/users/me"
+    tag "SIGN IN"
+    description "Sign In"
+    response 200, "success"
   end
 
   def sign_in(conn, %{"uid" => uid, "password" => password}) do
@@ -36,6 +43,11 @@ defmodule CSysWeb.UserController do
     end
   end
 
-
+  def show(conn, _) do
+    current_user_id = get_session(conn, :current_user_id)
+    user = Auth.get_user!(current_user_id)
+    conn
+    |> render(CSysWeb.UserView,"show.json", user: user)
+  end
 
 end
