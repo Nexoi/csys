@@ -792,6 +792,65 @@
         "description": "激活课程"
       }
     },
+    "/admin/api/courses/open_dates": {
+      "post": {
+        "tags": [
+          "OpenDate"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": false,
+            "name": "start_time",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "integer",
+            "required": false,
+            "name": "end_time",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "integer",
+            "required": false,
+            "name": "preview_start_time",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "integer",
+            "required": false,
+            "name": "preview_end_time",
+            "in": "query",
+            "description": ""
+          }
+        ],
+        "operationId": "CSysWeb.Admin.Course.OpenDateController.reset",
+        "description": "更新全部时间配置"
+      },
+      "get": {
+        "tags": [
+          "OpenDate"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [],
+        "operationId": "CSysWeb.Admin.Course.OpenDateController.show",
+        "description": "获取全部时间配置"
+      }
+    },
     "/admin/api/courses": {
       "get": {
         "tags": [

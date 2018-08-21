@@ -1,6 +1,6 @@
 defmodule CSys.CourseDao do
   @doc """
-  校历
+  课程管理
   """
   import Ecto.Query, warn: false
   alias CSys.Repo

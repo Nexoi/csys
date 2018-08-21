@@ -53,6 +53,8 @@ defmodule CSysWeb.Router do
     get "/courses", Admin.CourseController, :index
     post "/courses/:course_id/active", Admin.CourseController, :active
     delete "/courses/:course_id/unable", Admin.CourseController, :unable
+    get "/courses/open_dates", Admin.Course.OpenDateController, :show
+    post "/courses/open_dates", Admin.Course.OpenDateController, :reset
   end
 
   # 权限验证，普通用户
