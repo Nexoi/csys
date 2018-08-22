@@ -37,7 +37,7 @@ defmodule CSysWeb.Endpoint do
 
   # 自定义的 CORS 配置
   plug Corsica,
-    origins: ["http://localhost:4002", "http://localhost:8000", "http://tis.sustc.edu.cn", "http://localhost:4000", "http://jwxt.sustc.seeuio.com"],
+    origins: ["http://localhost:4002", "http://localhost:8000", "http://tis.sustc.edu.cn", "http://localhost:4000", "http://jwxt.sustc.seeuio.com", "http://jwxt.sustc.seeuio.com:4002"],
     log: [rejected: :error, invalid: :warn, accepted: :debug],
     allow_headers: ["content-type"],
     allow_credentials: true
