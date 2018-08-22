@@ -4,6 +4,8 @@ defmodule CSysWeb.Router do
   # alias CSysWeb.Normal.TrainingProgramController
   alias PhoenixSwagger.Plug.Validate
 
+  alias CSys.Course.OpenDateDao
+
   pipeline :api do
     plug :accepts, ["json"]
     plug :fetch_session
@@ -14,35 +16,133 @@ defmodule CSysWeb.Router do
     plug :ensure_authenticated
   end
 
-  # 直接放行的 API
-  scope "/api", CSysWeb do
+  pipeline :api_auth_admin do
+    plug :ensure_authenticated_admin
+  end
+
+  pipeline :api_auth_course_preview do
+    plug :is_preview_day
+  end
+
+  pipeline :api_auth_course_open do
+    plug :is_open_day
+  end
+
+  # 不需要任何权限验证
+  scope "/api/users", CSysWeb do
     pipe_through :api
-    post "/users/sign_in", UserController, :sign_in
+    post "/sign_in", UserController, :sign_in
+  end
+
+  # 直接放行的 API（普通用户可使用）
+  scope "/api", CSysWeb do
+    pipe_through [:api, :api_auth]
+    post "/users/sign_out", UserController, :sign_out
+    get "/users/me", UserController, :show
     get "/normal/training_programs", Normal.TrainingProgramController, :index
     get "/normal/xiaoli", Normal.XiaoliController, :index
+    get "/normal/notifications", Normal.NotoficationController, only: [:all, :show]
+    get "/normal/notifications/unread", Normal.NotoficationController, :unread
+    get "/normal/notifications/isread", Normal.NotoficationController, :isread
+    get "/tables/current", CourseController, :current_table
+    get "/tables/history/:term_id", CourseController, :table
+  end
+
+  # 需要特定时刻开放的 API
+  scope "/api/courses", CSysWeb do
+    pipe_through [:api, :api_auth, :api_auth_course_preview]
+    get "", CourseController, :index
+    post "/courses/:course_id", CourseController, :chose
+    delete "/courses/:course_id", CourseController, :cancel
+  end
+  scope "/api/courses/", CSysWeb do
+    pipe_through [:api, :api_auth, :api_auth_course_open]
+    get "", CourseController, :index
+    post ":course_id", CourseController, :chose
+    delete ":course_id", CourseController, :cancel
   end
 
   # 需要权限验证的 API
   scope "/admin/api", CSysWeb do
-    # pipe_through [:api, :api_auth]
-    pipe_through :api
+    pipe_through [:api, :api_auth_admin]
+    # pipe_through :api
     resources "/users", Admin.UserController, only: [:index, :show, :create, :update, :delete]
-    resources "/normal/training_programs", Admin.Normal.TrainingProgramController, only: [:index, :create, :update, :delete]
+    resources "/normal/training_programs", Admin.Normal.TrainingProgramController, only: [:index, :show, :create, :update, :delete]
+    resources "/normal/training_program/items", Admin.Normal.TrainingProgramItemController, only: [:create, :update, :delete]
     resources "/normal/xiaoli", Admin.Normal.XiaoliController, only: [:index, :create]
+    resources "/normal/notifications", Normal.NotoficationController, only: [:index, :show, :create]
+    get "/courses", Admin.CourseController, :index
+    post "/courses/:course_id/active", Admin.CourseController, :active
+    delete "/courses/:course_id/unable", Admin.CourseController, :unable
+    get "/courses/open_dates", Admin.Course.OpenDateController, :show
+    post "/courses/open_dates", Admin.Course.OpenDateController, :reset
+    get "/courses/:course_id/tables", Admin.CourseTableController, :index
+    post "/courses/:course_id/inject/:user_id", Admin.CourseTableController, :create
+    delete "/courses/:course_id/remove/:user_id", Admin.CourseTableController, :delete
   end
 
-  # 权限验证，验证失败就 401
+  # 权限验证，普通用户
   defp ensure_authenticated(conn, _opts) do
     current_user_id = get_session(conn, :current_user_id)
+    current_user_role = get_session(conn, :current_user_role)
 
     if current_user_id do
       conn
     else
-      conn
-      |> put_status(:unauthorized)
-      |> render(CSysWeb.ErrorView, "401.json", message: "Unauthenticated user")
-      |> halt()
+      conn |> refuse_render
     end
+  end
+
+  # 权限验证，管理员
+  defp ensure_authenticated_admin(conn, _opts) do
+    current_user_id = get_session(conn, :current_user_id)
+    # |> IO.inspect(label: ">> current_user_id")
+    current_user_role = get_session(conn, :current_user_role)
+    # |> IO.inspect(label: ">> current_user_role")
+
+    if current_user_id != nil
+      and current_user_role != nil
+      and String.equivalent?(current_user_role, "admin") do
+        # IO.inspect(label: ">> current_admin")
+        conn
+    else
+      conn |> refuse_render
+    end
+  end
+
+  # 验证是否是开放选课状态
+  defp is_open_day(conn, _opts) do
+    date = OpenDateDao.get_open_date
+    timestamp = DateTime.utc_now() |> DateTime.to_unix()
+    if date.start_time < timestamp
+    and date.end_time > timestamp do
+      conn
+    else
+      conn
+      |> put_status(:forbidden)
+      |> json(%{message: "Forbidden! Not Available Time"})
+    end
+  end
+
+  # 验证是否是开放预览选课状态
+  defp is_preview_day(conn, _opts) do
+    date = OpenDateDao.get_open_date
+    timestamp = DateTime.utc_now() |> DateTime.to_unix()
+    if date.preview_start_time < timestamp
+    and date.preview_end_time > timestamp do
+      conn
+    else
+      conn
+      |> put_status(:forbidden)
+      |> json(%{message: "Forbidden! Not Available Time"})
+    end
+  end
+
+  defp refuse_render(conn) do
+    conn
+    |> put_status(:unauthorized)
+    |> render(CSysWeb.ErrorView, "401.json", message: "Unauthenticated user")
+    |> halt()
   end
 
   scope "/api/swagger" do

@@ -20,7 +20,12 @@ defmodule CSys.Mixfile do
   def application do
     [
       mod: {CSys.Application, []},
-      extra_applications: [:logger, :runtime_tools, :scrivener_ecto]
+      extra_applications: [
+        :logger,
+        :runtime_tools,
+        :scrivener_ecto,
+        :excelion
+      ]
     ]
   end
 
@@ -44,7 +49,8 @@ defmodule CSys.Mixfile do
       {:floki, "~> 0.20.0"},
       {:httpoison, "~> 1.0"},
       {:phoenix_swagger, "~> 0.8"},
-      {:scrivener_ecto, "~> 1.0"}
+      {:scrivener_ecto, "~> 1.0"},
+      {:excelion, github: "faithandbrave/excelion"}
     ]
   end
 

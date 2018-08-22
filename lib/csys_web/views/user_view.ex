@@ -24,7 +24,12 @@ defmodule CSysWeb.UserView do
     %{id: user.id,
       uid: user.uid,
       # password: user.password,
-      is_active: user.is_active}
+      role: user.role,
+      name: user.name,
+      major: user.major,
+      class: user.class,
+      is_active: user.is_active
+    }
   end
 
   def render("sign_in.json", %{user: user}) do
@@ -32,7 +37,11 @@ defmodule CSysWeb.UserView do
       data: %{
         user: %{
           id: user.id,
-          uid: user.uid
+          uid: user.uid,
+          role: user.role,
+          name: user.name,
+          major: user.major,
+          class: user.class
         }
       }
     }

@@ -27,7 +27,10 @@ defmodule CSysWeb.Admin.UserController do
     post "/admin/api/users"
     description "Add User"
     parameters do
-      uid :body, :string, "Student ID", required: true, example: "11610001"
+      uid :query, :string, "Student ID", required: true, example: "11610001"
+      name :query, :string, "name", required: true, example: "xxx"
+      class :query, :string, "class", required: true, example: "1601"
+      major :query, :string, "major", required: true, example: "CS"
     end
   end
 
@@ -36,6 +39,10 @@ defmodule CSysWeb.Admin.UserController do
     description "Edit User"
     parameters do
       id :path, :integer, "id, not uid", required: true
+      uid :query, :string, "Student ID", required: true, example: "11610001"
+      name :query, :string, "name", required: true, example: "xxx"
+      class :query, :string, "class", required: true, example: "1601"
+      major :query, :string, "major", required: true, example: "CS"
     end
   end
 
@@ -52,8 +59,8 @@ defmodule CSysWeb.Admin.UserController do
   """
 
   def index(conn, params) do
-    page_number = params |> Dict.get("page", 1)
-    page_size = params |> Dict.get("page_size", 10)
+    page_number = params |> Dict.get("page", "1") |> String.to_integer
+    page_size = params |> Dict.get("page_size", "10") |> String.to_integer
 
     users_page =
     %{
@@ -65,16 +72,21 @@ defmodule CSysWeb.Admin.UserController do
     render(conn, CSysWeb.UserView, "page.json", page: users_page)
   end
 
-  def create(conn, %{"user" => user_params}) do
+  def create(conn, %{"uid" => uid, "name" => name, "class" => class, "major" => major}) do
     # user_params |> IO.inspect(label: ">>>> CSysWeb.Admin.UserController#create\n")
-    attr = user_params
-    |> Map.put("password", "yangxiaosu")
-    |> Map.put("is_active", true)
-
+    attr = %{
+      uid: uid,
+      name: name,
+      class: class,
+      major: major,
+      password: "yangxiaosu",
+      is_active: true
+    }
+    # |> IO.inspect(label: ">> User.create")
     with {:ok, %User{} = user} <- Auth.create_user(attr) do
       conn
       |> put_status(:created)
-      |> put_resp_header("location", user_path(conn, :show, user))
+      # |> put_resp_header("location", user_path(conn, :show, user))
       |> render(CSysWeb.UserView,"show.json", user: user)
     end
   end
@@ -84,9 +96,15 @@ defmodule CSysWeb.Admin.UserController do
     render(conn, CSysWeb.UserView, "show.json", user: user)
   end
 
-  def update(conn, %{"id" => id, "user" => user_params}) do
+  def update(conn, %{"id" => id, "uid" => uid, "name" => name, "class" => class, "major" => major}) do
     user = Auth.get_user!(id)
-
+    user_params = %{
+      id: id,
+      uid: uid,
+      name: name,
+      class: class,
+      major: major
+    }
     with {:ok, %User{} = user} <- Auth.update_user(user, user_params) do
       render(conn, CSysWeb.UserView, "show.json", user: user)
     end

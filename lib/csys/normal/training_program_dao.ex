@@ -36,6 +36,16 @@ defmodule CSys.Normal.TrainingProgramDao do
       _ -> {:ok, program}
     end
   end
+  def get_program_item(program_item_id) do
+    program_item = TrainingProgramItem
+              |> where(id: ^program_item_id)
+              |> Repo.all
+              |> List.first
+    case program_item do
+      nil -> {:error, "培养方案子项找不到"}
+      _ -> {:ok, program_item}
+    end
+  end
 
   @doc """
   add program, program_item

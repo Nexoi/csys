@@ -2,12 +2,20 @@ defmodule CSys.Auth.User do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias CSys.Normal.NotificationRecord
 
   schema "users" do
     field :is_active, :boolean, default: false
     field :uid, :string
+    field :name, :string
+    field :class, :string
+    field :major, :string
+    field :role, :string, default: "student"
+
     field :password, :string, virtual: true
     field :password_hash, :string
+
+    has_many :notifications, NotificationRecord
 
     timestamps()
   end
@@ -15,8 +23,8 @@ defmodule CSys.Auth.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:uid, :is_active, :password])
-    |> validate_required([:uid, :is_active, :password])
+    |> cast(attrs, [:uid, :is_active, :password, :name, :class, :major, :role])
+    |> validate_required([:uid, :is_active, :password, :name, :class, :major, :role])
     |> unique_constraint(:uid)
     |> put_password_hash()
   end

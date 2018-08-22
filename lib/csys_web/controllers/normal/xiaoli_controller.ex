@@ -22,6 +22,7 @@ defmodule CSysWeb.Normal.XiaoliController do
         |> render(XiaoliView, "xiaoli.json", xiaoli: xiaoli)
       {:error, msg} ->
         conn
+        |> put_status(:no_content)
         |> render(CSysWeb.RView, "204.json", message: msg)
     end
   end

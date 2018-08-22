@@ -17,10 +17,8 @@ defmodule CSysWeb.Normal.TrainingProgramController do
 
   def index(conn, _) do
     with {:ok, programs} <- TrainingProgramDao.list_programs do
-      # programs |> IO.inspect(label: ">> Normal.TrainingProgramController::index")
       conn
       |> render(TrainingProgramView, "programs.json", programs: programs)
-      # |> json(programs)
     end
   end
 
