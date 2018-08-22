@@ -32,8 +32,15 @@ defmodule CSys.Course.Course do
   @doc false
   def changeset(course, attrs) do
     course
-    |> cast(attrs, [:is_active, :current_num])
-    |> validate_required([:is_active, :current_num])
+    |> cast(attrs, [:code, :name, :class_name, :group_name,
+      :compus, :unit, :time, :credit, :property, :teacher,
+      :seat_num, :limit_num, :current_num, :notification_cate,
+      :suzhi_cate, :gender_req, :is_stop, :is_active, :venue
+      ])
+    |> validate_required([:code, :name, :class_name, :group_name,
+    :compus, :unit, :time, :credit, :property,
+    :seat_num, :limit_num, :current_num, :is_stop, :is_active
+    ])
   end
 
 end

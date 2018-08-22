@@ -1,6 +1,16 @@
 defmodule CSysWeb.TableView do
   use CSysWeb, :view
 
+  def render("table_page.json", %{table_page: page}) do
+    %{
+      page_number: page.page_number,
+      page_size: page.page_size,
+      total_entries: page.total_entries,
+      total_pages: page.total_pages,
+      data: render_many(page.entries, CSysWeb.TableView, "table_item_only_course.json")
+    }
+  end
+
   def render("table.json", %{table: table}) do
     %{data: render_many(table, CSysWeb.TableView, "table_item.json")}
   end
@@ -13,6 +23,11 @@ defmodule CSysWeb.TableView do
     }
   end
 
+  def render("table_item_only_course.json", %{table: table}) do
+    # table.term |> IO.inspect(label: ">> table.term")
+    render_one(table.course, CSysWeb.TableView, "course.json")
+  end
+
   def render("term.json", %{table: term}) do
     # term |> IO.inspect(label: ">> term")
     %{
@@ -23,6 +38,7 @@ defmodule CSysWeb.TableView do
   end
 
   def render("course.json", %{table: c}) do
+    c |> IO.inspect
     %{
       class_name: c.class_name,
       code: c.code,

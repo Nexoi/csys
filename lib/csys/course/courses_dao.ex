@@ -60,11 +60,13 @@ defmodule CSys.CourseDao do
   def list_course_tables_by_user_id(page, user_id) do
     Table
     |> where(user_id: ^user_id)
+    |> preload([:course])
     |> Repo.paginate(page)
   end
   def list_course_tables_by_course_id(page, course_id) do
     Table
     |> where(course_id: ^course_id)
+    |> preload([:course])
     |> Repo.paginate(page)
   end
 
@@ -167,6 +169,30 @@ defmodule CSys.CourseDao do
     end
   end
 
+  def inject_course(user_id, term_id, course_id) do
+    course_tables =
+    Table
+    |> where([user_id: ^user_id, term_id: ^term_id, course_id: ^course_id])
+    |> Repo.all
+    |> List.first
+
+    if course_tables do
+      {:error, "You have selected this course!"}
+    else
+      if course_rest_inject_plus(course_id) do
+        attrs = %{
+          user_id: user_id,
+          course_id: course_id,
+          term_id: term_id
+        }
+        create_course_table(attrs)
+        {:ok, "Select Successfully!"}
+      else
+        {:error, "None Vacancies left!"}
+      end
+    end
+  end
+
   def course_rest_plus(course_id) do
     if course = Course |> Repo.get(course_id) do
       if course.current_num < course.limit_num do
@@ -190,6 +216,17 @@ defmodule CSys.CourseDao do
       end
     end
   end
+  def course_rest_inject_plus(course_id) do
+    if course = Course |> Repo.get(course_id) do
+      # if course.current_num < course.limit_num do
+      attrs = %{
+        current_num: course.current_num + 1
+      }
+      course
+      |> update_course(attrs)
+      # end
+    end
+  end
 
   def create_course_table(attrs \\ %{}) do
     %Table{}
@@ -203,5 +240,15 @@ defmodule CSys.CourseDao do
     |> Repo.update()
   end
 
-
+  #### create course ####
+  def create_course(attrs \\ %{}) do
+    %Course{}
+    |> Course.changeset(attrs)
+    |> Repo.insert!
+  end
+  def create_courses(attrs \\ %{}) do
+    %Course{}
+    # |> Course.changeset(attrs)
+    |> Repo.insert_all(attrs)
+  end
 end

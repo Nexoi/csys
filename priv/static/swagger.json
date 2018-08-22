@@ -768,6 +768,108 @@
         "description": "激活课程"
       }
     },
+    "/admin/api/courses/{course_id}/tables": {
+      "get": {
+        "tags": [
+          "CourseTable"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": false,
+            "name": "page_size",
+            "minimum": 1,
+            "in": "query",
+            "description": "Number of elements per page"
+          },
+          {
+            "type": "integer",
+            "required": false,
+            "name": "page",
+            "minimum": 1,
+            "in": "query",
+            "description": "Number of the page"
+          },
+          {
+            "type": "integer",
+            "required": true,
+            "name": "course_id",
+            "in": "path",
+            "description": "课程ID"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.CourseTableController.index",
+        "description": "获取全部课表"
+      }
+    },
+    "/admin/api/courses/{course_id}/remove/{user_id}": {
+      "delete": {
+        "tags": [
+          "CourseTable"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "course_id",
+            "in": "path",
+            "description": "课程ID"
+          },
+          {
+            "type": "integer",
+            "required": true,
+            "name": "user_id",
+            "in": "path",
+            "description": "user_id"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.CourseTableController.delete",
+        "description": "移除课程"
+      }
+    },
+    "/admin/api/courses/{course_id}/inject/{user_id}": {
+      "post": {
+        "tags": [
+          "CourseTable"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "course_id",
+            "in": "path",
+            "description": "课程ID"
+          },
+          {
+            "type": "integer",
+            "required": true,
+            "name": "user_id",
+            "in": "path",
+            "description": "user_id"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.CourseTableController.create",
+        "description": "注入课程"
+      }
+    },
     "/admin/api/courses/{course_id}/active": {
       "post": {
         "tags": [

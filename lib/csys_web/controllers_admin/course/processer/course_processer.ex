@@ -38,7 +38,7 @@ defmodule CSysWeb.CourseProcesser do
       # start_num..end_num
       Enum.map(start_num..end_num, fn x -> x end)
     else
-      [str |> String.to_integer]
+      [str |> to_integer]
     end
   end
 
@@ -55,6 +55,7 @@ defmodule CSysWeb.CourseProcesser do
     end
   end
 
+  def convert_time(nil) do [] end
   def convert_time(src_str) do
     str = src_str |> String.replace("节", "")
     length = str |> String.length
@@ -65,4 +66,50 @@ defmodule CSysWeb.CourseProcesser do
       end)
     end
   end
+
+  def convert_boolean("否") do
+    false
+  end
+  def convert_boolean("是") do
+    true
+  end
+  def convert_boolean("开放") do
+    true
+  end
+  def convert_boolean("关闭") do
+    false
+  end
+
+  def to_string(nil) do
+    nil
+  end
+  def to_string("") do
+    nil
+  end
+  def to_string(str) do
+    str
+  end
+  def to_integer(nil) do
+    nil
+  end
+  def to_integer("") do
+    nil
+  end
+  def to_integer(str) do
+    str |> String.to_integer
+  end
+  def to_float(nil) do
+    nil
+  end
+  def to_float("") do
+    nil
+  end
+  def to_float(str) do
+    if str |> String.contains?(".") do
+      str |> String.to_float
+    else
+      str |> String.to_integer
+    end
+  end
+
 end
