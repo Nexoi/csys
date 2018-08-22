@@ -4,6 +4,7 @@ defmodule CSysWeb.CourseImporter do
   alias CSys.CourseDao
   @doc """
   CSysWeb.CourseImporter.import("/Users/neo/Desktop/test2.xlsx")
+  CSysWeb.CourseImporter.import("/root/resources/courses_1.xlsx")
   """
   def import(file_name) do
     Excelion.parse!(file_name, 0, 4)

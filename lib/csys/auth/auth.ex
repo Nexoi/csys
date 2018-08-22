@@ -53,7 +53,15 @@ defmodule CSys.Auth do
 
       iex> create_user(%{field: bad_value})
       {:error, %Ecto.Changeset{}}
-
+  CSys.Auth.create_user(%{
+    uid: "30001085",
+    name: "test",
+    class: "test",
+    major: "CS",
+    password: "yangxiaosu",
+    is_active: true,
+    role: "admin"
+  })
   """
   def create_user(attrs \\ %{}) do
     %User{}
@@ -89,7 +97,9 @@ defmodule CSys.Auth do
 
       iex> delete_user(user)
       {:error, %Ecto.Changeset{}}
-
+  CSys.Auth.delete_user(%CSys.Auth.User{
+    id: 1
+  })
   """
   def delete_user(%User{} = user) do
     Repo.delete(user)

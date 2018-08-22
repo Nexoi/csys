@@ -38,7 +38,7 @@ defmodule CSys.Course.Course do
       :suzhi_cate, :gender_req, :is_stop, :is_active, :venue
       ])
     |> validate_required([:code, :name, :class_name, :group_name,
-    :compus, :unit, :time, :credit, :property,
+    :time, :credit, :property,
     :seat_num, :limit_num, :current_num, :is_stop, :is_active
     ])
   end
