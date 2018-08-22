@@ -100,7 +100,9 @@ defmodule CSysWeb.CourseController do
               |> json(%{message: msg})
       end
     else
-      {:ok, "Current Term Unset, Please contact admin."}
+      conn
+      |> put_status(:bad_request)
+      |> json(%{message: "Current Term Unset, Please contact admin."})
     end
   end
 
@@ -119,7 +121,9 @@ defmodule CSysWeb.CourseController do
           |> json(%{message: msg})
       end
     else
-      {:ok, "Current Term Unset, Please contact admin."}
+      conn
+      |> put_status(:bad_request)
+      |> json(%{message: "Current Term Unset, Please contact admin."})
     end
   end
 
@@ -133,7 +137,9 @@ defmodule CSysWeb.CourseController do
       conn
       |> render(TableView, "table.json", table: courses)
     else
-      {:ok, "Current Term Unset, Please contact admin."}
+      conn
+      |> put_status(:bad_request)
+      |> json(%{message: "Current Term Unset, Please contact admin."})
     end
   end
 
@@ -145,7 +151,9 @@ defmodule CSysWeb.CourseController do
       conn
       |> render(TableView, "table.json", table: courses)
     else
-      {:ok, "Current Term Unset, Please contact admin."}
+      conn
+      |> put_status(:bad_request)
+      |> json(%{message: "Current Term Unset, Please contact admin."})
     end
   end
 end

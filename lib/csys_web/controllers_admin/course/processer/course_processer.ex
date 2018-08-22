@@ -90,10 +90,10 @@ defmodule CSysWeb.CourseProcesser do
     str
   end
   def to_integer(nil) do
-    nil
+    0
   end
   def to_integer("") do
-    nil
+    0
   end
   def to_integer(str) do
     str |> String.to_integer

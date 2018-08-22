@@ -26,6 +26,6 @@ defmodule CSys.Repo.Migrations.CreateCourse do
       timestamps()
     end
 
-    create index(:courses, [:code])
+    create index(:courses, [:code, :name])
   end
 end
