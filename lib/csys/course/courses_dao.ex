@@ -251,4 +251,36 @@ defmodule CSys.CourseDao do
     # |> Course.changeset(attrs)
     |> Repo.insert_all(attrs)
   end
+
+  #### term ####
+  def set_default_term(term_id) do
+    if term = find_term(term_id) do
+      # 先把所有的记录都 set 为 false
+      update_terms_all_undefault()
+      term
+      |> update_term(%{is_default: true})
+    end
+  end
+  def update_terms_all_undefault() do
+    Repo.update_all(Term, set: [is_default: false])
+  end
+
+  def find_term(term_id) do
+    Repo.get(Term, term_id)
+  end
+  def create_term(attrs \\ %{}) do
+    %Term{}
+    |> Term.changeset(attrs)
+    |> Repo.insert!
+  end
+  def update_term(%Term{} = term, attrs) do
+    term
+    |> Term.changeset(attrs)
+    |> Repo.update()
+  end
+  def delete_term(term_id) do
+    Term
+    |> where(id: ^term_id)
+    |> Repo.delete_all
+  end
 end
