@@ -105,6 +105,7 @@ defmodule CSysWeb.Admin.Normal.TrainingProgramController do
       {:ok, program_record} ->
         TrainingProgramDao.delete_program(program_record)
         conn
+        |> put_status(:non_authoritative_information)
         |> render(CSysWeb.RView, "203.json", program_record)
       {:error, msg} ->
         conn

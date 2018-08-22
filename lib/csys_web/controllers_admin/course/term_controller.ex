@@ -25,8 +25,8 @@ defmodule CSysWeb.Admin.Course.TermController do
   swagger_path :create do
     post "/admin/api/terms"
     parameters do
-      term :query, :integer, "2018-2019-1", required: true
-      name :query, :integer, "Spring Semester X", required: true
+      term :query, :string, "2018-2019-1", required: true
+      name :query, :string, "Spring Semester X", required: true
     end
     response 201, "success"
   end
@@ -42,11 +42,25 @@ defmodule CSysWeb.Admin.Course.TermController do
   def index(conn, params) do
     terms = CourseDao.list_terms
     conn
-    |> render("terms.json", TermView, terms: terms)
+    |> render(CSysWeb.TermView, "terms.json", terms: terms)
   end
 
   def create(conn, %{"term" => term, "name" => name}) do
+    attrs = %{
+      term: term,
+      name: name,
+      is_default: false
+    }
+    if CourseDao.create_term(attrs) do
+      conn
+      |> put_status(:created)
+      |> json(%{message: "Create Successfully!"})
+    end
+  end
 
+  def delete(conn, %{"id" => term_id}) do
+    CourseDao.delete_term(term_id)
+    send_resp(conn, :non_authoritative_information, "")
   end
 
   def default(conn, %{"term_id" => term_id}) do

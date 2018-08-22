@@ -54,7 +54,7 @@ defmodule CSys.Auth do
       iex> create_user(%{field: bad_value})
       {:error, %Ecto.Changeset{}}
   CSys.Auth.create_user(%{
-    uid: "30001085",
+    uid: "11610522",
     name: "test",
     class: "test",
     major: "CS",

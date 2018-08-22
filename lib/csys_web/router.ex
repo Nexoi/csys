@@ -79,6 +79,8 @@ defmodule CSysWeb.Router do
     get "/courses/:course_id/tables", Admin.CourseTableController, :index
     post "/courses/:course_id/inject/:user_id", Admin.CourseTableController, :create
     delete "/courses/:course_id/remove/:user_id", Admin.CourseTableController, :delete
+    resources "/terms", Admin.Course.TermController, only: [:index, :create, :delete]
+    put "/terms/:term_id", Admin.Course.TermController, :default
   end
 
   # 权限验证，普通用户

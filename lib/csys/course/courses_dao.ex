@@ -115,6 +115,11 @@ defmodule CSys.CourseDao do
     |> Course.changeset(attrs)
     |> Repo.update()
   end
+  def update_course_count(course_id, count) do
+    Course
+    |> where(id: ^course_id)
+    |> Repo.update_all(inc: [current_num: count])
+  end
 
   #### 退选课 ####
   @doc """
@@ -196,11 +201,12 @@ defmodule CSys.CourseDao do
   def course_rest_plus(course_id) do
     if course = Course |> Repo.get(course_id) do
       if course.current_num < course.limit_num do
-        attrs = %{
-          current_num: course.current_num + 1
-        }
-        course
-        |> update_course(attrs)
+        # attrs = %{
+        #   current_num: course.current_num + 1
+        # }
+        # course
+        # |> update_course(attrs)
+        update_course_count(course_id, 1)
       end
     end
   end
@@ -208,22 +214,24 @@ defmodule CSys.CourseDao do
     if course = Course |> Repo.get(course_id) do
       # if course.current_num > 0 do
       if true do
-        attrs = %{
-          current_num: course.current_num - 1
-        }
-        course
-        |> update_course(attrs)
+        # attrs = %{
+        #   current_num: course.current_num - 1
+        # }
+        # course
+        # |> update_course(attrs)
+        update_course_count(course_id, -1)
       end
     end
   end
   def course_rest_inject_plus(course_id) do
     if course = Course |> Repo.get(course_id) do
       # if course.current_num < course.limit_num do
-      attrs = %{
-        current_num: course.current_num + 1
-      }
-      course
-      |> update_course(attrs)
+      # attrs = %{
+      #   current_num: course.current_num + 1
+      # }
+      # course
+      # |> update_course(attrs)
+      update_course_count(course_id, 1)
       # end
     end
   end
@@ -256,7 +264,12 @@ defmodule CSys.CourseDao do
   def set_default_term(term_id) do
     if term = find_term(term_id) do
       # 先把所有的记录都 set 为 false
-      update_terms_all_undefault()
+      Repo.update_all(Term, set: [is_default: false])
+      # set
+      # Term
+      # |> where(id: ^term_id)
+      # |> update(set: [is_default: true])
+      # |> Repo.update
       term
       |> update_term(%{is_default: true})
     end
