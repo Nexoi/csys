@@ -473,6 +473,97 @@
         "description": "List All"
       }
     },
+    "/admin/api/terms/{term_id}": {
+      "put": {
+        "tags": [
+          "Term"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "term_id",
+            "in": "path",
+            "description": ""
+          }
+        ],
+        "operationId": "CSysWeb.Admin.Course.TermController.default",
+        "description": "设置当前学期"
+      },
+      "delete": {
+        "tags": [
+          "Term"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "term_id",
+            "in": "path",
+            "description": ""
+          }
+        ],
+        "operationId": "CSysWeb.Admin.Course.TermController.delete",
+        "description": ""
+      }
+    },
+    "/admin/api/terms": {
+      "post": {
+        "tags": [
+          "Term"
+        ],
+        "summary": "",
+        "responses": {
+          "201": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "term",
+            "in": "query",
+            "description": "2018-2019-1"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "name",
+            "in": "query",
+            "description": "Spring Semester X"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.Course.TermController.create",
+        "description": ""
+      },
+      "get": {
+        "tags": [
+          "Term"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [],
+        "operationId": "CSysWeb.Admin.Course.TermController.index",
+        "description": "获取全部学期"
+      }
+    },
     "/admin/api/normal/xiaoli": {
       "post": {
         "tags": [

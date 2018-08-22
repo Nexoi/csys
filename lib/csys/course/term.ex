@@ -17,8 +17,8 @@ defmodule CSys.Course.Term do
   @doc false
   def changeset(terms, attrs) do
     terms
-    |> cast(attrs, [:term, :name])
-    |> validate_required([:term, :name])
+    |> cast(attrs, [:term, :name, :is_default])
+    |> validate_required([:term, :name, :is_default])
   end
 
 end
