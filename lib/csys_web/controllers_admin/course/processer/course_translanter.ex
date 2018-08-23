@@ -7,6 +7,8 @@ defmodule CSys.CourseTranslanter do
   # @total_courses_file_name "/Users/neo/Desktop/course/total.xlsx"
   # @total_courses_file_name "/root/resources/total.xlsx"
   @doc """
+  CSys.Course.Table |> CSys.Repo.delete_all
+  CSys.Course.Course |> CSys.Repo.delete_all
   CSys.CourseTranslanter.translant("/Users/neo/Desktop/course/zh.xlsx")
   CSys.CourseTranslanter.translant("/root/resources/zh.xlsx")
   """
