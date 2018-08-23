@@ -1,24 +1,37 @@
-defmodule CSysWeb.CourseImporter do
+defmodule CSys.CourseTranslanter do
 
   alias CSys.CourseProcesser
   alias CSys.CourseDao
   alias CSys.CourseTranslanter
+
+  # @total_courses_file_name "/Users/neo/Desktop/course/total.xlsx"
+  @total_courses_file_name "/root/resources/total.xlsx"
   @doc """
-  CSysWeb.CourseImporter.import("/Users/neo/Desktop/test2.xlsx")
-  CSysWeb.CourseImporter.import("/root/resources/courses_1.xlsx")
+  CSys.CourseTranslanter.translant("/Users/neo/Desktop/course/zh.xlsx")
+  CSys.CourseTranslanter.translant("/root/resources/zh.xlsx")
   """
-  def import(file_name) do
-    Excelion.parse!(file_name, 0, 4)
-    |> CourseTranslanter.tanslant()
-    # |> IO.inspect
+  def translant(file_name) do
+    courses = Excelion.parse!(file_name, 0, 4)
+
+    total_courses =
+    Excelion.parse!(@total_courses_file_name, 0, 4)
+    |> Enum.map(fn line ->
+      # 只需要 code 和 name
+      %{
+        code: line |> at(0),
+        en_name: line |> at(1)
+      }
+    end)
+
+    courses
     |> Enum.map(fn line ->
       %{
         code: line |> at(0) |> CourseProcesser.to_string(),
         name: line |> at(1) |> CourseProcesser.to_string(),
-        class_name: line |> at(2) |> CourseProcesser.to_string(),
+        class_name: line |> at(2) |> CourseTranslanter.Dictor.group(),
         group_name: line |> at(3) |> CourseProcesser.to_string(),
         compus: line |> at(4) |> CourseProcesser.to_string(),
-        unit: line |> at(5) |> CourseProcesser.to_string(),
+        unit: line |> at(5) |> CourseTranslanter.Dictor.unit(),
         time: line |> at(6) |> CourseProcesser.to_integer(),
         credit: line |> at(7) |> CourseProcesser.to_float(),
         property: line |> at(8) |> CourseProcesser.to_string(),
@@ -31,15 +44,20 @@ defmodule CSysWeb.CourseImporter do
         gender_req: line |> at(17) |> CourseProcesser.to_string(),
         is_stop: line |> at(18) |> CourseProcesser.convert_boolean(),
         is_active: line |> at(19) |> CourseProcesser.convert_boolean(),
-        venue: CourseProcesser.convert(line |> at(10), line |> at(11))
+        venue: CourseProcesser.convert(line |> at(10), line |> at(11) |> CourseTranslanter.Dictor.location())
       }
       |> CourseDao.create_course()
     end)
-    # |> CourseDao.create_courses()
   end
 
   defp at(list, index) do
     {value, _} = list |> List.pop_at(index)
     value
   end
+
+  defp t("必修"), do: ""
+  defp t("必修"), do: ""
+  defp t("必修"), do: ""
+  defp t("必修"), do: ""
+  defp t("必修"), do: ""
 end
