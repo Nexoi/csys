@@ -9,7 +9,8 @@ defmodule CSysWeb.TermView do
     %{
       term: term.term,
       term_id: term.id,
-      term_name: term.name
+      term_name: term.name,
+      is_current: term.is_default
     }
   end
 
