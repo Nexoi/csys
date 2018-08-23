@@ -5,7 +5,7 @@ defmodule CSys.CourseProcesser do
   location: 荔园2栋303<br>荔园2栋304<br>荔园2栋305<br>荔园2栋306
   """
   def convert(time, location) do
-    times = time |> String.split("<br>")
+    times = time |> String.split("节<br>")
     locations = location |> String.split("<br>")
     Stream.zip([times, locations])
     |> Enum.to_list()
@@ -30,15 +30,33 @@ defmodule CSys.CourseProcesser do
   def convert_week(src_str) do
     str = src_str |> String.replace("周", "")
     if str |> String.contains?("-") do
-      weeks = str |> String.split("-")
-      {start_, _} = weeks |> List.pop_at(0)
-      {end_, _} = weeks |> List.pop_at(1)
-      start_num = start_ |> String.to_integer
-      end_num = end_ |> String.to_integer
-      # start_num..end_num
-      Enum.map(start_num..end_num, fn x -> x end)
+      if str |> String.contains?("<br>") do
+        weeks_ = str |> String.split("<br>")
+        Enum.map(weeks_, fn x ->
+          weeks = x |> String.split("-")
+          {start_, _} = weeks |> List.pop_at(0)
+          {end_, _} = weeks |> List.pop_at(1)
+          start_num = start_ |> String.to_integer
+          end_num = end_ |> String.to_integer
+          # start_num..end_num
+          Enum.map(start_num..end_num, fn x -> x end)
+        end)
+      else
+        weeks = str |> String.split("-")
+        {start_, _} = weeks |> List.pop_at(0)
+        {end_, _} = weeks |> List.pop_at(1)
+        start_num = start_ |> String.to_integer
+        end_num = end_ |> String.to_integer
+        # start_num..end_num
+        Enum.map(start_num..end_num, fn x -> x end)
+      end
     else
-      [str |> to_integer]
+      if str |> String.contains?("<br>") do
+        weeks = str |> String.split("<br>")
+        Enum.map(weeks, fn x -> x |> String.to_integer end)
+      else
+        [str |> to_integer]
+      end
     end
   end
 
