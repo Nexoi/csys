@@ -19,12 +19,12 @@ defmodule CSys.CourseProcesser do
     {weeks, _} = strs |> List.pop_at(0)
     {days, _} = strs |> List.pop_at(1)
     {times, _} = strs |> List.pop_at(2)
-    IO.inspect(%{
+    %{
       week: convert_week(weeks),
       day: convert_day(days),
       time: convert_time(times),
       location: location
-    })
+    }
   end
 
   def convert_week(src_str) do
