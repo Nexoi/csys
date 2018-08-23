@@ -4,8 +4,8 @@ defmodule CSys.CourseTranslanter do
   alias CSys.CourseDao
   alias CSys.CourseTranslanter
 
-  # @total_courses_file_name "/Users/neo/Desktop/course/total.xlsx"
-  @total_courses_file_name "/root/resources/total.xlsx"
+  @total_courses_file_name "/Users/neo/Desktop/course/total.xlsx"
+  # @total_courses_file_name "/root/resources/total.xlsx"
   @doc """
   CSys.CourseTranslanter.translant("/Users/neo/Desktop/course/zh.xlsx")
   CSys.CourseTranslanter.translant("/root/resources/zh.xlsx")

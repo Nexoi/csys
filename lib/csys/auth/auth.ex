@@ -71,6 +71,15 @@ defmodule CSys.Auth do
     is_active: true,
     role: "admin"
   })
+    CSys.Auth.create_user(%{
+    uid: "11510053",
+    name: "test",
+    class: "test",
+    major: "CS",
+    password: "yangxiaosu",
+    is_active: true,
+    role: "admin"
+  })
   """
   def create_user(attrs \\ %{}) do
     %User{}

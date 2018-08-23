@@ -296,4 +296,11 @@ defmodule CSys.CourseDao do
     |> where(id: ^term_id)
     |> Repo.delete_all
   end
+  @doc """
+  CSys.CourseDao.delete_courses
+  """
+  def delete_courses() do
+    Course
+    |> Repo.delete_all
+  end
 end
