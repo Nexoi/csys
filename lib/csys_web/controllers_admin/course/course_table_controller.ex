@@ -50,7 +50,7 @@ defmodule CSysWeb.Admin.CourseTableController do
     if course_id do
       tables = CourseDao.list_course_tables_by_course_id(page, course_id)
       conn
-      |> render(TableView, "table_page.json", table_page: tables)
+      |> render(TableView, "table_page_with_user.json", table_page: tables)
     end
   end
 

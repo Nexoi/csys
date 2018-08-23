@@ -4,8 +4,8 @@ defmodule CSys.CourseTranslanter do
   alias CSys.CourseDao
   alias CSys.CourseTranslanter
 
-  # @total_courses_file_name "/Users/neo/Desktop/course/total.xlsx"
-  @total_courses_file_name "/root/resources/total.xlsx"
+  @total_courses_file_name "/Users/neo/Desktop/course/total.xlsx"
+  # @total_courses_file_name "/root/resources/total.xlsx"
   @doc """
   CSys.CourseTranslanter.translant("/Users/neo/Desktop/course/zh.xlsx")
   CSys.CourseTranslanter.translant("/root/resources/zh.xlsx")
@@ -23,6 +23,7 @@ defmodule CSys.CourseTranslanter do
       }
     end)
 
+    result =
     courses
     |> Enum.map(fn line ->
       code = line |> at(0) |> CourseProcesser.to_string()
@@ -35,7 +36,7 @@ defmodule CSys.CourseTranslanter do
         unit: line |> at(5) |> CourseTranslanter.Dictor.unit(),
         time: line |> at(6) |> CourseProcesser.to_integer(),
         credit: line |> at(7) |> CourseProcesser.to_float(),
-        property: line |> at(8) |> CourseProcesser.to_string(),
+        property: line |> at(8) |> CourseProcesser.to_string() |> property_en(),
         teacher: line |> at(9) |> CourseProcesser.to_string(),
         seat_num: line |> at(12) |> CourseProcesser.to_integer(),
         limit_num: line |> at(13) |> CourseProcesser.to_integer(),
@@ -49,6 +50,11 @@ defmodule CSys.CourseTranslanter do
       }
       |> CourseDao.create_course()
     end)
+    |> Enum.filter(fn x ->
+      {status, _} = x
+      status != :ok
+    end)
+    IO.puts("======= Fail count: #{result |> length()} =======")
   end
 
   defp at(list, index) do
@@ -67,9 +73,10 @@ defmodule CSys.CourseTranslanter do
     end
   end
 
-  defp t("必修"), do: "ER"
-  defp t("选修"), do: "EE"
-  defp t("通识必修课"), do: "GER"
-  defp t("通识选修课"), do: "GEE"
+  defp property_en("必修"), do: "ER"
+  defp property_en("选修"), do: "EE"
+  defp property_en("任选"), do: "Free Electives"
+  defp property_en("通识必修课"), do: "GER"
+  defp property_en("通识选修课"), do: "GEE"
 
 end

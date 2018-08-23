@@ -26,7 +26,8 @@ defmodule CSys.CourseDao do
   end
   def list_courses(page, word) do
     word_s = "%#{word}%"
-    query = from c in Course, where: ((c.is_active == true) and (like(c.code, ^word_s) or like(c.name, ^word_s)))
+    word_up = "%#{word |> String.upcase}%"
+    query = from c in Course, where: ((c.is_active == true) and (like(c.code, ^word_up) or like(c.name, ^word_s)))
     query
     |> Repo.paginate(page)
   end
@@ -66,7 +67,7 @@ defmodule CSys.CourseDao do
   def list_course_tables_by_course_id(page, course_id) do
     Table
     |> where(course_id: ^course_id)
-    |> preload([:course])
+    |> preload([:course, :user])
     |> Repo.paginate(page)
   end
 
@@ -252,7 +253,7 @@ defmodule CSys.CourseDao do
   def create_course(attrs \\ %{}) do
     %Course{}
     |> Course.changeset(attrs)
-    |> Repo.insert!
+    |> Repo.insert
   end
   def create_courses(attrs \\ %{}) do
     %Course{}
