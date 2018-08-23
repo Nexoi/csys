@@ -18,16 +18,17 @@ defmodule CSys.CourseTranslanter do
     |> Enum.map(fn line ->
       # 只需要 code 和 name
       %{
-        code: line |> at(0),
-        en_name: line |> at(1)
+        code: line |> at(0) |> String.trim,
+        en_name: line |> at(1) |> String.trim
       }
     end)
 
     courses
     |> Enum.map(fn line ->
+      code = line |> at(0) |> CourseProcesser.to_string()
       %{
-        code: line |> at(0) |> CourseProcesser.to_string(),
-        name: line |> at(1) |> CourseProcesser.to_string(),
+        code: code,
+        name: line |> at(1) |> en_name(code, total_courses),
         class_name: line |> at(2) |> CourseTranslanter.Dictor.group(),
         group_name: line |> at(3) |> CourseProcesser.to_string(),
         compus: line |> at(4) |> CourseProcesser.to_string(),
@@ -55,9 +56,20 @@ defmodule CSys.CourseTranslanter do
     value
   end
 
-  defp t("必修"), do: ""
-  defp t("必修"), do: ""
-  defp t("必修"), do: ""
-  defp t("必修"), do: ""
-  defp t("必修"), do: ""
+  defp en_name(str, code, courses) do
+    case courses
+        |> Enum.filter(fn x ->
+          String.equivalent?(code, x.code)
+        end)
+        |> List.first do
+      nil -> str
+      %{code: _, en_name: en_name} -> en_name
+    end
+  end
+
+  defp t("必修"), do: "ER"
+  defp t("选修"), do: "EE"
+  defp t("通识必修课"), do: "GER"
+  defp t("通识选修课"), do: "GEE"
+
 end
