@@ -1,4 +1,4 @@
-defmodule CSysWeb.CourseProcesser do
+defmodule CSys.CourseProcesser do
   @doc """
   CSysWeb.CourseProcesser.convert("1-4周 星期一 0304节<br>1-4周 星期四 0102节<br>1-4周 星期三 0304节<br>1-4周 星期二 0102节", "荔园2栋303<br>荔园2栋304<br>荔园2栋305<br>荔园2栋306")
   time: 1-4周 星期一 0304节<br>1-4周 星期四 0102节<br>1-4周 星期三 0304节<br>1-4周 星期二 0102节

@@ -1,13 +1,15 @@
 defmodule CSysWeb.CourseImporter do
 
-  alias CSysWeb.CourseProcesser
+  alias CSys.CourseProcesser
   alias CSys.CourseDao
+  alias CSys.CourseTranslanter
   @doc """
   CSysWeb.CourseImporter.import("/Users/neo/Desktop/test2.xlsx")
   CSysWeb.CourseImporter.import("/root/resources/courses_1.xlsx")
   """
   def import(file_name) do
     Excelion.parse!(file_name, 0, 4)
+    |> CourseTranslanter.tanslant()
     # |> IO.inspect
     |> Enum.map(fn line ->
       %{
