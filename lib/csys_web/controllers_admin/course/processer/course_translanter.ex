@@ -4,17 +4,19 @@ defmodule CSys.CourseTranslanter do
   alias CSys.CourseDao
   alias CSys.CourseTranslanter
 
-  @total_courses_file_name "/Users/neo/Desktop/course/total.xlsx"
+  # @total_courses_file_name "/Users/neo/Desktop/course/total.xlsx"
   # @total_courses_file_name "/root/resources/total.xlsx"
   @doc """
+  CSys.Course.Table |> CSys.Repo.delete_all
+  CSys.Course.Course |> CSys.Repo.delete_all
   CSys.CourseTranslanter.translant("/Users/neo/Desktop/course/zh.xlsx")
   CSys.CourseTranslanter.translant("/root/resources/zh.xlsx")
   """
-  def translant(file_name) do
+  def translant(file_name, total_courses_file_name) do
     courses = Excelion.parse!(file_name, 0, 4)
 
     total_courses =
-    Excelion.parse!(@total_courses_file_name, 0, 4)
+    Excelion.parse!(total_courses_file_name, 0, 4)
     |> Enum.map(fn line ->
       # 只需要 code 和 name
       %{
