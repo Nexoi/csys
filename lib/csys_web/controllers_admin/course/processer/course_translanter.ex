@@ -9,8 +9,8 @@ defmodule CSys.CourseTranslanter do
   @doc """
   CSys.Course.Table |> CSys.Repo.delete_all
   CSys.Course.Course |> CSys.Repo.delete_all
-  CSys.CourseTranslanter.translant("/Users/neo/Desktop/course/zh.xlsx")
-  CSys.CourseTranslanter.translant("/root/resources/zh.xlsx")
+  CSys.CourseTranslanter.translant("/Users/neo/Desktop/course/zh.xlsx", "/Users/neo/Desktop/course/total.xlsx")
+  CSys.CourseTranslanter.translant("/root/resources/zh.xlsx", "/root/resources/total.xlsx")
   """
   def translant(file_name, total_courses_file_name) do
     courses = Excelion.parse!(file_name, 0, 4)
@@ -31,15 +31,15 @@ defmodule CSys.CourseTranslanter do
       code = line |> at(0) |> CourseProcesser.to_string()
       %{
         code: code,
-        name: line |> at(1) |> en_name(code, total_courses),
-        class_name: line |> at(2) |> CourseTranslanter.Dictor.group(),
-        group_name: line |> at(3) |> CourseProcesser.to_string(),
+        name: line |> at(1) |> en_name(code, total_courses) |> String.trim,
+        class_name: line |> at(2) |> CourseTranslanter.Dictor.group() |> String.trim,
+        group_name: line |> at(3) |> CourseProcesser.to_string() |> String.trim,
         compus: line |> at(4) |> CourseProcesser.to_string(),
-        unit: line |> at(5) |> CourseTranslanter.Dictor.unit(),
+        unit: line |> at(5) |> CourseTranslanter.Dictor.unit() |> String.trim,
         time: line |> at(6) |> CourseProcesser.to_integer(),
         credit: line |> at(7) |> CourseProcesser.to_float(),
-        property: line |> at(8) |> CourseProcesser.to_string() |> property_en(),
-        teacher: line |> at(9) |> CourseProcesser.to_string(),
+        property: line |> at(8) |> CourseProcesser.to_string() |> property_en() |> String.trim,
+        teacher: line |> at(9) |> CourseTranslanter.Dictor.teacher(),
         seat_num: line |> at(12) |> CourseProcesser.to_integer(),
         limit_num: line |> at(13) |> CourseProcesser.to_integer(),
         current_num: line |> at(14) |> CourseProcesser.to_integer(),
@@ -48,7 +48,7 @@ defmodule CSys.CourseTranslanter do
         gender_req: line |> at(17) |> CourseProcesser.to_string(),
         is_stop: line |> at(18) |> CourseProcesser.convert_boolean(),
         is_active: line |> at(19) |> CourseProcesser.convert_boolean(),
-        venue: CourseProcesser.convert(line |> at(10), line |> at(11) |> CourseTranslanter.Dictor.location())
+        venue: CourseProcesser.convert(line |> at(10), line |> at(11) |> CourseTranslanter.Dictor.location_detail())
       }
       |> CourseDao.create_course()
     end)
