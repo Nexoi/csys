@@ -34,6 +34,7 @@ defmodule CSys.CourseDao do
                      and (like(c.code, ^word_up)
                           or like(c.name, ^word_s)
                           or like(c.unit, ^word_s)
+                          or like(c.teacher, ^word_s)
                           or like(c.class_name, ^word_s))),
             # where: ((c.is_active == true)
             #           and (like(c.code, ^word_up)
@@ -56,6 +57,7 @@ defmodule CSys.CourseDao do
             where: ((like(c.code, ^word_up)
                     or like(c.name, ^word_s)
                     or like(c.unit, ^word_s)
+                    or like(c.teacher, ^word_s)
                     or like(c.class_name, ^word_s))),
             order_by: c.id
     query
