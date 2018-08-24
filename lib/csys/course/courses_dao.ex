@@ -35,6 +35,11 @@ defmodule CSys.CourseDao do
                           or like(c.name, ^word_s)
                           or like(c.unit, ^word_s)
                           or like(c.class_name, ^word_s))),
+            # where: ((c.is_active == true)
+            #           and (like(c.code, ^word_up)
+            #               or like(upcase(c.name), ^word_up)
+            #               or like(upcase(c.unit), ^word_up)
+            #               or like(upcase(c.class_name), ^word_up))),
             order_by: c.id
     query
     |> Repo.paginate(page)
@@ -45,8 +50,14 @@ defmodule CSys.CourseDao do
   end
   def list_courses_admin(page, word) do
     word_s = "%#{word}%"
+    word_up = "%#{word |> String.upcase}%"
     query = from c in Course,
-            where: like(c.code, ^word_s) or like(c.name, ^word_s),
+            # where: like(c.code, ^word_s) or like(c.name, ^word_s),
+            where: ((c.is_active == true)
+                      and (like(c.code, ^word_up)
+                          or like(c.name, ^word_s)
+                          or like(c.unit, ^word_s)
+                          or like(c.class_name, ^word_s))),
             order_by: c.id
     query
     |> Repo.paginate(page)
