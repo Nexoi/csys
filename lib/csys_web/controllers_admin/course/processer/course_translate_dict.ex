@@ -19,6 +19,8 @@ defmodule CSys.CourseTranslanter.Dictor do
       "地球与空间科学系" -> "Department of Earth and Space Sciences"
       "医学院" -> "School of Medicine"
       "公共基础课部" -> "Department of General Education"
+      "语言中心" -> "Language Center"
+      "社会科学中心" -> "Social Science center"
       _ -> str
     end
   end
@@ -60,6 +62,7 @@ defmodule CSys.CourseTranslanter.Dictor do
     |> String.replace("中文", "Chinese ")
     |> String.replace("实验", "Lab ")
     |> String.replace("中英双语", "Bilingual ")
+    |> String.replace("中英", "Bilingual ")
     |> String.replace("基础课", "General ")
     |> String.replace("网球", "Tennis ")
     |> String.replace("乒乓球", "Table Tennis ")
@@ -75,6 +78,7 @@ defmodule CSys.CourseTranslanter.Dictor do
     |> String.replace("健美操", "Aerobics ")
     |> String.replace("体育舞蹈", "Sports Dance ")
     |> String.replace("户外运动", "Outdoor Sports ")
+    |> String.replace("定向越野", "Orienteering ")
     |> String.replace("散打", "Free Combat ")
     |> String.replace("瑜伽", "Yoga ")
     |> String.replace("健美", "Bodybuilding ")
@@ -89,6 +93,7 @@ defmodule CSys.CourseTranslanter.Dictor do
     |> String.replace("建议选择非计算机专业学生修读", "For all programs except Computer Science and Technology program")
     |> String.replace("选择计算机专业的学生修读", "Only for Computer Science and Technology program")
     |> String.replace("实验课每次都计入期末成绩，且没有补课", "实验课每次都计入期末成绩，且没有补课")
+    |> String.replace("Lab课每次都计入成绩", "Every lab will be counted into the final score")
     |> group_class()
   end
   @doc """
@@ -154,6 +159,7 @@ defmodule CSys.CourseTranslanter.Dictor do
         "#{src}, #{new}"
       end)
       |> cut_suffix_space
+      |> String.replace(",", "")
     end
   end
   def teacher_split(str) do
