@@ -72,7 +72,7 @@ defmodule CSys.Auth do
     role: "admin"
   })
     CSys.Auth.create_user(%{
-    uid: "11510053",
+    uid: "30000487",
     name: "test",
     class: "test",
     major: "CS",
