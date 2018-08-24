@@ -152,6 +152,10 @@ defmodule CSys.CourseDao do
     |> where(code: ^code)
     |> Repo.update_all(set: [name: name])
   end
+  def update_course_rest() do
+    Course
+    |> Repo.update_all(set: [current_num: 0])
+  end
 
   #### 退选课 ####
   @doc """
