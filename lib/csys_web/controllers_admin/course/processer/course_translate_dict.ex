@@ -126,7 +126,7 @@ defmodule CSys.CourseTranslanter.Dictor do
       Regex.replace(~r/[0-9]*栋/, str, fn which, _ ->
         # ">> #{which}" |> IO.puts
         num = which |> String.replace("栋", "")
-        "Building #{num} "
+        "#{num} "
       end)
     else
       str
