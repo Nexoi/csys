@@ -94,6 +94,8 @@ defmodule CSys.CourseTranslanter.Dictor do
     |> String.replace("选择计算机专业的学生修读", "Only for Computer Science and Technology program")
     |> String.replace("实验课每次都计入期末成绩，且没有补课", "实验课每次都计入期末成绩，且没有补课")
     |> String.replace("Lab课每次都计入成绩", "Every lab will be counted into the final score")
+    |> String.replace("Lab 课每次都计入期末成绩，且没有补课", "Every lab will be counted into the final score")
+    |> String.replace("Lab课每次都计入期末成绩，且没有补课", "Every lab will be counted into the final score")
     |> group_class()
   end
   @doc """
