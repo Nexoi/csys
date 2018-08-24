@@ -144,7 +144,8 @@ defmodule CSys.CourseDao do
     |> Repo.update_all(inc: [current_num: count])
   end
   @doc """
-  CSys.CourseDao.update_course_name("CS101", "")
+  CSys.CourseDao.update_course_name("ME484", "New Energy Technologies: Bioenergy Engineering")
+  CSys.CourseDao.update_course_name("SS040", "The Anthropology of Kinship and Family")
   """
   def update_course_name(code, name) do
     Course
