@@ -19,8 +19,9 @@ defmodule CSys.CourseTranslanter.Dictor do
       "地球与空间科学系" -> "Department of Earth and Space Sciences"
       "医学院" -> "School of Medicine"
       "公共基础课部" -> "Department of General Education"
-      "语言中心" -> "Language Center"
+      "语言中心" -> "Center For Language Education"
       "社会科学中心" -> "Social Science Center"
+      "人文中心" -> "Center for the Humanities"
       _ -> str
     end
   end
@@ -34,6 +35,7 @@ defmodule CSys.CourseTranslanter.Dictor do
     |> String.replace("羽毛球场", "Badminton Court ")
     |> String.replace("乒乓球馆", "Table Tennis Hall ")
     |> String.replace("沿湖舞蹈房", "Lakeside Dance Room ")
+    |> String.replace("沿湖书院舞蹈房", "Lakeside Dance Room ")
     |> String.replace("游泳馆", "The Swimming Pool ")
     |> String.replace("一科报告厅", "Faculty Research Building Lecture Hall ")
     |> String.replace("图书馆报告厅", "Library Lecture Hall ")
@@ -47,10 +49,10 @@ defmodule CSys.CourseTranslanter.Dictor do
     |> String.replace("风雨操场", "Sports Center ")
     |> String.replace("网球场", "Tennis Court ")
     |> String.replace("检测中心", "Materials Characterization ＆Preparation Building ")
-    |> String.replace("荔园", "Lichee Hills Block ")
+    |> String.replace("荔园", "Lychee Hills Block ")
     |> String.replace("智园", "iPart ")
-    |> String.replace("一教", "Teaching Building I ")
-    |> String.replace("二教", "Teaching Building II ")
+    |> String.replace("一教", "Teaching Building I  ")
+    |> String.replace("二教", "Teaching Building II  ")
   end
 
 
