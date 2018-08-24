@@ -24,7 +24,8 @@ defmodule CSys.Mixfile do
         :logger,
         :runtime_tools,
         :scrivener_ecto,
-        :excelion
+        :excelion,
+        :alchemic_pinyin
       ]
     ]
   end
@@ -50,7 +51,8 @@ defmodule CSys.Mixfile do
       {:httpoison, "~> 1.0"},
       {:phoenix_swagger, "~> 0.8"},
       {:scrivener_ecto, "~> 1.0"},
-      {:excelion, github: "faithandbrave/excelion"}
+      {:excelion, github: "faithandbrave/excelion"},
+      {:alchemic_pinyin, "~> 0.1.0"}
     ]
   end
 
