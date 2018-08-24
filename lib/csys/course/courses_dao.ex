@@ -14,7 +14,7 @@ defmodule CSys.CourseDao do
   查看学期
   """
   def list_terms do
-    Term |> Repo.all
+    Term |> order_by(:id) |> Repo.all
   end
 
   @doc """
@@ -22,21 +22,32 @@ defmodule CSys.CourseDao do
   CSys.CourseDao.list_courses(%{page: 0, page_size: 10})
   """
   def list_courses(page) do
-    Course |> where(is_active: true) |> Repo.paginate(page)
+    Course |> where(is_active: true)
+           |> order_by(:id)
+           |> Repo.paginate(page)
   end
   def list_courses(page, word) do
     word_s = "%#{word}%"
     word_up = "%#{word |> String.upcase}%"
-    query = from c in Course, where: ((c.is_active == true) and (like(c.code, ^word_up) or like(c.name, ^word_s)))
+    query = from c in Course,
+            where: ((c.is_active == true)
+                     and (like(c.code, ^word_up)
+                          or like(c.name, ^word_s)
+                          or like(c.unit, ^word_s)
+                          or like(c.class_name, ^word_s))),
+            order_by: c.id
     query
     |> Repo.paginate(page)
   end
   def list_courses_admin(page) do
-    Course |> Repo.paginate(page)
+    Course |> order_by(:id)
+           |> Repo.paginate(page)
   end
   def list_courses_admin(page, word) do
     word_s = "%#{word}%"
-    query = from c in Course, where: like(c.code, ^word_s) or like(c.name, ^word_s)
+    query = from c in Course,
+            where: like(c.code, ^word_s) or like(c.name, ^word_s),
+            order_by: c.id
     query
     |> Repo.paginate(page)
   end
