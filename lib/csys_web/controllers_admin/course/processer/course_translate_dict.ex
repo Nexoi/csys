@@ -52,8 +52,8 @@ defmodule CSys.CourseTranslanter.Dictor do
     |> String.replace("检测中心", "Materials Characterization ＆Preparation Building ")
     |> String.replace("荔园", "Lychee Hills Block ")
     |> String.replace("智园", "iPart ")
-    |> String.replace("一教", "Teaching Building I  ")
-    |> String.replace("二教", "Teaching Building II  ")
+    |> String.replace("一教", "Teaching Building 1 | ")
+    |> String.replace("二教", "Teaching Building 2 | ")
   end
 
 
