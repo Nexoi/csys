@@ -53,11 +53,10 @@ defmodule CSys.CourseDao do
     word_up = "%#{word |> String.upcase}%"
     query = from c in Course,
             # where: like(c.code, ^word_s) or like(c.name, ^word_s),
-            where: ((c.is_active == true)
-                      and (like(c.code, ^word_up)
-                          or like(c.name, ^word_s)
-                          or like(c.unit, ^word_s)
-                          or like(c.class_name, ^word_s))),
+            where: ((like(c.code, ^word_up)
+                    or like(c.name, ^word_s)
+                    or like(c.unit, ^word_s)
+                    or like(c.class_name, ^word_s))),
             order_by: c.id
     query
     |> Repo.paginate(page)

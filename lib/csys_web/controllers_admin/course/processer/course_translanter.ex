@@ -11,6 +11,8 @@ defmodule CSys.CourseTranslanter do
   CSys.Course.Course |> CSys.Repo.delete_all
   CSys.CourseTranslanter.translant("/Users/neo/Desktop/course/zh.xlsx", "/Users/neo/Desktop/course/total.xlsx")
   CSys.CourseTranslanter.translant("/root/resources/zh.xlsx", "/root/resources/total.xlsx")
+  CSys.CourseDao.update_course_name("ME484", "New Energy Technologies: Bioenergy Engineering")
+  CSys.CourseDao.update_course_name("SS040", "The Anthropology of Kinship and Family")
   """
   def translant(file_name, total_courses_file_name) do
     courses = Excelion.parse!(file_name, 0, 4)

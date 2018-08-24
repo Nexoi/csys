@@ -100,6 +100,7 @@ defmodule CSys.CourseTranslanter.Dictor do
     |> String.replace("Lab课每次都计入成绩", "Every lab will be counted into the final score")
     |> String.replace("Lab 课每次都计入期末成绩，且没有补课", "Every lab will be counted into the final score")
     |> String.replace("Lab课每次都计入期末成绩，且没有补课", "Every lab will be counted into the final score")
+    |> String.replace("选择理论与应用力学专业学生修读", "Only for Theoretical and Applied Mechanics Program")
     |> group_class()
   end
   @doc """
