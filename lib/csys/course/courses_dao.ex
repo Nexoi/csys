@@ -32,10 +32,10 @@ defmodule CSys.CourseDao do
     query = from c in Course,
             where: ((c.is_active == true)
                      and (like(c.code, ^word_up)
-                          or like(c.name, ^word_s)
-                          or like(c.unit, ^word_s)
-                          or like(c.teacher, ^word_s)
-                          or like(c.class_name, ^word_s))),
+                          or like(fragment("upper(?)", c.name), ^word_up)
+                          or like(fragment("upper(?)", c.unit), ^word_up)
+                          or like(fragment("upper(?)", c.teacher), ^word_up)
+                          or like(fragment("upper(?)", c.class_name), ^word_up))),
             # where: ((c.is_active == true)
             #           and (like(c.code, ^word_up)
             #               or like(upcase(c.name), ^word_up)
@@ -55,10 +55,10 @@ defmodule CSys.CourseDao do
     query = from c in Course,
             # where: like(c.code, ^word_s) or like(c.name, ^word_s),
             where: ((like(c.code, ^word_up)
-                    or like(c.name, ^word_s)
-                    or like(c.unit, ^word_s)
-                    or like(c.teacher, ^word_s)
-                    or like(c.class_name, ^word_s))),
+                          or like(fragment("upper(?)", c.name), ^word_up)
+                          or like(fragment("upper(?)", c.unit), ^word_up)
+                          or like(fragment("upper(?)", c.teacher), ^word_up)
+                          or like(fragment("upper(?)", c.class_name), ^word_up))),
             order_by: c.id
     query
     |> Repo.paginate(page)
