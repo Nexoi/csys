@@ -143,6 +143,14 @@ defmodule CSys.CourseDao do
     |> where(id: ^course_id)
     |> Repo.update_all(inc: [current_num: count])
   end
+  @doc """
+  CSys.CourseDao.update_course_name("CS101", "")
+  """
+  def update_course_name(code, name) do
+    Course
+    |> where(code: ^code)
+    |> Repo.update_all(set: [name: name])
+  end
 
   #### 退选课 ####
   @doc """
