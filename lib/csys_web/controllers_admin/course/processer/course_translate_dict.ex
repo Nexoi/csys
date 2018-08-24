@@ -50,8 +50,9 @@ defmodule CSys.CourseTranslanter.Dictor do
     |> String.replace("风雨操场", "Sports Center ")
     |> String.replace("网球场", "Tennis Court ")
     |> String.replace("检测中心", "Materials Characterization ＆Preparation Building ")
-    |> String.replace("荔园", "Lychee Hills Block | ")
+    |> String.replace("荔园", "Lychee Hills Block ")
     |> String.replace("智园", "iPart ")
+    |> String.replace("慧园", "Wisdom Valley Block ")
     |> String.replace("一教", "Teaching Building 1 | ")
     |> String.replace("二教", "Teaching Building 2 | ")
   end
@@ -131,7 +132,7 @@ defmodule CSys.CourseTranslanter.Dictor do
       Regex.replace(~r/[0-9]*栋/, str, fn which, _ ->
         # ">> #{which}" |> IO.puts
         num = which |> String.replace("栋", "")
-        "#{num} "
+        "#{num} -R."
       end)
     else
       str
