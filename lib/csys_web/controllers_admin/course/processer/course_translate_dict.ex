@@ -20,7 +20,7 @@ defmodule CSys.CourseTranslanter.Dictor do
       "医学院" -> "School of Medicine"
       "公共基础课部" -> "Department of General Education"
       "语言中心" -> "Language Center"
-      "社会科学中心" -> "Social Science center"
+      "社会科学中心" -> "Social Science Center"
       _ -> str
     end
   end

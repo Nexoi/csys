@@ -82,7 +82,7 @@ defmodule CSysWeb.CourseController do
     current_user_id = get_session(conn, :current_user_id)
 
     if current_term_id do
-      case ConflictProcesser.judge_dup(current_user_id, current_term_id, course_id)  do
+      case ConflictProcesser.judge_dup(current_user_id, current_term_id, course_id) |> IO.inspect  do
         {:ok, msg} ->
           IO.puts(msg)
           case CourseDao.chose_course(current_user_id, current_term_id, course_id) do

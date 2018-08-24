@@ -32,20 +32,38 @@ defmodule CSys.Course.ConflictProcesser do
                       if is_week_dup(v["week"], current_week) == [] do
                         # {:ok, "Week not dup"}
                         # IO.puts("Week not dup")
+                        # IO.inspect(v["week"])
+                        # IO.inspect(current_week)
                         false
                       else
-                        if is_day_dup(v["day"], current_day) == nil do
+                        if not is_day_dup(v["day"], current_day) do
                           # {:ok, "Week dup, Day not dup"}
                           # IO.puts("Week dup, Day not dup")
+                          # IO.inspect(v["day"])
+                          # IO.inspect(current_day)
                           false
                         else
                           if is_time_dup(v["time"], current_time) == [] do
                             # {:ok, "Week, Day dup, Time not dup"}
                             # IO.puts("Week, Day dup, Time not dup")
+                            # IO.inspect(v["time"])
+                            # IO.inspect(current_time)
                             false
                           else
                             # {:error, "Course Conflict"}
                             # IO.puts("Course Conflict")
+                            # %{
+                            #   week: v["week"],
+                            #   day: v["day"],
+                            #   time: v["time"]
+                            # }
+                            # |> IO.inspect()
+                            # %{
+                            #   week: current_week,
+                            #   day: current_day,
+                            #   time: current_time
+                            # }
+                            # |> IO.inspect()
                             true
                           end
                         end
@@ -116,6 +134,7 @@ defmodule CSys.Course.ConflictProcesser do
     #   current_day: current_day
     # })
     day == current_day
+    # IO.inspect("#{day} == #{current_day}, r=#{r}")
   end
 
   defp is_time_dup(time, current_time) do
