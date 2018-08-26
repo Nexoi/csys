@@ -15,7 +15,8 @@ defmodule CSysWeb.FileController do
   end
 
   @http_path "http://jwxt.sustc.seeuio.com/files"
-  @file_path "/Users/neo/Desktop/csys"
+  # @file_path "/Users/neo/Desktop/csys"
+  @file_path "/root/csys"
 
   def upload(conn, params) do
     IO.inspect params

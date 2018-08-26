@@ -11,6 +11,20 @@ defmodule CSys.CourseDao do
   alias CSys.Course.Table  # 学生课表
 
   @doc """
+  导出
+  CSys.CourseDao.export_terms([1, 2, 3])
+  """
+  def export_terms(term_ids) do
+    query = from t in Table,
+            where: t.term_id in ^term_ids,
+            order_by: [t.course_id, t.user_id, t.term_id]
+    query
+    |> preload([:user, :term, :course])
+    |> Repo.all
+  end
+
+
+  @doc """
   查看学期
   """
   def list_terms do
