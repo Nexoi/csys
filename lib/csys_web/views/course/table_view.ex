@@ -21,6 +21,10 @@ defmodule CSysWeb.TableView do
     }
   end
 
+  def render("table_only_courses.json", %{table: table}) do
+    %{data: render_many(table, CSysWeb.TableView, "table_item_only_course.json")}
+  end
+
   def render("table.json", %{table: table}) do
     %{data: render_many(table, CSysWeb.TableView, "table_item.json")}
   end
