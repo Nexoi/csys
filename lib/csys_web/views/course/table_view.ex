@@ -68,7 +68,7 @@ defmodule CSysWeb.TableView do
   end
 
   def render("course.json", %{table: c}) do
-    c |> IO.inspect
+    # c |> IO.inspect
     %{
       class_name: c.class_name,
       code: c.code,
