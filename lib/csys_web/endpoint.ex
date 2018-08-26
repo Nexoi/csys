@@ -8,8 +8,9 @@ defmodule CSysWeb.Endpoint do
   # You should set gzip to true if you are running phoenix.digest
   # when deploying your static files in production.
   plug Plug.Static,
-    at: "/", from: :csys, gzip: false,
-    only: ~w(css fonts images js favicon.ico robots.txt)
+    at: "/files", from: "/Users/neo/Desktop/csys",
+    at: "/", from: :csys, gzip: false
+    # only: ~w(css fonts images js favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.

@@ -1,4 +1,4 @@
-defmodule CSys.Courses do
+defmodule CSys.Normal.NotificationDao do
   @doc """
   校历
   """
