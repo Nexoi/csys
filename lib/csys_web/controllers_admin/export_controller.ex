@@ -46,14 +46,14 @@ defmodule CSysWeb.ExportController do
       "#{line.term.term}," <>          # 学期名
       "#{line.term.name}," <>          # 2018-2019-1
       "#{line.user.uid}," <>           # 学号
-      "#{line.user.name}," <>          # 姓名
+      "#{line.user.name |> String.replace(",", ";")}," <>          # 姓名
       "#{line.course.code}," <>        # CS101
-      "#{line.course.name}," <>        # 计算机网络
-      "#{line.course.class_name}," <>  # A班
-      "#{line.course.group_name}," <>  # 临班23
-      "#{line.course.teacher}," <>     # 老师
-      "#{line.course.unit}," <>        # 计算机系
-      "#{line.course.property}," <>    # 专业必修
+      "#{line.course.name |> String.replace(",", ";")}," <>        # 计算机网络
+      "#{line.course.class_name |> String.replace(",", ";")}," <>  # A班
+      "#{line.course.group_name |> String.replace(",", ";")}," <>  # 临班23
+      "#{line.course.teacher |> String.replace(",", ";")}," <>     # 老师
+      "#{line.course.unit |> String.replace(",", ";")}," <>        # 计算机系
+      "#{line.course.property |> String.replace(",", ";")}," <>    # 专业必修
       "#{line.course.time}," <>        # 学时
       "#{line.course.credit}"          # 学分
     end)

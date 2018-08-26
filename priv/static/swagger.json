@@ -833,7 +833,7 @@
             "required": true,
             "name": "terms",
             "in": "query",
-            "description": "term_ids, 逗号隔开"
+            "description": "term_ids, 逗号隔开, 如：1,2,3"
           }
         ],
         "operationId": "CSysWeb.ExportController.export_terms",
@@ -1228,5 +1228,6 @@
     "title": "Jwxt-En",
     "host": "jwxt.sustc.seeuio.com"
   },
+  "host": "localhost:4002",
   "definitions": {}
 }
