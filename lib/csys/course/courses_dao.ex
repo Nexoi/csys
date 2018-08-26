@@ -17,7 +17,7 @@ defmodule CSys.CourseDao do
   def export_terms(term_ids) do
     query = from t in Table,
             where: t.term_id in ^term_ids,
-            order_by: [asc: t.user_uid, desc: t.term_id]
+            order_by: [asc: t.user_id, desc: t.term_id]
     query
     |> preload([:user, :term, :course])
     |> Repo.all
