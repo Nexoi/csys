@@ -1,10 +1,140 @@
 {
   "swagger": "2.0",
   "paths": {
-    "/api/users/sign_out": {
+    "/api/normal/notifications/unread": {
+      "get": {
+        "tags": [
+          "Notofication"
+        ],
+        "summary": "",
+        "responses": {
+          "204": {
+            "description": "empty"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [],
+        "operationId": "CSysWeb.Normal.NotoficationController.unread",
+        "description": "获取全部未读通知"
+      }
+    },
+    "/admin/api/courses/{course_id}/active": {
       "post": {
         "tags": [
-          "SIGN IN"
+          "Course"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "course_id",
+            "in": "path",
+            "description": "课程ID"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.CourseController.active",
+        "description": "激活课程"
+      }
+    },
+    "/admin/api/courses/{course_id}/inject/{user_id}": {
+      "post": {
+        "tags": [
+          "CourseTable"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "course_id",
+            "in": "path",
+            "description": "课程ID"
+          },
+          {
+            "type": "integer",
+            "required": true,
+            "name": "user_id",
+            "in": "path",
+            "description": "user_id"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.CourseTableController.create",
+        "description": "注入课程"
+      }
+    },
+    "/api/normal/notifications/{id}": {
+      "get": {
+        "tags": [
+          "Notofication"
+        ],
+        "summary": "",
+        "responses": {
+          "204": {
+            "description": "empty"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "id integer"
+          }
+        ],
+        "operationId": "CSysWeb.Normal.NotoficationController.show",
+        "description": "获取某条通知（会自动标记为已读状态）"
+      }
+    },
+    "/admin/api/terms": {
+      "post": {
+        "tags": [
+          "Term"
+        ],
+        "summary": "",
+        "responses": {
+          "201": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "term",
+            "in": "query",
+            "description": "2018-2019-1"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "name",
+            "in": "query",
+            "description": "Spring Semester X"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.Course.TermController.create",
+        "description": ""
+      },
+      "get": {
+        "tags": [
+          "Term"
         ],
         "summary": "",
         "responses": {
@@ -13,8 +143,160 @@
           }
         },
         "parameters": [],
-        "operationId": "CSysWeb.UserController.sign_out",
-        "description": "Sign Out"
+        "operationId": "CSysWeb.Admin.Course.TermController.index",
+        "description": "获取全部学期"
+      }
+    },
+    "/api/normal/notifications/isread": {
+      "get": {
+        "tags": [
+          "Notofication"
+        ],
+        "summary": "",
+        "responses": {
+          "204": {
+            "description": "empty"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [],
+        "operationId": "CSysWeb.Normal.NotoficationController.isread",
+        "description": "获取全部已读通知"
+      }
+    },
+    "/admin/api/courses/open_dates": {
+      "post": {
+        "tags": [
+          "OpenDate"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": false,
+            "name": "start_time",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "integer",
+            "required": false,
+            "name": "end_time",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "integer",
+            "required": false,
+            "name": "preview_start_time",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "integer",
+            "required": false,
+            "name": "preview_end_time",
+            "in": "query",
+            "description": ""
+          }
+        ],
+        "operationId": "CSysWeb.Admin.Course.OpenDateController.reset",
+        "description": "更新全部时间配置"
+      },
+      "get": {
+        "tags": [
+          "OpenDate"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [],
+        "operationId": "CSysWeb.Admin.Course.OpenDateController.show",
+        "description": "获取全部时间配置"
+      }
+    },
+    "/admin/api/normal/training_program/items": {
+      "post": {
+        "tags": [
+          "TrainingProgramItem"
+        ],
+        "summary": "",
+        "responses": {
+          "401": {
+            "description": "failure"
+          },
+          "201": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "title",
+            "in": "query",
+            "description": "title string"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "res_url",
+            "in": "query",
+            "description": "res_url string"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.Normal.TrainingProgramItemController.create",
+        "description": "添加培养方案子项"
+      }
+    },
+    "/admin/api/users/{user_id}/tables": {
+      "get": {
+        "tags": [
+          "CourseTable"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": false,
+            "name": "page_size",
+            "minimum": 1,
+            "in": "query",
+            "description": "Number of elements per page"
+          },
+          {
+            "type": "integer",
+            "required": false,
+            "name": "page",
+            "minimum": 1,
+            "in": "query",
+            "description": "Number of the page"
+          },
+          {
+            "type": "integer",
+            "required": true,
+            "name": "user_id",
+            "in": "path",
+            "description": "user_id"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.CourseTableController.user_tables",
+        "description": "获取该用户全部课表"
       }
     },
     "/api/users/sign_in": {
@@ -53,8 +335,8 @@
         "description": "Sign In"
       }
     },
-    "/api/users/me": {
-      "get": {
+    "/api/users/sign_out": {
+      "post": {
         "tags": [
           "SIGN IN"
         ],
@@ -65,51 +347,8 @@
           }
         },
         "parameters": [],
-        "operationId": "CSysWeb.UserController.show",
-        "description": "Sign In"
-      }
-    },
-    "/api/terms": {
-      "get": {
-        "tags": [
-          "Term"
-        ],
-        "summary": "",
-        "responses": {
-          "200": {
-            "description": "success"
-          }
-        },
-        "parameters": [],
-        "operationId": "CSysWeb.Course.TermController.index",
-        "description": "获取全部学期"
-      }
-    },
-    "/api/tables/history/{term_id}": {
-      "get": {
-        "tags": [
-          "Course"
-        ],
-        "summary": "",
-        "responses": {
-          "204": {
-            "description": "empty"
-          },
-          "200": {
-            "description": "success"
-          }
-        },
-        "parameters": [
-          {
-            "type": "integer",
-            "required": true,
-            "name": "term_id",
-            "in": "path",
-            "description": "学期id"
-          }
-        ],
-        "operationId": "CSysWeb.CourseController.table",
-        "description": "获取全部课程（历史课表）"
+        "operationId": "CSysWeb.UserController.sign_out",
+        "description": "Sign Out"
       }
     },
     "/api/tables/current": {
@@ -131,6 +370,65 @@
         "description": "获取全部已选课程（当前课表）"
       }
     },
+    "/admin/api/normal/training_programs/{id}": {
+      "put": {
+        "tags": [
+          "TrainingProgram"
+        ],
+        "summary": "",
+        "responses": {
+          "401": {
+            "description": "failure"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "id integer"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "title",
+            "in": "query",
+            "description": "title string"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.Normal.TrainingProgramController.update",
+        "description": "修改培养方案组合名"
+      },
+      "delete": {
+        "tags": [
+          "TrainingProgram"
+        ],
+        "summary": "",
+        "responses": {
+          "401": {
+            "description": "failure"
+          },
+          "203": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "id integer"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.Normal.TrainingProgramController.delete",
+        "description": "修改培养方案组合名"
+      }
+    },
     "/api/normal/xiaoli": {
       "get": {
         "tags": [
@@ -150,35 +448,13 @@
         "description": "获取校历文件的url链接"
       }
     },
-    "/api/normal/training_programs": {
-      "get": {
+    "/admin/api/terms/{term_id}": {
+      "put": {
         "tags": [
-          "TrainingProgram"
+          "Term"
         ],
         "summary": "",
         "responses": {
-          "401": {
-            "description": "failure"
-          },
-          "200": {
-            "description": "success"
-          }
-        },
-        "parameters": [],
-        "operationId": "CSysWeb.Normal.TrainingProgramController.index",
-        "description": "列出所有的培养方案（父子目录）"
-      }
-    },
-    "/api/normal/notifications/{id}": {
-      "get": {
-        "tags": [
-          "Notofication"
-        ],
-        "summary": "",
-        "responses": {
-          "204": {
-            "description": "empty"
-          },
           "200": {
             "description": "success"
           }
@@ -187,51 +463,35 @@
           {
             "type": "integer",
             "required": true,
-            "name": "id",
+            "name": "term_id",
             "in": "path",
-            "description": "id integer"
+            "description": ""
           }
         ],
-        "operationId": "CSysWeb.Normal.NotoficationController.show",
-        "description": "获取某条通知（会自动标记为已读状态）"
-      }
-    },
-    "/api/normal/notifications/unread": {
-      "get": {
+        "operationId": "CSysWeb.Admin.Course.TermController.default",
+        "description": "设置当前学期"
+      },
+      "delete": {
         "tags": [
-          "Notofication"
+          "Term"
         ],
         "summary": "",
         "responses": {
-          "204": {
-            "description": "empty"
-          },
           "200": {
             "description": "success"
           }
         },
-        "parameters": [],
-        "operationId": "CSysWeb.Normal.NotoficationController.unread",
-        "description": "获取全部未读通知"
-      }
-    },
-    "/api/normal/notifications/isread": {
-      "get": {
-        "tags": [
-          "Notofication"
-        ],
-        "summary": "",
-        "responses": {
-          "204": {
-            "description": "empty"
-          },
-          "200": {
-            "description": "success"
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "term_id",
+            "in": "path",
+            "description": ""
           }
-        },
-        "parameters": [],
-        "operationId": "CSysWeb.Normal.NotoficationController.isread",
-        "description": "获取全部已读通知"
+        ],
+        "operationId": "CSysWeb.Admin.Course.TermController.delete",
+        "description": ""
       }
     },
     "/api/courses/{course_id}": {
@@ -286,50 +546,47 @@
         "description": "退课"
       }
     },
-    "/api/courses": {
+    "/api/terms": {
       "get": {
         "tags": [
-          "Course"
+          "Term"
         ],
         "summary": "",
         "responses": {
-          "204": {
-            "description": "empty"
-          },
           "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [],
+        "operationId": "CSysWeb.Course.TermController.index",
+        "description": "获取全部学期"
+      }
+    },
+    "/admin/api/upload": {
+      "post": {
+        "tags": [
+          "File"
+        ],
+        "summary": "",
+        "responses": {
+          "201": {
             "description": "success"
           }
         },
         "parameters": [
           {
-            "type": "integer",
-            "required": false,
-            "name": "page_size",
-            "minimum": 1,
-            "in": "query",
-            "description": "Number of elements per page"
-          },
-          {
-            "type": "integer",
-            "required": false,
-            "name": "page",
-            "minimum": 1,
-            "in": "query",
-            "description": "Number of the page"
-          },
-          {
-            "type": "string",
-            "required": false,
-            "name": "word",
-            "in": "query",
-            "description": "搜索关键词，可选"
+            "schema": "file",
+            "required": true,
+            "name": "file",
+            "in": "body",
+            "description": "file"
           }
         ],
-        "operationId": "CSysWeb.CourseController.index",
-        "description": "获取全部课程"
+        "operationId": "CSysWeb.FileController.upload",
+        "description": "File Uploader"
       }
     },
-    "/admin/api/users/{user_id}/tables": {
+    "/admin/api/users/{user_id}/terms/{term_id}/tables": {
       "get": {
         "tags": [
           "CourseTable"
@@ -343,30 +600,21 @@
         "parameters": [
           {
             "type": "integer",
-            "required": false,
-            "name": "page_size",
-            "minimum": 1,
-            "in": "query",
-            "description": "Number of elements per page"
-          },
-          {
-            "type": "integer",
-            "required": false,
-            "name": "page",
-            "minimum": 1,
-            "in": "query",
-            "description": "Number of the page"
-          },
-          {
-            "type": "integer",
             "required": true,
             "name": "user_id",
             "in": "path",
             "description": "user_id"
+          },
+          {
+            "type": "integer",
+            "required": true,
+            "name": "term_id",
+            "in": "path",
+            "description": "term_id"
           }
         ],
-        "operationId": "CSysWeb.Admin.CourseTableController.user_tables",
-        "description": "获取该用户全部课表"
+        "operationId": "CSysWeb.Admin.CourseTableController.user_term_tables",
+        "description": "获取该学生该学期全部课程"
       }
     },
     "/admin/api/users/{id}": {
@@ -457,56 +705,20 @@
         "description": "Delete User"
       }
     },
-    "/admin/api/users": {
-      "post": {
-        "tags": [
-          "User"
-        ],
-        "summary": "",
-        "responses": {},
-        "parameters": [
-          {
-            "x-example": "11610001",
-            "type": "string",
-            "required": true,
-            "name": "uid",
-            "in": "query",
-            "description": "Student ID"
-          },
-          {
-            "x-example": "xxx",
-            "type": "string",
-            "required": true,
-            "name": "name",
-            "in": "query",
-            "description": "name"
-          },
-          {
-            "x-example": "1601",
-            "type": "string",
-            "required": true,
-            "name": "class",
-            "in": "query",
-            "description": "class"
-          },
-          {
-            "x-example": "CS",
-            "type": "string",
-            "required": true,
-            "name": "major",
-            "in": "query",
-            "description": "major"
-          }
-        ],
-        "operationId": "CSysWeb.Admin.UserController.create",
-        "description": "Add User"
-      },
+    "/api/courses": {
       "get": {
         "tags": [
-          "User"
+          "Course"
         ],
         "summary": "",
-        "responses": {},
+        "responses": {
+          "204": {
+            "description": "empty"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
         "parameters": [
           {
             "type": "integer",
@@ -523,125 +735,17 @@
             "minimum": 1,
             "in": "query",
             "description": "Number of the page"
-          }
-        ],
-        "operationId": "CSysWeb.Admin.UserController.index",
-        "description": "List All"
-      }
-    },
-    "/admin/api/upload": {
-      "post": {
-        "tags": [
-          "File"
-        ],
-        "summary": "",
-        "responses": {
-          "201": {
-            "description": "success"
-          }
-        },
-        "parameters": [
-          {
-            "schema": "file",
-            "required": true,
-            "name": "file",
-            "in": "body",
-            "description": "file"
-          }
-        ],
-        "operationId": "CSysWeb.FileController.upload",
-        "description": "File Uploader"
-      }
-    },
-    "/admin/api/terms/{term_id}": {
-      "put": {
-        "tags": [
-          "Term"
-        ],
-        "summary": "",
-        "responses": {
-          "200": {
-            "description": "success"
-          }
-        },
-        "parameters": [
-          {
-            "type": "integer",
-            "required": true,
-            "name": "term_id",
-            "in": "path",
-            "description": ""
-          }
-        ],
-        "operationId": "CSysWeb.Admin.Course.TermController.default",
-        "description": "设置当前学期"
-      },
-      "delete": {
-        "tags": [
-          "Term"
-        ],
-        "summary": "",
-        "responses": {
-          "200": {
-            "description": "success"
-          }
-        },
-        "parameters": [
-          {
-            "type": "integer",
-            "required": true,
-            "name": "term_id",
-            "in": "path",
-            "description": ""
-          }
-        ],
-        "operationId": "CSysWeb.Admin.Course.TermController.delete",
-        "description": ""
-      }
-    },
-    "/admin/api/terms": {
-      "post": {
-        "tags": [
-          "Term"
-        ],
-        "summary": "",
-        "responses": {
-          "201": {
-            "description": "success"
-          }
-        },
-        "parameters": [
-          {
-            "type": "string",
-            "required": true,
-            "name": "term",
-            "in": "query",
-            "description": "2018-2019-1"
           },
           {
             "type": "string",
-            "required": true,
-            "name": "name",
+            "required": false,
+            "name": "word",
             "in": "query",
-            "description": "Spring Semester X"
+            "description": "搜索关键词，可选"
           }
         ],
-        "operationId": "CSysWeb.Admin.Course.TermController.create",
-        "description": ""
-      },
-      "get": {
-        "tags": [
-          "Term"
-        ],
-        "summary": "",
-        "responses": {
-          "200": {
-            "description": "success"
-          }
-        },
-        "parameters": [],
-        "operationId": "CSysWeb.Admin.Course.TermController.index",
-        "description": "获取全部学期"
+        "operationId": "CSysWeb.CourseController.index",
+        "description": "获取全部课程"
       }
     },
     "/admin/api/normal/xiaoli": {
@@ -685,107 +789,31 @@
         "description": "获取校历文件的url链接"
       }
     },
-    "/admin/api/normal/training_programs/{id}": {
-      "put": {
-        "tags": [
-          "TrainingProgram"
-        ],
-        "summary": "",
-        "responses": {
-          "401": {
-            "description": "failure"
-          },
-          "200": {
-            "description": "success"
-          }
-        },
-        "parameters": [
-          {
-            "type": "integer",
-            "required": true,
-            "name": "id",
-            "in": "path",
-            "description": "id integer"
-          },
-          {
-            "type": "string",
-            "required": true,
-            "name": "title",
-            "in": "query",
-            "description": "title string"
-          }
-        ],
-        "operationId": "CSysWeb.Admin.Normal.TrainingProgramController.update",
-        "description": "修改培养方案组合名"
-      },
-      "delete": {
-        "tags": [
-          "TrainingProgram"
-        ],
-        "summary": "",
-        "responses": {
-          "401": {
-            "description": "failure"
-          },
-          "203": {
-            "description": "success"
-          }
-        },
-        "parameters": [
-          {
-            "type": "integer",
-            "required": true,
-            "name": "id",
-            "in": "path",
-            "description": "id integer"
-          }
-        ],
-        "operationId": "CSysWeb.Admin.Normal.TrainingProgramController.delete",
-        "description": "修改培养方案组合名"
-      }
-    },
-    "/admin/api/normal/training_programs": {
-      "post": {
-        "tags": [
-          "TrainingProgram"
-        ],
-        "summary": "",
-        "responses": {
-          "401": {
-            "description": "failure"
-          },
-          "201": {
-            "description": "success"
-          }
-        },
-        "parameters": [
-          {
-            "type": "string",
-            "required": true,
-            "name": "title",
-            "in": "query",
-            "description": "title string"
-          }
-        ],
-        "operationId": "CSysWeb.Admin.Normal.TrainingProgramController.create",
-        "description": "添加培养方案组合名"
-      },
+    "/api/tables/history/{term_id}": {
       "get": {
         "tags": [
-          "TrainingProgram"
+          "Course"
         ],
         "summary": "",
         "responses": {
-          "401": {
-            "description": "failure"
+          "204": {
+            "description": "empty"
           },
           "200": {
             "description": "success"
           }
         },
-        "parameters": [],
-        "operationId": "CSysWeb.Admin.Normal.TrainingProgramController.index",
-        "description": "列出所有的培养方案（父子目录）"
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "term_id",
+            "in": "path",
+            "description": "学期id"
+          }
+        ],
+        "operationId": "CSysWeb.CourseController.table",
+        "description": "获取全部课程（历史课表）"
       }
     },
     "/admin/api/normal/training_program/{id}": {
@@ -881,40 +909,6 @@
         "description": "修改培养方案子项组合名"
       }
     },
-    "/admin/api/normal/training_program/items": {
-      "post": {
-        "tags": [
-          "TrainingProgramItem"
-        ],
-        "summary": "",
-        "responses": {
-          "401": {
-            "description": "failure"
-          },
-          "201": {
-            "description": "success"
-          }
-        },
-        "parameters": [
-          {
-            "type": "string",
-            "required": true,
-            "name": "title",
-            "in": "query",
-            "description": "title string"
-          },
-          {
-            "type": "string",
-            "required": true,
-            "name": "res_url",
-            "in": "query",
-            "description": "res_url string"
-          }
-        ],
-        "operationId": "CSysWeb.Admin.Normal.TrainingProgramItemController.create",
-        "description": "添加培养方案子项"
-      }
-    },
     "/admin/api/courses/{course_id}/unable": {
       "delete": {
         "tags": [
@@ -937,6 +931,184 @@
         ],
         "operationId": "CSysWeb.Admin.CourseController.unable",
         "description": "激活课程"
+      }
+    },
+    "/api/normal/training_programs": {
+      "get": {
+        "tags": [
+          "TrainingProgram"
+        ],
+        "summary": "",
+        "responses": {
+          "401": {
+            "description": "failure"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [],
+        "operationId": "CSysWeb.Normal.TrainingProgramController.index",
+        "description": "列出所有的培养方案（父子目录）"
+      }
+    },
+    "/admin/api/normal/training_programs": {
+      "post": {
+        "tags": [
+          "TrainingProgram"
+        ],
+        "summary": "",
+        "responses": {
+          "401": {
+            "description": "failure"
+          },
+          "201": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "title",
+            "in": "query",
+            "description": "title string"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.Normal.TrainingProgramController.create",
+        "description": "添加培养方案组合名"
+      },
+      "get": {
+        "tags": [
+          "TrainingProgram"
+        ],
+        "summary": "",
+        "responses": {
+          "401": {
+            "description": "failure"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [],
+        "operationId": "CSysWeb.Admin.Normal.TrainingProgramController.index",
+        "description": "列出所有的培养方案（父子目录）"
+      }
+    },
+    "/admin/api/courses": {
+      "get": {
+        "tags": [
+          "Course"
+        ],
+        "summary": "",
+        "responses": {
+          "204": {
+            "description": "empty"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": false,
+            "name": "page_size",
+            "minimum": 1,
+            "in": "query",
+            "description": "Number of elements per page"
+          },
+          {
+            "type": "integer",
+            "required": false,
+            "name": "page",
+            "minimum": 1,
+            "in": "query",
+            "description": "Number of the page"
+          },
+          {
+            "type": "string",
+            "required": false,
+            "name": "word",
+            "in": "query",
+            "description": "搜索关键词，可选"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.CourseController.index",
+        "description": "获取全部课程"
+      }
+    },
+    "/admin/api/users": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "",
+        "responses": {},
+        "parameters": [
+          {
+            "x-example": "11610001",
+            "type": "string",
+            "required": true,
+            "name": "uid",
+            "in": "query",
+            "description": "Student ID"
+          },
+          {
+            "x-example": "xxx",
+            "type": "string",
+            "required": true,
+            "name": "name",
+            "in": "query",
+            "description": "name"
+          },
+          {
+            "x-example": "1601",
+            "type": "string",
+            "required": true,
+            "name": "class",
+            "in": "query",
+            "description": "class"
+          },
+          {
+            "x-example": "CS",
+            "type": "string",
+            "required": true,
+            "name": "major",
+            "in": "query",
+            "description": "major"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.UserController.create",
+        "description": "Add User"
+      },
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "",
+        "responses": {},
+        "parameters": [
+          {
+            "type": "integer",
+            "required": false,
+            "name": "page_size",
+            "minimum": 1,
+            "in": "query",
+            "description": "Number of elements per page"
+          },
+          {
+            "type": "integer",
+            "required": false,
+            "name": "page",
+            "minimum": 1,
+            "in": "query",
+            "description": "Number of the page"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.UserController.index",
+        "description": "List All"
       }
     },
     "/admin/api/courses/{course_id}/tables": {
@@ -1010,108 +1182,10 @@
         "description": "移除课程"
       }
     },
-    "/admin/api/courses/{course_id}/inject/{user_id}": {
-      "post": {
-        "tags": [
-          "CourseTable"
-        ],
-        "summary": "",
-        "responses": {
-          "200": {
-            "description": "success"
-          }
-        },
-        "parameters": [
-          {
-            "type": "integer",
-            "required": true,
-            "name": "course_id",
-            "in": "path",
-            "description": "课程ID"
-          },
-          {
-            "type": "integer",
-            "required": true,
-            "name": "user_id",
-            "in": "path",
-            "description": "user_id"
-          }
-        ],
-        "operationId": "CSysWeb.Admin.CourseTableController.create",
-        "description": "注入课程"
-      }
-    },
-    "/admin/api/courses/{course_id}/active": {
-      "post": {
-        "tags": [
-          "Course"
-        ],
-        "summary": "",
-        "responses": {
-          "200": {
-            "description": "success"
-          }
-        },
-        "parameters": [
-          {
-            "type": "integer",
-            "required": true,
-            "name": "course_id",
-            "in": "path",
-            "description": "课程ID"
-          }
-        ],
-        "operationId": "CSysWeb.Admin.CourseController.active",
-        "description": "激活课程"
-      }
-    },
-    "/admin/api/courses/open_dates": {
-      "post": {
-        "tags": [
-          "OpenDate"
-        ],
-        "summary": "",
-        "responses": {
-          "200": {
-            "description": "success"
-          }
-        },
-        "parameters": [
-          {
-            "type": "integer",
-            "required": false,
-            "name": "start_time",
-            "in": "query",
-            "description": ""
-          },
-          {
-            "type": "integer",
-            "required": false,
-            "name": "end_time",
-            "in": "query",
-            "description": ""
-          },
-          {
-            "type": "integer",
-            "required": false,
-            "name": "preview_start_time",
-            "in": "query",
-            "description": ""
-          },
-          {
-            "type": "integer",
-            "required": false,
-            "name": "preview_end_time",
-            "in": "query",
-            "description": ""
-          }
-        ],
-        "operationId": "CSysWeb.Admin.Course.OpenDateController.reset",
-        "description": "更新全部时间配置"
-      },
+    "/api/users/me": {
       "get": {
         "tags": [
-          "OpenDate"
+          "SIGN IN"
         ],
         "summary": "",
         "responses": {
@@ -1120,51 +1194,8 @@
           }
         },
         "parameters": [],
-        "operationId": "CSysWeb.Admin.Course.OpenDateController.show",
-        "description": "获取全部时间配置"
-      }
-    },
-    "/admin/api/courses": {
-      "get": {
-        "tags": [
-          "Course"
-        ],
-        "summary": "",
-        "responses": {
-          "204": {
-            "description": "empty"
-          },
-          "200": {
-            "description": "success"
-          }
-        },
-        "parameters": [
-          {
-            "type": "integer",
-            "required": false,
-            "name": "page_size",
-            "minimum": 1,
-            "in": "query",
-            "description": "Number of elements per page"
-          },
-          {
-            "type": "integer",
-            "required": false,
-            "name": "page",
-            "minimum": 1,
-            "in": "query",
-            "description": "Number of the page"
-          },
-          {
-            "type": "string",
-            "required": false,
-            "name": "word",
-            "in": "query",
-            "description": "搜索关键词，可选"
-          }
-        ],
-        "operationId": "CSysWeb.Admin.CourseController.index",
-        "description": "获取全部课程"
+        "operationId": "CSysWeb.UserController.show",
+        "description": "Sign In"
       }
     }
   },

@@ -80,6 +80,7 @@ defmodule CSysWeb.Router do
     post "/courses/open_dates", Admin.Course.OpenDateController, :reset
     get "/courses/:course_id/tables", Admin.CourseTableController, :index
     get "/users/:user_id/tables", Admin.CourseTableController, :user_tables
+    get "/users/:user_id/terms/:term_id/tables", Admin.CourseTableController, :user_term_tables
     post "/courses/:course_id/inject/:user_id", Admin.CourseTableController, :create
     delete "/courses/:course_id/remove/:user_id", Admin.CourseTableController, :delete
     resources "/terms", Admin.Course.TermController, only: [:index, :create, :delete]

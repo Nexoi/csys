@@ -17,6 +17,16 @@ defmodule CSysWeb.Admin.CourseTableController do
     response 200, "success"
   end
 
+  swagger_path :user_term_tables do
+    get "/admin/api/users/{user_id}/terms/{term_id}/tables"
+    description "获取该学生该学期全部课程"
+    parameters do
+      user_id :path, :integer, "user_id", required: true
+      term_id :path, :integer, "term_id", required: true
+    end
+    response 200, "success"
+  end
+
   swagger_path :user_tables do
     get "/admin/api/users/{user_id}/tables"
     description "获取该用户全部课表"
@@ -62,6 +72,12 @@ defmodule CSysWeb.Admin.CourseTableController do
       conn
       |> render(TableView, "table_page_with_user.json", table_page: tables)
     end
+  end
+
+  def user_term_tables(conn, %{"user_id" => user_id, "term_id" => term_id} = _params) do
+      tables = CourseDao.list_course_tables_all(term_id, user_id)
+      conn
+      |> render(TableView, "table_only_courses.json", table: tables)
   end
 
   def user_tables(conn, params) do
