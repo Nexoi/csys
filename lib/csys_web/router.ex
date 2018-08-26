@@ -46,6 +46,7 @@ defmodule CSysWeb.Router do
     get "/normal/notifications/isread", Normal.NotoficationController, :isread
     get "/tables/current", CourseController, :current_table
     get "/tables/history/:term_id", CourseController, :table
+    get "/terms", Course.TermController, :index
   end
 
   # 需要特定时刻开放的 API
@@ -65,6 +66,7 @@ defmodule CSysWeb.Router do
   # 需要权限验证的 API
   scope "/admin/api", CSysWeb do
     pipe_through [:api, :api_auth_admin]
+    post "/upload", FileController, :upload
     # pipe_through :api
     resources "/users", Admin.UserController, only: [:index, :show, :create, :update, :delete]
     resources "/normal/training_programs", Admin.Normal.TrainingProgramController, only: [:index, :show, :create, :update, :delete]
@@ -77,6 +79,7 @@ defmodule CSysWeb.Router do
     get "/courses/open_dates", Admin.Course.OpenDateController, :show
     post "/courses/open_dates", Admin.Course.OpenDateController, :reset
     get "/courses/:course_id/tables", Admin.CourseTableController, :index
+    get "/users/:user_id/tables", Admin.CourseTableController, :user_tables
     post "/courses/:course_id/inject/:user_id", Admin.CourseTableController, :create
     delete "/courses/:course_id/remove/:user_id", Admin.CourseTableController, :delete
     resources "/terms", Admin.Course.TermController, only: [:index, :create, :delete]

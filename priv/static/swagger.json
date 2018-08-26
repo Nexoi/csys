@@ -69,6 +69,22 @@
         "description": "Sign In"
       }
     },
+    "/api/terms": {
+      "get": {
+        "tags": [
+          "Term"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [],
+        "operationId": "CSysWeb.Course.TermController.index",
+        "description": "获取全部学期"
+      }
+    },
     "/api/tables/history/{term_id}": {
       "get": {
         "tags": [
@@ -313,6 +329,46 @@
         "description": "获取全部课程"
       }
     },
+    "/admin/api/users/{user_id}/tables": {
+      "get": {
+        "tags": [
+          "CourseTable"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": false,
+            "name": "page_size",
+            "minimum": 1,
+            "in": "query",
+            "description": "Number of elements per page"
+          },
+          {
+            "type": "integer",
+            "required": false,
+            "name": "page",
+            "minimum": 1,
+            "in": "query",
+            "description": "Number of the page"
+          },
+          {
+            "type": "integer",
+            "required": true,
+            "name": "user_id",
+            "in": "path",
+            "description": "user_id"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.CourseTableController.user_tables",
+        "description": "获取该用户全部课表"
+      }
+    },
     "/admin/api/users/{id}": {
       "put": {
         "tags": [
@@ -471,6 +527,30 @@
         ],
         "operationId": "CSysWeb.Admin.UserController.index",
         "description": "List All"
+      }
+    },
+    "/admin/api/upload": {
+      "post": {
+        "tags": [
+          "File"
+        ],
+        "summary": "",
+        "responses": {
+          "201": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "schema": "file",
+            "required": true,
+            "name": "file",
+            "in": "body",
+            "description": "file"
+          }
+        ],
+        "operationId": "CSysWeb.FileController.upload",
+        "description": "File Uploader"
       }
     },
     "/admin/api/terms/{term_id}": {
@@ -896,7 +976,7 @@
           }
         ],
         "operationId": "CSysWeb.Admin.CourseTableController.index",
-        "description": "获取全部课表"
+        "description": "获取该课程全部学生"
       }
     },
     "/admin/api/courses/{course_id}/remove/{user_id}": {

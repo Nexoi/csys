@@ -9,10 +9,20 @@ defmodule CSysWeb.Admin.CourseTableController do
 
   swagger_path :index do
     get "/admin/api/courses/{course_id}/tables"
-    description "获取全部课表"
+    description "获取该课程全部学生"
     paging
     parameters do
       course_id :path, :integer, "课程ID", required: true
+    end
+    response 200, "success"
+  end
+
+  swagger_path :user_tables do
+    get "/admin/api/users/{user_id}/tables"
+    description "获取该用户全部课表"
+    paging
+    parameters do
+      user_id :path, :integer, "user_id", required: true
     end
     response 200, "success"
   end
@@ -51,6 +61,23 @@ defmodule CSysWeb.Admin.CourseTableController do
       tables = CourseDao.list_course_tables_by_course_id(page, course_id)
       conn
       |> render(TableView, "table_page_with_user.json", table_page: tables)
+    end
+  end
+
+  def user_tables(conn, params) do
+    user_id = params |> Dict.get("user_id", nil)
+    page_number = params |> Dict.get("page", "1") |> String.to_integer
+    page_size = params |> Dict.get("page_size", "10") |> String.to_integer
+
+    page =
+    %{
+      page: page_number,
+      page_size: page_size
+    }
+    if user_id do
+      tables = CourseDao.list_course_tables_by_user_id(page, user_id)
+      conn
+      |> render(TableView, "table_page.json", table_page: tables)
     end
   end
 
