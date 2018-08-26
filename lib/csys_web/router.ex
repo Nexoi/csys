@@ -68,6 +68,7 @@ defmodule CSysWeb.Router do
   scope "/admin/api", CSysWeb do
     pipe_through [:api, :api_auth_admin]
     post "/upload", FileController, :upload
+    get "/exports/terms.csv", ExportController, :export_terms
     # pipe_through :api
     resources "/users", Admin.UserController, only: [:index, :show, :create, :update, :delete]
     resources "/normal/training_programs", Admin.Normal.TrainingProgramController, only: [:index, :show, :create, :update, :delete]

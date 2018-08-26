@@ -816,6 +816,30 @@
         "description": "获取全部课程（历史课表）"
       }
     },
+    "/admin/api/exports/terms.csv": {
+      "get": {
+        "tags": [
+          "Export"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "csv file"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "terms",
+            "in": "query",
+            "description": "term_ids, 逗号隔开"
+          }
+        ],
+        "operationId": "CSysWeb.ExportController.export_terms",
+        "description": "导出课程CSV文件（请直接下载，swagger不可用）"
+      }
+    },
     "/admin/api/normal/training_program/{id}": {
       "get": {
         "tags": [
