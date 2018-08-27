@@ -32,7 +32,7 @@ defmodule CSysWeb.Router do
   scope "/api/users", CSysWeb do
     pipe_through :api
     post "/sign_in", UserController, :sign_in
-    # post "/upload", FileController, :upload
+    post "/upload", FileController, :upload
   end
 
   # 直接放行的 API（普通用户可使用）

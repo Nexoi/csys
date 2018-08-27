@@ -3,6 +3,7 @@ defmodule CSys.Auth.User do
   import Ecto.Changeset
 
   alias CSys.Normal.NotificationRecord
+  alias CSys.Course.Log
 
   schema "users" do
     field :is_active, :boolean, default: false
@@ -16,6 +17,7 @@ defmodule CSys.Auth.User do
     field :password_hash, :string
 
     has_many :notifications, NotificationRecord
+    has_many :logs, Log
 
     timestamps()
   end

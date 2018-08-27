@@ -9,7 +9,7 @@ defmodule CSysWeb.CourseImporter do
   """
   def import(file_name) do
     Excelion.parse!(file_name, 0, 4)
-    |> CourseTranslanter.tanslant()
+    # |> CourseTranslanter.tanslant()
     # |> IO.inspect
     |> Enum.map(fn line ->
       %{
