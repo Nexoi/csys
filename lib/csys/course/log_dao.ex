@@ -15,6 +15,7 @@ defmodule CSys.Course.LogDao do
   def list(page, user_id) do
     Log
     |> where(user_id: ^user_id)
+    |> order_by(desc: :inserted_at)
     |> Repo.paginate(page)
   end
 
@@ -23,6 +24,7 @@ defmodule CSys.Course.LogDao do
     query = from l in Log,
             where: (l.user_id == ^user_id
                     and l.inserted_at > ^time),
+            order_by: [desc: l.inserted_at],
             limit: ^size
     query
     |> Repo.all
