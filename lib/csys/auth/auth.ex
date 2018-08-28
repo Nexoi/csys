@@ -45,6 +45,12 @@ defmodule CSys.Auth do
   """
   def get_user!(id), do: Repo.get!(User, id)
 
+  def find_user_by_sid!(sid) do
+    User
+    |> where(uid: ^sid)
+    |> Repo.all
+    |> List.first
+  end
   @doc """
   Creates a user.
 

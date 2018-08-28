@@ -113,6 +113,13 @@ defmodule CSys.CourseDao do
     Course |> Repo.get(course_id)
   end
 
+  def find_course_by_name!(course_name) do
+    Course
+    |> where([c], like(c.name, ^course_name))
+    |> Repo.all
+    |> List.first
+  end
+
   def find_current_term_id() do
     term = Term |> where(is_default: true) |> order_by(desc: :updated_at) |> Repo.all |> List.first
     if term do
