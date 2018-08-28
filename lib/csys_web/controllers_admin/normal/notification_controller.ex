@@ -28,12 +28,16 @@ defmodule CSysWeb.Admin.Normal.NotoficationController do
   swagger_path :create do
     post "/admin/api/normal/notifications"
     description "创建通知（会自动发布给所有用户）"
-    # paging
+    parameters do
+      title :query, :string, "", required: true
+      category :query, :string, "", required: true
+      content :query, :string, "", required: true
+    end
     response 200, "success"
     response 204, "empty"
   end
 
-  def all(conn, _) do
+  def index(conn, _) do
     notifications = NotificationDao.list_notifications
     conn
     |> render(NotificationView, "notifications.json", notifications: notifications)
@@ -51,11 +55,20 @@ defmodule CSysWeb.Admin.Normal.NotoficationController do
     end
   end
 
-  def create(conn, %{"content" => content}) do
+  def create(conn, %{"title" => title, "category" => category, "content" => content}) do
+    current_user_id = get_session(conn, :current_user_id) # current admin
+    user = CSys.Auth.get_user!(current_user_id)
     %{
-      content: content
+      title: title,
+      category: category,
+      content: content,
+      published_user_uid: user.uid,
+      published_user_role: user.role
     }
     |> NotificationDao.create_notification() # 会自动发布给每个用户
+    conn
+    |> put_status(:created)
+    |> json(%{message: "success"})
   end
 
 end

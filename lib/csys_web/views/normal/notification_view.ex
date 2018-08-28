@@ -10,11 +10,18 @@ defmodule CSysWeb.Normal.NotificationView do
     %{data: render_many(notifications, CSysWeb.Normal.NotificationView, "notification.json")}
   end
 
-  def render("notification_record.json", %{notification_record: notification}) do
+  def render("notification_record.json", %{notification: notification}) do
     notification |> IO.inspect(label: ">> Normal.NotificationView::render#notification.json\n")
     %{
-      content: notification.notification_content,
-      is_read: notification.is_read
+      id: notification.id,
+      notification_id: notification.notification.id,
+      title: notification.notification.title,
+      category: notification.notification.category,
+      content: notification.notification.content,
+      is_read: notification.is_read,
+      user_sid: notification.notification.published_user_uid,
+      user_role: notification.notification.published_user_role,
+      published_at: notification.notification.inserted_at
     }
   end
 
