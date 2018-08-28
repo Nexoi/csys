@@ -75,33 +75,6 @@
         "description": "注入课程"
       }
     },
-    "/api/normal/notifications/{id}": {
-      "get": {
-        "tags": [
-          "Notofication"
-        ],
-        "summary": "",
-        "responses": {
-          "204": {
-            "description": "empty"
-          },
-          "200": {
-            "description": "success"
-          }
-        },
-        "parameters": [
-          {
-            "type": "integer",
-            "required": true,
-            "name": "id",
-            "in": "path",
-            "description": "id integer"
-          }
-        ],
-        "operationId": "CSysWeb.Normal.NotoficationController.show",
-        "description": "获取某条通知（会自动标记为已读状态）"
-      }
-    },
     "/admin/api/terms": {
       "post": {
         "tags": [
@@ -867,6 +840,25 @@
         "description": "根据id获取某一培养方案"
       }
     },
+    "/api/normal/notifications": {
+      "get": {
+        "tags": [
+          "Notofication"
+        ],
+        "summary": "",
+        "responses": {
+          "204": {
+            "description": "empty"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [],
+        "operationId": "CSysWeb.Normal.NotoficationController.all",
+        "description": "获取全部通知"
+      }
+    },
     "/admin/api/normal/training_program/items/{id}": {
       "put": {
         "tags": [
@@ -1063,6 +1055,64 @@
         "description": "获取全部课程"
       }
     },
+    "/admin/api/normal/notifications": {
+      "post": {
+        "tags": [
+          "Notofication"
+        ],
+        "summary": "",
+        "responses": {
+          "204": {
+            "description": "empty"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "title",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "category",
+            "in": "query",
+            "description": ""
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "content",
+            "in": "query",
+            "description": ""
+          }
+        ],
+        "operationId": "CSysWeb.Admin.Normal.NotoficationController.create",
+        "description": "创建通知（会自动发布给所有用户）"
+      },
+      "get": {
+        "tags": [
+          "Notofication"
+        ],
+        "summary": "",
+        "responses": {
+          "204": {
+            "description": "empty"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [],
+        "operationId": "CSysWeb.Admin.Normal.NotoficationController.index",
+        "description": "获取全部通知"
+      }
+    },
     "/admin/api/users": {
       "post": {
         "tags": [
@@ -1175,6 +1225,60 @@
         "description": "获取该课程全部学生"
       }
     },
+    "/admin/api/normal/notifications/{id}": {
+      "get": {
+        "tags": [
+          "Notofication"
+        ],
+        "summary": "",
+        "responses": {
+          "204": {
+            "description": "empty"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "id integer"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.Normal.NotoficationController.show",
+        "description": "获取某条通知"
+      }
+    },
+    "/api/normal/notifications/read/{id}": {
+      "get": {
+        "tags": [
+          "Notofication"
+        ],
+        "summary": "",
+        "responses": {
+          "204": {
+            "description": "empty"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "id integer"
+          }
+        ],
+        "operationId": "CSysWeb.Normal.NotoficationController.show",
+        "description": "获取某条通知（会自动标记为已读状态）"
+      }
+    },
     "/admin/api/courses/{course_id}/remove/{user_id}": {
       "delete": {
         "tags": [
@@ -1228,5 +1332,6 @@
     "title": "Jwxt-En",
     "host": "jwxt.sustc.seeuio.com"
   },
+  "host": "localhost:4002",
   "definitions": {}
 }

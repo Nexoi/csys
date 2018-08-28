@@ -46,6 +46,7 @@ defmodule CSys.Normal.NotificationDao do
   def get_notification_record(user_id, id) do
     case NotificationRecord
         |> where([id: ^id, user_id: ^user_id])
+        |> preload([:notification, :user])
         |> Repo.all
         |> List.first do
       nil -> {:error, "该通知不存在"}
@@ -68,22 +69,27 @@ defmodule CSys.Normal.NotificationDao do
   end
 
   def create_notification(attrs \\ %{}) do
+    attrs |> IO.inspect(label: ">>>> #create_notification")
     {:ok, notification} =
     %Notification{}
     |> Notification.changeset(attrs)
     |> Repo.insert()
     # insert record to every user
+    notification |> IO.inspect(label: ">>>> #notification")
     dispatch_records(notification.id)
   end
 
   def dispatch_records(notification_id) do
     # get user ids
+    now = NaiveDateTime.utc_now
     record_attrs =
     Auth.list_users
     |> Enum.map(fn user ->
       %{
         user_id: user.id,
-        notification_id: notification_id
+        notification_id: notification_id,
+        inserted_at: now,
+        updated_at: now
       }
     end)
     # start insert

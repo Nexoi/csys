@@ -42,7 +42,8 @@ defmodule CSysWeb.Router do
     get "/users/me", UserController, :show
     get "/normal/training_programs", Normal.TrainingProgramController, :index
     get "/normal/xiaoli", Normal.XiaoliController, :index
-    get "/normal/notifications", Normal.NotoficationController, only: [:all, :show]
+    get "/normal/notifications", Normal.NotoficationController, :all
+    get "/normal/notifications/read/:notification_id", Normal.NotoficationController, :show
     get "/normal/notifications/unread", Normal.NotoficationController, :unread
     get "/normal/notifications/isread", Normal.NotoficationController, :isread
     get "/tables/current", CourseController, :current_table
@@ -74,7 +75,7 @@ defmodule CSysWeb.Router do
     resources "/normal/training_programs", Admin.Normal.TrainingProgramController, only: [:index, :show, :create, :update, :delete]
     resources "/normal/training_program/items", Admin.Normal.TrainingProgramItemController, only: [:create, :update, :delete]
     resources "/normal/xiaoli", Admin.Normal.XiaoliController, only: [:index, :create]
-    resources "/normal/notifications", Normal.NotoficationController, only: [:index, :show, :create]
+    resources "/normal/notifications", Admin.Normal.NotoficationController, only: [:index, :show, :create]
     get "/courses", Admin.CourseController, :index
     post "/courses/:course_id/active", Admin.CourseController, :active
     delete "/courses/:course_id/unable", Admin.CourseController, :unable

@@ -32,7 +32,7 @@ defmodule CSysWeb.Normal.NotoficationController do
   end
 
   swagger_path :show do
-    get "/api/normal/notifications/{id}"
+    get "/api/normal/notifications/read/{id}"
     description "获取某条通知（会自动标记为已读状态）"
     parameters do
       id :path, :integer, "id integer", required: true
@@ -61,7 +61,7 @@ defmodule CSysWeb.Normal.NotoficationController do
     |> render(NotificationView, "notification_records.json", notification_records: notifications)
   end
 
-  def show(conn, %{"id" => id}) do
+  def show(conn, %{"notification_id" => id}) do
     current_user_id = get_session(conn, :current_user_id)
     case NotificationDao.get_notification_record(current_user_id, id) do
       {:ok, notification} ->
@@ -70,7 +70,7 @@ defmodule CSysWeb.Normal.NotoficationController do
           NotificationDao.mark_notification_record_read(notification.id)
         end
         conn
-        |> render(NotificationView, "notification_record.json", notification_record: notification)
+        |> render(NotificationView, "notification_record.json", notification: notification)
       {:error, msg} ->
         conn
         |> put_status(:no_content)

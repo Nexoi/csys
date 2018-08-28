@@ -18,7 +18,9 @@ defmodule CSys.Auth do
 
   """
   def list_users do
-    Repo.all(User)
+    User
+    |> where(role: "student")
+    |> Repo.all
   end
 
   def list_users(page) do
