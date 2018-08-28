@@ -108,6 +108,13 @@ defmodule CSys.CourseDao do
     |> Repo.paginate(page)
   end
 
+  def find_course_table_by_all(user_id, term_id, course_id) do
+    Table
+    |> where(user_id: ^user_id, term_id: ^term_id, course_id: ^course_id)
+    |> Repo.all
+    |> List.first
+  end
+
   #### get ####
   def find_course(course_id) do
     Course |> Repo.get(course_id)

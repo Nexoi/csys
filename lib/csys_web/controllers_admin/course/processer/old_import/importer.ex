@@ -7,8 +7,8 @@ defmodule CSys.Course.OldImporter do
   alias CSys.Auth
 
   @doc """
-  CSys.Course.OldImporter.import("/Users/neo/Desktop/course/src.xlsx")
-  CSys.Course.OldImporter.import("/Users/neo/Desktop/src.xlsx")
+  CSys.Course.OldImporter.import("/Users/neo/Desktop/course/old_src.xlsx")
+  CSys.Course.OldImporter.import("/Users/neo/Desktop/old_src.xlsx")
   CSys.Course.OldImporter.import("/root/resources/old_src.xlsx")
   """
   def import(file_name) do
@@ -20,8 +20,8 @@ defmodule CSys.Course.OldImporter do
       course_name = line |> at(2)
       course = find_course_by_name(course_name, course_code)
       #
-      index = course_name |> index(" /")
-      name = course_name |> String.slice(0, index) |> String.trim
+      # index = course_name |> index(" /")
+      # name = course_name |> String.slice(0, index) |> String.trim
       if course do
         # %{
         #   equals: String.equivalent?(course.name, name),
@@ -139,7 +139,16 @@ defmodule CSys.Course.OldImporter do
   end
 
   def create_table(attrs) do
-    attrs |> CourseDao.create_course_table
+    %{
+      user_id: user_id,
+      course_id: course_id,
+      term_id: term_id
+    } = attrs
+    if table = CourseDao.find_course_table_by_all(user_id, term_id, course_id) do
+      {:ok, table}
+    else
+      attrs |> CourseDao.create_course_table
+    end
   end
 
   #### venue ####
