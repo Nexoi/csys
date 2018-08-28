@@ -16,8 +16,8 @@ defmodule CSys.Normal.TrainingProgramItem do
   @doc false
   def changeset(training_program_items, attrs) do
     training_program_items
-    |> cast(attrs, [:title, :res_url])
-    |> validate_required([:title, :res_url])
+    |> cast(attrs, [:training_program_id, :department, :title, :res_url])
+    |> validate_required([:training_program_id, :department, :title, :res_url])
   end
 
 end

@@ -74,7 +74,8 @@ defmodule CSysWeb.Router do
     # pipe_through :api
     resources "/users", Admin.UserController, only: [:index, :show, :create, :update, :delete]
     resources "/normal/training_programs", Admin.Normal.TrainingProgramController, only: [:index, :show, :create, :update, :delete]
-    resources "/normal/training_program/items", Admin.Normal.TrainingProgramItemController, only: [:create, :update, :delete]
+    resources "/normal/training_program/items", Admin.Normal.TrainingProgramItemController, only: [:update, :delete]
+    post "/normal/training_program/:program_id/items", Admin.Normal.TrainingProgramItemController, :create
     resources "/normal/xiaoli", Admin.Normal.XiaoliController, only: [:index, :create]
     resources "/normal/jianjie", Admin.Normal.JianjieController, only: [:index, :create]
     resources "/normal/notifications", Admin.Normal.NotoficationController, only: [:index, :show, :create]

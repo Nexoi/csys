@@ -198,40 +198,6 @@
         "description": "获取全部时间配置"
       }
     },
-    "/admin/api/normal/training_program/items": {
-      "post": {
-        "tags": [
-          "TrainingProgramItem"
-        ],
-        "summary": "",
-        "responses": {
-          "401": {
-            "description": "failure"
-          },
-          "201": {
-            "description": "success"
-          }
-        },
-        "parameters": [
-          {
-            "type": "string",
-            "required": true,
-            "name": "title",
-            "in": "query",
-            "description": "title string"
-          },
-          {
-            "type": "string",
-            "required": true,
-            "name": "res_url",
-            "in": "query",
-            "description": "res_url string"
-          }
-        ],
-        "operationId": "CSysWeb.Admin.Normal.TrainingProgramItemController.create",
-        "description": "添加培养方案子项"
-      }
-    },
     "/admin/api/users/{user_id}/tables": {
       "get": {
         "tags": [
@@ -371,13 +337,6 @@
             "name": "title",
             "in": "query",
             "description": "title string"
-          },
-          {
-            "type": "string",
-            "required": true,
-            "name": "department",
-            "in": "query",
-            "description": "department string"
           }
         ],
         "operationId": "CSysWeb.Admin.Normal.TrainingProgramController.update",
@@ -932,6 +891,13 @@
           {
             "type": "string",
             "required": true,
+            "name": "department",
+            "in": "query",
+            "description": "department string"
+          },
+          {
+            "type": "string",
+            "required": true,
             "name": "title",
             "in": "query",
             "description": "title string"
@@ -1037,13 +1003,6 @@
             "name": "title",
             "in": "query",
             "description": "title string"
-          },
-          {
-            "type": "string",
-            "required": true,
-            "name": "department",
-            "in": "query",
-            "description": "department string"
           }
         ],
         "operationId": "CSysWeb.Admin.Normal.TrainingProgramController.create",
@@ -1297,6 +1256,54 @@
         ],
         "operationId": "CSysWeb.Admin.CourseTableController.index",
         "description": "获取该课程全部学生"
+      }
+    },
+    "/admin/api/normal/training_program/{program_id}/items": {
+      "post": {
+        "tags": [
+          "TrainingProgramItem"
+        ],
+        "summary": "",
+        "responses": {
+          "401": {
+            "description": "failure"
+          },
+          "201": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "program_id",
+            "in": "path",
+            "description": "father id"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "department",
+            "in": "query",
+            "description": "department string"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "title",
+            "in": "query",
+            "description": "title string"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "res_url",
+            "in": "query",
+            "description": "res_url string"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.Normal.TrainingProgramItemController.create",
+        "description": "添加培养方案子项"
       }
     },
     "/admin/api/normal/notifications/{id}": {
