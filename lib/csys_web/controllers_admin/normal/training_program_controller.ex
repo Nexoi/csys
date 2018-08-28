@@ -31,6 +31,7 @@ defmodule CSysWeb.Admin.Normal.TrainingProgramController do
     description "添加培养方案组合名"
     parameters do
       title :query, :string, "title string", required: true
+      department :query, :string, "department string", required: true
     end
     response 201, "success"
     response 401, "failure"
@@ -42,6 +43,7 @@ defmodule CSysWeb.Admin.Normal.TrainingProgramController do
     parameters do
       id :path, :integer, "id integer", required: true
       title :query, :string, "title string", required: true
+      department :query, :string, "department string", required: true
     end
     response 200, "success"
     response 401, "failure"

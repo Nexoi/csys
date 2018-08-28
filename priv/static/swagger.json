@@ -371,6 +371,13 @@
             "name": "title",
             "in": "query",
             "description": "title string"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "department",
+            "in": "query",
+            "description": "department string"
           }
         ],
         "operationId": "CSysWeb.Admin.Normal.TrainingProgramController.update",
@@ -533,6 +540,47 @@
         "parameters": [],
         "operationId": "CSysWeb.Course.TermController.index",
         "description": "获取全部学期"
+      }
+    },
+    "/admin/api/normal/jianjie": {
+      "post": {
+        "tags": [
+          "Jianjie"
+        ],
+        "summary": "",
+        "responses": {
+          "201": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "url",
+            "in": "query",
+            "description": "full url string"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.Normal.JianjieController.create",
+        "description": "添加简介文件url"
+      },
+      "get": {
+        "tags": [
+          "Jianjie"
+        ],
+        "summary": "",
+        "responses": {
+          "204": {
+            "description": "empty"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [],
+        "operationId": "CSysWeb.Admin.Normal.JianjieController.index",
+        "description": "获取简介文件的url链接"
       }
     },
     "/admin/api/upload": {
@@ -989,6 +1037,13 @@
             "name": "title",
             "in": "query",
             "description": "title string"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "department",
+            "in": "query",
+            "description": "department string"
           }
         ],
         "operationId": "CSysWeb.Admin.Normal.TrainingProgramController.create",
@@ -1010,6 +1065,25 @@
         "parameters": [],
         "operationId": "CSysWeb.Admin.Normal.TrainingProgramController.index",
         "description": "列出所有的培养方案（父子目录）"
+      }
+    },
+    "/api/normal/jianjie": {
+      "get": {
+        "tags": [
+          "Jianjie"
+        ],
+        "summary": "",
+        "responses": {
+          "204": {
+            "description": "empty"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [],
+        "operationId": "CSysWeb.Normal.JianjieController.index",
+        "description": "获取简介文件的url链接"
       }
     },
     "/admin/api/courses": {
