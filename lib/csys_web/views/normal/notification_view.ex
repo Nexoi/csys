@@ -11,7 +11,7 @@ defmodule CSysWeb.Normal.NotificationView do
   end
 
   def render("notification_record.json", %{notification: notification}) do
-    notification |> IO.inspect(label: ">> Normal.NotificationView::render#notification.json\n")
+    # notification |> IO.inspect(label: ">> Normal.NotificationView::render#notification.json\n")
     %{
       id: notification.id,
       notification_id: notification.notification.id,
@@ -26,7 +26,7 @@ defmodule CSysWeb.Normal.NotificationView do
   end
 
   def render("notification.json", %{notification: notification}) do
-    notification |> IO.inspect(label: ">> Normal.NotificationView::render#notification.json\n")
+    # notification |> IO.inspect(label: ">> Normal.NotificationView::render#notification.json\n")
     %{
       content: notification.content
     }

@@ -8,13 +8,13 @@ defmodule CSysWeb.Normal.TrainingProgramView do
   # end
 
   def render("programs.json", %{programs: programs}) do
-    programs |> IO.inspect(label: ">> Normal.TrainingProgramView::render#programs.json\n")
+    # programs |> IO.inspect(label: ">> Normal.TrainingProgramView::render#programs.json\n")
     %{data: render_many(programs, CSysWeb.Normal.TrainingProgramView, "program.json")}
     # %{data: programs}
   end
 
   def render("program.json", %{training_program: program}) do
-    program |> IO.inspect(label: ">> Normal.TrainingProgramView::render#program.json\n")
+    # program |> IO.inspect(label: ">> Normal.TrainingProgramView::render#program.json\n")
     %{
       id: program.id,
       title: program.title,
@@ -25,9 +25,10 @@ defmodule CSysWeb.Normal.TrainingProgramView do
   end
 
   def render("item.json", %{training_program: item}) do
-    item |> IO.inspect(label: ">> Normal.TrainingProgramView::render#item.json\n")
+    # item |> IO.inspect(label: ">> Normal.TrainingProgramView::render#item.json\n")
     %{
       id: item.id,
+      department: item.department,
       title: item.title,
       res_url: item.res_url,
       updated_at: item.updated_at,
