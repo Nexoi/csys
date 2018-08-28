@@ -9,9 +9,11 @@ defmodule CSysWeb.Admin.Normal.TrainingProgramItemController do
 
   #### program_item ####
   swagger_path :create do
-    post "/admin/api/normal/training_program/items"
+    post "/admin/api/normal/training_program/{program_id}/items"
     description "添加培养方案子项"
     parameters do
+      program_id :path, :integer, "father id", required: true
+      department :query, :string, "department string", required: true
       title :query, :string, "title string", required: true
       res_url :query, :string, "res_url string", required: true
     end
@@ -24,6 +26,7 @@ defmodule CSysWeb.Admin.Normal.TrainingProgramItemController do
     description "修改培养方案子项组合名"
     parameters do
       id :path, :integer, "id integer", required: true
+      department :query, :string, "department string", required: true
       title :query, :string, "title string", required: true
       res_url :query, :string, "res_url string", required: true
     end
@@ -44,19 +47,20 @@ defmodule CSysWeb.Admin.Normal.TrainingProgramItemController do
   @doc """
   program_item
   """
-  def create(conn, %{"title" => title, "res_url" => url}) do
+  def create(conn, %{"program_id" => program_id, "department" => department, "title" => title, "res_url" => url}) do
     {:ok, program_item} =
-    %{title: title, res_url: url}
+    %{training_program_id: program_id, department: department, title: title, res_url: url}
     |> TrainingProgramDao.create_program_item
-    |> IO.inspect
+    # |> IO.inspect
     conn
     |> render(CSysWeb.RView, "201.json", data: %{title: program_item.title, res_url: program_item.res_url})
   end
 
-  def update(conn, %{"id" => id, "title" => title, "res_url" => url}) do
+  def update(conn, %{"id" => id, "department" => department, "title" => title, "res_url" => url}) do
     with {:ok, record} <- TrainingProgramDao.get_program_item(id) do
       attr = %{
         id: id,
+        department: department,
         title: title,
         res_url: url
       }
