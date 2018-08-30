@@ -98,10 +98,11 @@ defmodule CSys.Normal.NotificationDao do
   end
 
   def delete_notifications(notification_id) do
+    # 先删除关联的 record
+    delete_records(notification_id)
     Notification
     |> where(id: ^notification_id)
     |> Repo.delete_all
-    # 应该会自动删除关联的 record
   end
 
   defp delete_records(notification_id) do
