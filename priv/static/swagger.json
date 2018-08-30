@@ -20,6 +20,60 @@
         "description": "获取全部未读通知"
       }
     },
+    "/admin/api/normal/curriculums/major/{id}": {
+      "delete": {
+        "tags": [
+          "Curriculum"
+        ],
+        "summary": "",
+        "responses": {
+          "401": {
+            "description": "failure"
+          },
+          "203": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "id integer"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.Normal.CurriculumController.delete_major",
+        "description": "删除"
+      }
+    },
+    "/admin/api/normal/curriculums/department/{id}": {
+      "delete": {
+        "tags": [
+          "Curriculum"
+        ],
+        "summary": "",
+        "responses": {
+          "401": {
+            "description": "failure"
+          },
+          "203": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "id integer"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.Normal.CurriculumController.delete_department",
+        "description": "删除"
+      }
+    },
     "/admin/api/courses/{course_id}/active": {
       "post": {
         "tags": [
@@ -309,65 +363,6 @@
         "description": "获取全部已选课程（当前课表）"
       }
     },
-    "/admin/api/normal/training_programs/{id}": {
-      "put": {
-        "tags": [
-          "TrainingProgram"
-        ],
-        "summary": "",
-        "responses": {
-          "401": {
-            "description": "failure"
-          },
-          "200": {
-            "description": "success"
-          }
-        },
-        "parameters": [
-          {
-            "type": "integer",
-            "required": true,
-            "name": "id",
-            "in": "path",
-            "description": "id integer"
-          },
-          {
-            "type": "string",
-            "required": true,
-            "name": "title",
-            "in": "query",
-            "description": "title string"
-          }
-        ],
-        "operationId": "CSysWeb.Admin.Normal.TrainingProgramController.update",
-        "description": "修改培养方案组合名"
-      },
-      "delete": {
-        "tags": [
-          "TrainingProgram"
-        ],
-        "summary": "",
-        "responses": {
-          "401": {
-            "description": "failure"
-          },
-          "203": {
-            "description": "success"
-          }
-        },
-        "parameters": [
-          {
-            "type": "integer",
-            "required": true,
-            "name": "id",
-            "in": "path",
-            "description": "id integer"
-          }
-        ],
-        "operationId": "CSysWeb.Admin.Normal.TrainingProgramController.delete",
-        "description": "修改培养方案组合名"
-      }
-    },
     "/api/normal/xiaoli": {
       "get": {
         "tags": [
@@ -431,6 +426,33 @@
         ],
         "operationId": "CSysWeb.Admin.Course.TermController.delete",
         "description": ""
+      }
+    },
+    "/admin/api/normal/curriculums/{id}": {
+      "delete": {
+        "tags": [
+          "Curriculum"
+        ],
+        "summary": "",
+        "responses": {
+          "401": {
+            "description": "failure"
+          },
+          "203": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "id integer"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.Normal.CurriculumController.delete",
+        "description": "删除"
       }
     },
     "/api/courses/{course_id}": {
@@ -728,6 +750,33 @@
         "description": "获取全部课程"
       }
     },
+    "/admin/api/normal/curriculums/class/{id}": {
+      "delete": {
+        "tags": [
+          "Curriculum"
+        ],
+        "summary": "",
+        "responses": {
+          "401": {
+            "description": "failure"
+          },
+          "203": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "id integer"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.Normal.CurriculumController.delete_class",
+        "description": "删除"
+      }
+    },
     "/admin/api/normal/xiaoli": {
       "post": {
         "tags": [
@@ -767,6 +816,33 @@
         "parameters": [],
         "operationId": "CSysWeb.Admin.Normal.XiaoliController.index",
         "description": "获取校历文件的url链接"
+      }
+    },
+    "/admin/api/normal/curriculums/department": {
+      "post": {
+        "tags": [
+          "Curriculum"
+        ],
+        "summary": "",
+        "responses": {
+          "401": {
+            "description": "failure"
+          },
+          "201": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "name",
+            "in": "query",
+            "description": "string"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.Normal.CurriculumController.create_department",
+        "description": ""
       }
     },
     "/api/tables/history/{term_id}": {
@@ -820,31 +896,58 @@
         "description": "导出课程CSV文件（请直接下载，swagger不可用）"
       }
     },
-    "/admin/api/normal/training_program/{id}": {
-      "get": {
+    "/admin/api/normal/curriculums/class": {
+      "post": {
         "tags": [
-          "TrainingProgram"
+          "Curriculum"
         ],
         "summary": "",
         "responses": {
           "401": {
             "description": "failure"
           },
-          "200": {
+          "201": {
             "description": "success"
           }
         },
         "parameters": [
           {
-            "type": "integer",
+            "type": "string",
             "required": true,
-            "name": "id",
-            "in": "path",
-            "description": "id integer"
+            "name": "name",
+            "in": "query",
+            "description": "string"
           }
         ],
-        "operationId": "CSysWeb.Admin.Normal.TrainingProgramController.show",
-        "description": "根据id获取某一培养方案"
+        "operationId": "CSysWeb.Admin.Normal.CurriculumController.create_class",
+        "description": ""
+      }
+    },
+    "/admin/api/normal/curriculums/major": {
+      "post": {
+        "tags": [
+          "Curriculum"
+        ],
+        "summary": "",
+        "responses": {
+          "401": {
+            "description": "failure"
+          },
+          "201": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "name",
+            "in": "query",
+            "description": "string"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.Normal.CurriculumController.create_major",
+        "description": ""
       }
     },
     "/api/normal/notifications": {
@@ -864,79 +967,6 @@
         "parameters": [],
         "operationId": "CSysWeb.Normal.NotoficationController.all",
         "description": "获取全部通知"
-      }
-    },
-    "/admin/api/normal/training_program/items/{id}": {
-      "put": {
-        "tags": [
-          "TrainingProgramItem"
-        ],
-        "summary": "",
-        "responses": {
-          "401": {
-            "description": "failure"
-          },
-          "200": {
-            "description": "success"
-          }
-        },
-        "parameters": [
-          {
-            "type": "integer",
-            "required": true,
-            "name": "id",
-            "in": "path",
-            "description": "id integer"
-          },
-          {
-            "type": "string",
-            "required": true,
-            "name": "department",
-            "in": "query",
-            "description": "department string"
-          },
-          {
-            "type": "string",
-            "required": true,
-            "name": "title",
-            "in": "query",
-            "description": "title string"
-          },
-          {
-            "type": "string",
-            "required": true,
-            "name": "res_url",
-            "in": "query",
-            "description": "res_url string"
-          }
-        ],
-        "operationId": "CSysWeb.Admin.Normal.TrainingProgramItemController.update",
-        "description": "修改培养方案子项组合名"
-      },
-      "delete": {
-        "tags": [
-          "TrainingProgramItem"
-        ],
-        "summary": "",
-        "responses": {
-          "401": {
-            "description": "failure"
-          },
-          "203": {
-            "description": "success"
-          }
-        },
-        "parameters": [
-          {
-            "type": "integer",
-            "required": true,
-            "name": "id",
-            "in": "path",
-            "description": "id integer"
-          }
-        ],
-        "operationId": "CSysWeb.Admin.Normal.TrainingProgramItemController.delete",
-        "description": "修改培养方案子项组合名"
       }
     },
     "/admin/api/courses/{course_id}/unable": {
@@ -961,69 +991,6 @@
         ],
         "operationId": "CSysWeb.Admin.CourseController.unable",
         "description": "激活课程"
-      }
-    },
-    "/api/normal/training_programs": {
-      "get": {
-        "tags": [
-          "TrainingProgram"
-        ],
-        "summary": "",
-        "responses": {
-          "401": {
-            "description": "failure"
-          },
-          "200": {
-            "description": "success"
-          }
-        },
-        "parameters": [],
-        "operationId": "CSysWeb.Normal.TrainingProgramController.index",
-        "description": "列出所有的培养方案（父子目录）"
-      }
-    },
-    "/admin/api/normal/training_programs": {
-      "post": {
-        "tags": [
-          "TrainingProgram"
-        ],
-        "summary": "",
-        "responses": {
-          "401": {
-            "description": "failure"
-          },
-          "201": {
-            "description": "success"
-          }
-        },
-        "parameters": [
-          {
-            "type": "string",
-            "required": true,
-            "name": "title",
-            "in": "query",
-            "description": "title string"
-          }
-        ],
-        "operationId": "CSysWeb.Admin.Normal.TrainingProgramController.create",
-        "description": "添加培养方案组合名"
-      },
-      "get": {
-        "tags": [
-          "TrainingProgram"
-        ],
-        "summary": "",
-        "responses": {
-          "401": {
-            "description": "failure"
-          },
-          "200": {
-            "description": "success"
-          }
-        },
-        "parameters": [],
-        "operationId": "CSysWeb.Admin.Normal.TrainingProgramController.index",
-        "description": "列出所有的培养方案（父子目录）"
       }
     },
     "/api/normal/jianjie": {
@@ -1331,6 +1298,31 @@
         ],
         "operationId": "CSysWeb.Admin.Normal.NotoficationController.show",
         "description": "获取某条通知"
+      },
+      "delete": {
+        "tags": [
+          "Notofication"
+        ],
+        "summary": "",
+        "responses": {
+          "401": {
+            "description": "failure"
+          },
+          "203": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "id integer"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.Normal.NotoficationController.delete",
+        "description": "删除"
       }
     },
     "/api/normal/notifications/read/{id}": {
@@ -1391,6 +1383,78 @@
         "description": "移除课程"
       }
     },
+    "/admin/api/normal/curriculums": {
+      "post": {
+        "tags": [
+          "Curriculum"
+        ],
+        "summary": "",
+        "responses": {
+          "401": {
+            "description": "failure"
+          },
+          "201": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "class_id",
+            "in": "query",
+            "description": "integer"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "major_id",
+            "in": "query",
+            "description": "integer"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "department_id",
+            "in": "query",
+            "description": "integer"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "title",
+            "in": "query",
+            "description": "string"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "res_url",
+            "in": "query",
+            "description": "string"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.Normal.CurriculumController.create",
+        "description": "添加培养方案"
+      },
+      "get": {
+        "tags": [
+          "Curriculum"
+        ],
+        "summary": "",
+        "responses": {
+          "401": {
+            "description": "failure"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [],
+        "operationId": "CSysWeb.Admin.Normal.CurriculumController.index",
+        "description": "列出所有的培养方案"
+      }
+    },
     "/api/users/me": {
       "get": {
         "tags": [
@@ -1406,6 +1470,25 @@
         "operationId": "CSysWeb.UserController.show",
         "description": "Sign In"
       }
+    },
+    "/api/normal/curriculums": {
+      "get": {
+        "tags": [
+          "Curriculum"
+        ],
+        "summary": "",
+        "responses": {
+          "401": {
+            "description": "failure"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [],
+        "operationId": "CSysWeb.Normal.CurriculumController.index",
+        "description": "列出所有的培养方案"
+      }
     }
   },
   "info": {
@@ -1413,5 +1496,6 @@
     "title": "Jwxt-En",
     "host": "jwxt.sustc.seeuio.com"
   },
+  "host": "localhost:4002",
   "definitions": {}
 }

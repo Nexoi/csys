@@ -37,6 +37,16 @@ defmodule CSysWeb.Admin.Normal.NotoficationController do
     response 204, "empty"
   end
 
+  swagger_path :delete do
+    PhoenixSwagger.Path.delete "/admin/api/normal/notifications/{id}"
+    description "删除"
+    parameters do
+      id :path, :integer, "id integer", required: true
+    end
+    response 203, "success"
+    response 401, "failure"
+  end
+
   def index(conn, _) do
     notifications = NotificationDao.list_notifications
     conn
@@ -71,4 +81,10 @@ defmodule CSysWeb.Admin.Normal.NotoficationController do
     |> json(%{message: "success"})
   end
 
+  def delete(conn, %{"id" => id}) do
+    NotificationDao.delete_notifications(id)
+    conn
+    |> put_status(:no_content)
+    |> json(%{message: "Delete Successfully!"})
+  end
 end

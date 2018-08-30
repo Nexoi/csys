@@ -40,7 +40,8 @@ defmodule CSysWeb.Router do
     pipe_through [:api, :api_auth]
     post "/users/sign_out", UserController, :sign_out
     get "/users/me", UserController, :show
-    get "/normal/training_programs", Normal.TrainingProgramController, :index
+    # get "/normal/training_programs", Normal.TrainingProgramController, :index
+    get "/normal/curriculums", Normal.CurriculumController, :index
     get "/normal/xiaoli", Normal.XiaoliController, :index
     get "/normal/jianjie", Normal.JianjieController, :index
     get "/normal/notifications", Normal.NotoficationController, :all
@@ -73,12 +74,20 @@ defmodule CSysWeb.Router do
     get "/exports/terms.csv", ExportController, :export_terms
     # pipe_through :api
     resources "/users", Admin.UserController, only: [:index, :show, :create, :update, :delete]
-    resources "/normal/training_programs", Admin.Normal.TrainingProgramController, only: [:index, :show, :create, :update, :delete]
-    resources "/normal/training_program/items", Admin.Normal.TrainingProgramItemController, only: [:update, :delete]
+    # resources "/normal/training_programs", Admin.Normal.TrainingProgramController, only: [:index, :show, :create, :update, :delete]
+    # resources "/normal/training_program/items", Admin.Normal.TrainingProgramItemController, only: [:update, :delete]
+    resources "/normal/curriculums", Admin.Normal.CurriculumController, only: [:index, :create, :delete]
+    post "/normal/curriculums/class", Admin.Normal.CurriculumController, :create_class
+    post "/normal/curriculums/major", Admin.Normal.CurriculumController, :create_major
+    post "/normal/curriculums/department", Admin.Normal.CurriculumController, :create_department
+    delete "/normal/curriculums/class/:id", Admin.Normal.CurriculumController, :delete_class
+    delete "/normal/curriculums/major/:id", Admin.Normal.CurriculumController, :delete_major
+    delete "/normal/curriculums/department/:id", Admin.Normal.CurriculumController, :delete_department
+
     post "/normal/training_program/:program_id/items", Admin.Normal.TrainingProgramItemController, :create
     resources "/normal/xiaoli", Admin.Normal.XiaoliController, only: [:index, :create]
     resources "/normal/jianjie", Admin.Normal.JianjieController, only: [:index, :create]
-    resources "/normal/notifications", Admin.Normal.NotoficationController, only: [:index, :show, :create]
+    resources "/normal/notifications", Admin.Normal.NotoficationController, only: [:index, :show, :create, :delete]
     get "/courses", Admin.CourseController, :index
     post "/courses/:course_id/active", Admin.CourseController, :active
     delete "/courses/:course_id/unable", Admin.CourseController, :unable
