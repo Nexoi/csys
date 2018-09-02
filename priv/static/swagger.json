@@ -1,6 +1,46 @@
 {
   "swagger": "2.0",
   "paths": {
+    "/admin/api/users/{user_id}/courses/logs": {
+      "get": {
+        "tags": [
+          "Log"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": false,
+            "name": "page_size",
+            "minimum": 1,
+            "in": "query",
+            "description": "Number of elements per page"
+          },
+          {
+            "type": "integer",
+            "required": false,
+            "name": "page",
+            "minimum": 1,
+            "in": "query",
+            "description": "Number of the page"
+          },
+          {
+            "type": "integer",
+            "required": true,
+            "name": "user_id",
+            "in": "path",
+            "description": "用户id"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.Course.LogController.index",
+        "description": "获取全部课程日志"
+      }
+    },
     "/api/normal/notifications/unread": {
       "get": {
         "tags": [
@@ -950,6 +990,39 @@
         "description": ""
       }
     },
+    "/api/courses/logs": {
+      "get": {
+        "tags": [
+          "Log"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": false,
+            "name": "page_size",
+            "minimum": 1,
+            "in": "query",
+            "description": "Number of elements per page"
+          },
+          {
+            "type": "integer",
+            "required": false,
+            "name": "page",
+            "minimum": 1,
+            "in": "query",
+            "description": "Number of the page"
+          }
+        ],
+        "operationId": "CSysWeb.Course.LogController.index",
+        "description": "获取全部课程日志"
+      }
+    },
     "/api/normal/notifications": {
       "get": {
         "tags": [
@@ -991,6 +1064,37 @@
         ],
         "operationId": "CSysWeb.Admin.CourseController.unable",
         "description": "激活课程"
+      }
+    },
+    "/admin/api/users/{user_id}/courses/logs/{log_id}": {
+      "delete": {
+        "tags": [
+          "Log"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "user_id",
+            "in": "path",
+            "description": "用户id"
+          },
+          {
+            "type": "integer",
+            "required": true,
+            "name": "log_id",
+            "in": "path",
+            "description": "log id"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.Course.LogController.delete",
+        "description": "删除课程日志"
       }
     },
     "/api/normal/jianjie": {
@@ -1496,6 +1600,5 @@
     "title": "Jwxt-En",
     "host": "jwxt.sustc.seeuio.com"
   },
-  "host": "localhost:4002",
   "definitions": {}
 }

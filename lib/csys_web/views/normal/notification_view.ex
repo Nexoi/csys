@@ -28,6 +28,7 @@ defmodule CSysWeb.Normal.NotificationView do
   def render("notification.json", %{notification: notification}) do
     # notification |> IO.inspect(label: ">> Normal.NotificationView::render#notification.json\n")
     %{
+      id: notification.id,
       title: notification.title,
       category: notification.category,
       content: notification.content

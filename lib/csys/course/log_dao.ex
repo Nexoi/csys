@@ -50,4 +50,10 @@ defmodule CSys.Course.LogDao do
     |> Log.changeset(attrs)
     |> Repo.insert
   end
+
+  def delete(id) do
+    Log
+    |> where(id: ^id)
+    |> Repo.delete_all
+  end
 end
