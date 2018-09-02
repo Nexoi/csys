@@ -77,6 +77,10 @@ defmodule CSys.CourseDao do
     query
     |> Repo.paginate(page)
   end
+  def list_courses_all() do
+    Course
+    |> Repo.all
+  end
 
   @doc """
   查看学生课表
