@@ -63,6 +63,9 @@ defmodule CSysWeb.CourseController do
     page_number = params |> Dict.get("page", "1") |> String.to_integer
     page_size = params |> Dict.get("page_size", "10") |> String.to_integer
 
+    current_term_id = CourseDao.find_current_term_id()
+    current_user_id = get_session(conn, :current_user_id)
+
     page =
     %{
       page: page_number,
@@ -70,11 +73,25 @@ defmodule CSysWeb.CourseController do
     }
     courses = if word do
       CourseDao.list_courses(page, word)
+      |> conflict_append(current_term_id, current_user_id)
     else
       CourseDao.list_courses(page)
+      |> conflict_append(current_term_id, current_user_id)
     end
+
     conn
-    |> render(CourseView, "courses_page.json", courses_page: courses)
+    |> render(CourseView, "courses_page_with_conflict.json", courses_page: courses)
+  end
+
+  defp conflict_append(course_page, term_id, user_id) do
+    course_page |> IO.inspect(label: ">> courses page")
+    %{
+      page_number: course_page.page_number,
+      page_size: course_page.page_size,
+      total_entries: course_page.total_entries,
+      total_pages: course_page.total_pages,
+      entries: ConflictProcesser.enhance_conflict_courses(course_page.entries, term_id, user_id)
+    }
   end
 
   def chose(conn, %{"course_id" => course_id}) do

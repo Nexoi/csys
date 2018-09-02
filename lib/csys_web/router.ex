@@ -51,6 +51,7 @@ defmodule CSysWeb.Router do
     get "/tables/current", CourseController, :current_table
     get "/tables/history/:term_id", CourseController, :table
     get "/terms", Course.TermController, :index
+    get "/courses/logs", Course.LogController, :index
   end
 
   # 需要特定时刻开放的 API
@@ -100,6 +101,10 @@ defmodule CSysWeb.Router do
     delete "/courses/:course_id/remove/:user_id", Admin.CourseTableController, :delete
     resources "/terms", Admin.Course.TermController, only: [:index, :create, :delete]
     put "/terms/:term_id", Admin.Course.TermController, :default
+
+    get "/users/:user_id/courses/logs", Admin.Course.LogController, :index
+    delete "/users/:user_id/courses/logs/:log_id", Admin.Course.LogController, :delete
+
   end
 
   # 权限验证，普通用户
