@@ -41,6 +41,25 @@
         "description": "获取全部课程日志"
       }
     },
+    "/admin/api/normal/curriculums/departments": {
+      "get": {
+        "tags": [
+          "Curriculum"
+        ],
+        "summary": "",
+        "responses": {
+          "401": {
+            "description": "failure"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [],
+        "operationId": "CSysWeb.Admin.Normal.CurriculumController.index_department",
+        "description": "列出所有的培养方案Department"
+      }
+    },
     "/api/normal/notifications/unread": {
       "get": {
         "tags": [
@@ -936,6 +955,25 @@
         "description": "导出课程CSV文件（请直接下载，swagger不可用）"
       }
     },
+    "/admin/api/normal/curriculums/majors": {
+      "get": {
+        "tags": [
+          "Curriculum"
+        ],
+        "summary": "",
+        "responses": {
+          "401": {
+            "description": "failure"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [],
+        "operationId": "CSysWeb.Admin.Normal.CurriculumController.index_major",
+        "description": "列出所有的培养方案Major"
+      }
+    },
     "/admin/api/normal/curriculums/class": {
       "post": {
         "tags": [
@@ -1040,6 +1078,25 @@
         "parameters": [],
         "operationId": "CSysWeb.Normal.NotoficationController.all",
         "description": "获取全部通知"
+      }
+    },
+    "/admin/api/normal/curriculums/classes": {
+      "get": {
+        "tags": [
+          "Curriculum"
+        ],
+        "summary": "",
+        "responses": {
+          "401": {
+            "description": "failure"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [],
+        "operationId": "CSysWeb.Admin.Normal.CurriculumController.index_class",
+        "description": "列出所有的培养方案Class"
       }
     },
     "/admin/api/courses/{course_id}/unable": {

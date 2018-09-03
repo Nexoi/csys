@@ -15,6 +15,24 @@ defmodule CSysWeb.Admin.Normal.CurriculumController do
     response 200, "success"
     response 401, "failure"
   end
+  swagger_path :index_class do
+    get "/admin/api/normal/curriculums/classes"
+    description "列出所有的培养方案Class"
+    response 200, "success"
+    response 401, "failure"
+  end
+  swagger_path :index_major do
+    get "/admin/api/normal/curriculums/majors"
+    description "列出所有的培养方案Major"
+    response 200, "success"
+    response 401, "failure"
+  end
+  swagger_path :index_department do
+    get "/admin/api/normal/curriculums/departments"
+    description "列出所有的培养方案Department"
+    response 200, "success"
+    response 401, "failure"
+  end
 
   swagger_path :create do
     post "/admin/api/normal/curriculums"
@@ -117,6 +135,24 @@ defmodule CSysWeb.Admin.Normal.CurriculumController do
   def delete(conn, %{"id" => id}) do
     CurriculumDao.delete(id)
     conn |> delete_success
+  end
+
+  def index_class(conn, _) do
+    curriculums = CurriculumDao.list_classes
+    conn
+    |> render(CurriculumView, "curriculum_classes.json", %{curriculum_classes: curriculums})
+  end
+
+  def index_major(conn, _) do
+    curriculums = CurriculumDao.list_majors
+    conn
+    |> render(CurriculumView, "curriculum_majors.json", %{curriculum_majors: curriculums})
+  end
+
+  def index_department(conn, _) do
+    curriculums = CurriculumDao.list_departments
+    conn
+    |> render(CurriculumView, "curriculum_departments.json", %{curriculum_departments: curriculums})
   end
 
   def create_class(conn, %{"name" => name}) do

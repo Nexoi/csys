@@ -78,6 +78,9 @@ defmodule CSysWeb.Router do
     # resources "/normal/training_programs", Admin.Normal.TrainingProgramController, only: [:index, :show, :create, :update, :delete]
     # resources "/normal/training_program/items", Admin.Normal.TrainingProgramItemController, only: [:update, :delete]
     resources "/normal/curriculums", Admin.Normal.CurriculumController, only: [:index, :create, :delete]
+    get "/normal/curriculums/classes", Admin.Normal.CurriculumController, :index_class
+    get "/normal/curriculums/majors", Admin.Normal.CurriculumController, :index_major
+    get "/normal/curriculums/departments", Admin.Normal.CurriculumController, :index_department
     post "/normal/curriculums/class", Admin.Normal.CurriculumController, :create_class
     post "/normal/curriculums/major", Admin.Normal.CurriculumController, :create_major
     post "/normal/curriculums/department", Admin.Normal.CurriculumController, :create_department

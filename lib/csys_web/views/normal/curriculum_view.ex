@@ -21,4 +21,18 @@ defmodule CSysWeb.Normal.CurriculumView do
     }
   end
 
+  ## name: xxx, only father item for curriculums
+  def render("curriculum_classes.json", %{curriculum_classes: curriculums}) do
+    %{data: render_many(curriculums, CSysWeb.Normal.CurriculumView, "curriculum_class.json")}
+  end
+  def render("curriculum_majors.json", %{curriculum_majors: curriculums}) do
+    %{data: render_many(curriculums, CSysWeb.Normal.CurriculumView, "curriculum_major.json")}
+  end
+  def render("curriculum_departments.json", %{curriculum_departments: curriculums}) do
+    %{data: render_many(curriculums, CSysWeb.Normal.CurriculumView, "curriculum_department.json")}
+  end
+  def render("curriculum_class.json", %{curriculum: class}), do: %{id: class.id, name: class.name}
+  def render("curriculum_major.json", %{curriculum: major}), do: %{id: major.id, name: major.name}
+  def render("curriculum_department.json", %{curriculum: department}), do: %{id: department.id, name: department.name}
+
 end
