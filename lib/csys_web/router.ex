@@ -78,6 +78,9 @@ defmodule CSysWeb.Router do
     # resources "/normal/training_programs", Admin.Normal.TrainingProgramController, only: [:index, :show, :create, :update, :delete]
     # resources "/normal/training_program/items", Admin.Normal.TrainingProgramItemController, only: [:update, :delete]
     resources "/normal/curriculums", Admin.Normal.CurriculumController, only: [:index, :create, :delete]
+    get "/normal/curriculums/classes", Admin.Normal.CurriculumController, :index_class
+    get "/normal/curriculums/majors", Admin.Normal.CurriculumController, :index_major
+    get "/normal/curriculums/departments", Admin.Normal.CurriculumController, :index_department
     post "/normal/curriculums/class", Admin.Normal.CurriculumController, :create_class
     post "/normal/curriculums/major", Admin.Normal.CurriculumController, :create_major
     post "/normal/curriculums/department", Admin.Normal.CurriculumController, :create_department
@@ -89,7 +92,13 @@ defmodule CSysWeb.Router do
     resources "/normal/xiaoli", Admin.Normal.XiaoliController, only: [:index, :create]
     resources "/normal/jianjie", Admin.Normal.JianjieController, only: [:index, :create]
     resources "/normal/notifications", Admin.Normal.NotoficationController, only: [:index, :show, :create, :delete]
+    # resources "/courses", Admin.CourseController, only: [:index, :create, :update, :delete, :show]
     get "/courses", Admin.CourseController, :index
+    get "/courses/:id", Admin.CourseController, :show
+    post "/courses", Admin.CourseController, :create
+    put "/courses/:id", Admin.CourseController, :update
+    delete "/courses/:id", Admin.CourseController, :delete
+
     post "/courses/:course_id/active", Admin.CourseController, :active
     delete "/courses/:course_id/unable", Admin.CourseController, :unable
     get "/courses/open_dates", Admin.Course.OpenDateController, :show

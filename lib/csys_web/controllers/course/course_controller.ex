@@ -101,7 +101,7 @@ defmodule CSysWeb.CourseController do
     if current_term_id do
       case ConflictProcesser.judge_dup(current_user_id, current_term_id, course_id) |> IO.inspect  do
         {:ok, msg} ->
-          IO.puts(msg)
+          # IO.puts(msg)
           case CourseDao.chose_course(current_user_id, current_term_id, course_id) do
             {:ok, msg} ->
               conn

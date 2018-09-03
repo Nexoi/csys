@@ -26,6 +26,16 @@ defmodule CSys.Normal.CurriculumDao do
     |> Repo.delete_all
   end
 
+  def list_classes do
+    CurriculumClass |> Repo.all
+  end
+  def list_majors do
+    CurriculumMajor |> Repo.all
+  end
+  def list_departments do
+    CurriculumDepartment |> Repo.all
+  end
+
   def create_class(name) do
     %CurriculumClass{}
     |> CurriculumClass.changeset(%{name: name})

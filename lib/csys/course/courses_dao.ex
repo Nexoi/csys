@@ -10,6 +10,8 @@ defmodule CSys.CourseDao do
   alias CSys.Course.Course # 课程
   alias CSys.Course.Table  # 学生课表
 
+  alias CSys.Course.LogDao
+
   @doc """
   导出
   CSys.CourseDao.export_terms([1, 2, 3])
@@ -175,6 +177,7 @@ defmodule CSys.CourseDao do
     Course
     |> where(id: ^course_id)
     |> Repo.update_all(inc: [current_num: count])
+    find_course(course_id)
   end
   @doc """
   CSys.CourseDao.update_course_name("ME484", "New Energy Technologies: Bioenergy Engineering")
@@ -192,8 +195,8 @@ defmodule CSys.CourseDao do
 
   #### 退选课 ####
   @doc """
-  CSys.CourseDao.chose_course(1,1,1)
-  CSys.CourseDao.cancel_course(1,1,1)
+  CSys.CourseDao.chose_course(1,1,9640)
+  CSys.CourseDao.cancel_course(1,1,9640)
   """
   def chose_course(user_id, term_id, course_id) do
     course_tables =
@@ -205,13 +208,15 @@ defmodule CSys.CourseDao do
     if course_tables do
       {:error, "You have selected this course!"}
     else
-      if course_rest_plus(course_id) do
+      if c = course_rest_plus(course_id) do
+        c |> IO.inspect(label: ">> Chose Course")
         attrs = %{
           user_id: user_id,
           course_id: course_id,
           term_id: term_id
         }
         create_course_table(attrs)
+        LogDao.log(user_id, "选课", "#{c.id}/[#{c.code}] #{c.name}")
         {:ok, "Select Successfully!"}
       else
         {:error, "None Vacancies left!"}
@@ -228,12 +233,13 @@ defmodule CSys.CourseDao do
     # |> IO.inspect
 
     if course_tables do
-      if course_rest_mins(course_id) do
+      if c = course_rest_mins(course_id) do
         # delete
         Table
         |> where([user_id: ^user_id, term_id: ^term_id, course_id: ^course_id])
         |> Repo.delete_all
 
+        LogDao.log(user_id, "退课", "#{c.id}/[#{c.code}] #{c.name}")
         {:ok, "Withdraw Successfully!"}
       else
         {:error, "None Vacancies left!"}
@@ -327,6 +333,11 @@ defmodule CSys.CourseDao do
     %Course{}
     # |> Course.changeset(attrs)
     |> Repo.insert_all(attrs)
+  end
+  def delete_course(id) do
+    Course
+    |> where(id: ^id)
+    |> Repo.delete_all
   end
 
   #### term ####

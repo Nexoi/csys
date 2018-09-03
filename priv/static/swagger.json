@@ -41,6 +41,25 @@
         "description": "获取全部课程日志"
       }
     },
+    "/admin/api/normal/curriculums/departments": {
+      "get": {
+        "tags": [
+          "Curriculum"
+        ],
+        "summary": "",
+        "responses": {
+          "401": {
+            "description": "failure"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [],
+        "operationId": "CSysWeb.Admin.Normal.CurriculumController.index_department",
+        "description": "列出所有的培养方案Department"
+      }
+    },
     "/api/normal/notifications/unread": {
       "get": {
         "tags": [
@@ -330,6 +349,207 @@
         ],
         "operationId": "CSysWeb.Admin.CourseTableController.user_tables",
         "description": "获取该用户全部课表"
+      }
+    },
+    "/admin/api/courses/{id}": {
+      "put": {
+        "tags": [
+          "Course"
+        ],
+        "summary": "",
+        "responses": {
+          "201": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "9999"
+          },
+          {
+            "type": "string",
+            "required": false,
+            "name": "code",
+            "in": "query",
+            "description": "GELS02"
+          },
+          {
+            "type": "string",
+            "required": false,
+            "name": "name",
+            "in": "query",
+            "description": "TOEFL Preparation"
+          },
+          {
+            "type": "string",
+            "required": false,
+            "name": "class_name",
+            "in": "query",
+            "description": "英文3班"
+          },
+          {
+            "type": "string",
+            "required": false,
+            "name": "group_name",
+            "in": "query",
+            "description": "全体学生"
+          },
+          {
+            "type": "string",
+            "required": false,
+            "name": "compus",
+            "in": "query",
+            "description": "一期校区"
+          },
+          {
+            "type": "string",
+            "required": false,
+            "name": "unit",
+            "in": "query",
+            "description": "语言中心"
+          },
+          {
+            "type": "integer",
+            "required": false,
+            "name": "time",
+            "in": "query",
+            "description": "32"
+          },
+          {
+            "type": "integer",
+            "required": false,
+            "name": "credit",
+            "in": "query",
+            "description": "0.5"
+          },
+          {
+            "type": "string",
+            "required": false,
+            "name": "property",
+            "in": "query",
+            "description": "选修"
+          },
+          {
+            "type": "string",
+            "required": false,
+            "name": "teacher",
+            "in": "query",
+            "description": "Joseph Poniatowski"
+          },
+          {
+            "type": "integer",
+            "required": false,
+            "name": "seat_num",
+            "in": "query",
+            "description": "50"
+          },
+          {
+            "type": "integer",
+            "required": false,
+            "name": "limit_num",
+            "in": "query",
+            "description": "30"
+          },
+          {
+            "type": "integer",
+            "required": false,
+            "name": "current_num",
+            "in": "query",
+            "description": "28"
+          },
+          {
+            "type": "string",
+            "required": false,
+            "name": "notification_cate",
+            "in": "query",
+            "description": "正常"
+          },
+          {
+            "type": "string",
+            "required": false,
+            "name": "suzhi_cate",
+            "in": "query",
+            "description": "（素质类别）"
+          },
+          {
+            "type": "string",
+            "required": false,
+            "name": "gender_req",
+            "in": "query",
+            "description": "（性别要求）"
+          },
+          {
+            "type": "boolean",
+            "required": false,
+            "name": "is_stop",
+            "in": "query",
+            "description": "true"
+          },
+          {
+            "type": "boolean",
+            "required": false,
+            "name": "is_active",
+            "in": "query",
+            "description": "false"
+          },
+          {
+            "type": "string",
+            "required": false,
+            "name": "venue",
+            "in": "query",
+            "description": "json array"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.CourseController.update",
+        "description": ""
+      },
+      "get": {
+        "tags": [
+          "Course"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "course_id"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.CourseController.show",
+        "description": "获取课程"
+      },
+      "delete": {
+        "tags": [
+          "Course"
+        ],
+        "summary": "",
+        "responses": {
+          "204": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "course_id"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.CourseController.delete",
+        "description": "删除课程"
       }
     },
     "/api/users/sign_in": {
@@ -936,6 +1156,25 @@
         "description": "导出课程CSV文件（请直接下载，swagger不可用）"
       }
     },
+    "/admin/api/normal/curriculums/majors": {
+      "get": {
+        "tags": [
+          "Curriculum"
+        ],
+        "summary": "",
+        "responses": {
+          "401": {
+            "description": "failure"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [],
+        "operationId": "CSysWeb.Admin.Normal.CurriculumController.index_major",
+        "description": "列出所有的培养方案Major"
+      }
+    },
     "/admin/api/normal/curriculums/class": {
       "post": {
         "tags": [
@@ -1042,6 +1281,25 @@
         "description": "获取全部通知"
       }
     },
+    "/admin/api/normal/curriculums/classes": {
+      "get": {
+        "tags": [
+          "Curriculum"
+        ],
+        "summary": "",
+        "responses": {
+          "401": {
+            "description": "failure"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [],
+        "operationId": "CSysWeb.Admin.Normal.CurriculumController.index_class",
+        "description": "列出所有的培养方案Class"
+      }
+    },
     "/admin/api/courses/{course_id}/unable": {
       "delete": {
         "tags": [
@@ -1117,6 +1375,154 @@
       }
     },
     "/admin/api/courses": {
+      "post": {
+        "tags": [
+          "Course"
+        ],
+        "summary": "",
+        "responses": {
+          "201": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "code",
+            "in": "query",
+            "description": "GELS02"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "name",
+            "in": "query",
+            "description": "TOEFL Preparation"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "class_name",
+            "in": "query",
+            "description": "英文3班"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "group_name",
+            "in": "query",
+            "description": "全体学生"
+          },
+          {
+            "type": "string",
+            "required": false,
+            "name": "compus",
+            "in": "query",
+            "description": "default: 一期校区"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "unit",
+            "in": "query",
+            "description": "语言中心"
+          },
+          {
+            "type": "integer",
+            "required": true,
+            "name": "time",
+            "in": "query",
+            "description": "32"
+          },
+          {
+            "type": "integer",
+            "required": true,
+            "name": "credit",
+            "in": "query",
+            "description": "0.5"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "property",
+            "in": "query",
+            "description": "选修"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "teacher",
+            "in": "query",
+            "description": "Joseph Poniatowski"
+          },
+          {
+            "type": "integer",
+            "required": true,
+            "name": "seat_num",
+            "in": "query",
+            "description": "50"
+          },
+          {
+            "type": "integer",
+            "required": true,
+            "name": "limit_num",
+            "in": "query",
+            "description": "30"
+          },
+          {
+            "type": "integer",
+            "required": false,
+            "name": "current_num",
+            "in": "query",
+            "description": "28"
+          },
+          {
+            "type": "string",
+            "required": false,
+            "name": "notification_cate",
+            "in": "query",
+            "description": "正常"
+          },
+          {
+            "type": "string",
+            "required": false,
+            "name": "suzhi_cate",
+            "in": "query",
+            "description": "（素质类别）"
+          },
+          {
+            "type": "string",
+            "required": false,
+            "name": "gender_req",
+            "in": "query",
+            "description": "（性别要求）"
+          },
+          {
+            "type": "boolean",
+            "required": false,
+            "name": "is_stop",
+            "in": "query",
+            "description": "default false"
+          },
+          {
+            "type": "boolean",
+            "required": false,
+            "name": "is_active",
+            "in": "query",
+            "description": "default true"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "venue",
+            "in": "query",
+            "description": "json array"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.CourseController.create",
+        "description": ""
+      },
       "get": {
         "tags": [
           "Course"
