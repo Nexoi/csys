@@ -334,6 +334,11 @@ defmodule CSys.CourseDao do
     # |> Course.changeset(attrs)
     |> Repo.insert_all(attrs)
   end
+  def delete_course(id) do
+    Course
+    |> where(id: ^id)
+    |> Repo.delete_all
+  end
 
   #### term ####
   def set_default_term(term_id) do

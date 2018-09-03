@@ -92,7 +92,13 @@ defmodule CSysWeb.Router do
     resources "/normal/xiaoli", Admin.Normal.XiaoliController, only: [:index, :create]
     resources "/normal/jianjie", Admin.Normal.JianjieController, only: [:index, :create]
     resources "/normal/notifications", Admin.Normal.NotoficationController, only: [:index, :show, :create, :delete]
+    # resources "/courses", Admin.CourseController, only: [:index, :create, :update, :delete, :show]
     get "/courses", Admin.CourseController, :index
+    get "/courses/:id", Admin.CourseController, :show
+    post "/courses", Admin.CourseController, :create
+    put "/courses/:id", Admin.CourseController, :update
+    delete "/courses/:id", Admin.CourseController, :delete
+
     post "/courses/:course_id/active", Admin.CourseController, :active
     delete "/courses/:course_id/unable", Admin.CourseController, :unable
     get "/courses/open_dates", Admin.Course.OpenDateController, :show
