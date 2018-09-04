@@ -9,10 +9,12 @@ defmodule CSys.CourseTranslanter do
   @doc """
   CSys.Course.Table |> CSys.Repo.delete_all
   CSys.Course.Course |> CSys.Repo.delete_all
+  CSys.Course.Course |> Ecto.Query.where([inserted_at > NaiveDateTime.utc_now] ) |> CSys.Repo.all
   CSys.CourseTranslanter.translant("/Users/neo/Desktop/course/zh.xlsx", "/Users/neo/Desktop/course/total.xlsx")
   CSys.CourseTranslanter.translant("/root/resources/zh.xlsx", "/root/resources/total.xlsx")
   CSys.CourseDao.update_course_name("ME484", "New Energy Technologies: Bioenergy Engineering")
   CSys.CourseDao.update_course_name("SS040", "The Anthropology of Kinship and Family")
+  CSys.CourseTranslanter.translant("/root/resources/zh.xlsx", "/root/resources/append_1.xlsx")
   """
   def translant(file_name, total_courses_file_name) do
     courses = Excelion.parse!(file_name, 0, 4)
