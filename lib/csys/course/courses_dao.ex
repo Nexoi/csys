@@ -79,6 +79,9 @@ defmodule CSys.CourseDao do
     query
     |> Repo.paginate(page)
   end
+  @doc """
+  CSys.CourseDao.list_courses_all
+  """
   def list_courses_all() do
     Course
     |> Repo.all
@@ -377,10 +380,16 @@ defmodule CSys.CourseDao do
     |> Repo.delete_all
   end
   @doc """
-  CSys.CourseDao.delete_courses
+  CSys.CourseDao.delete_courses(~N[2018-09-04 01:31:26.040675])
   """
   def delete_courses() do
     Course
+    |> Repo.delete_all
+  end
+  def delete_courses(naive_datetime) do
+    query = from c in Course,
+            where: c.inserted_at > ^naive_datetime
+    query
     |> Repo.delete_all
   end
 end
