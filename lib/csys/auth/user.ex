@@ -26,7 +26,7 @@ defmodule CSys.Auth.User do
   def changeset(user, attrs) do
     user
     |> cast(attrs, [:uid, :is_active, :password, :name, :class, :major, :role])
-    |> validate_required([:uid, :is_active, :password, :name, :class, :major, :role])
+    |> validate_required([:uid, :is_active, :name, :class, :major])
     |> unique_constraint(:uid)
     |> put_password_hash()
   end
