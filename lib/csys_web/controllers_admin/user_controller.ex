@@ -13,6 +13,9 @@ defmodule CSysWeb.Admin.UserController do
     get "/admin/api/users"
     description "List All"
     paging
+    parameters do
+      word :query, :string, "word", required: false
+    end
   end
 
   swagger_path :show do
@@ -59,15 +62,20 @@ defmodule CSysWeb.Admin.UserController do
   """
 
   def index(conn, params) do
+    word = params |> Dict.get("word", nil)
     page_number = params |> Dict.get("page", "1") |> String.to_integer
     page_size = params |> Dict.get("page_size", "10") |> String.to_integer
 
-    users_page =
+    page =
     %{
       page: page_number,
       page_size: page_size
     }
-    |> Auth.list_users()
+    users_page = if word do
+      Auth.list_users(page, word)
+    else
+      Auth.list_users(page)
+    end
     # |> IO.inspect(label: ">>>> CSysWeb.Admin.UserController#index\n")
     render(conn, CSysWeb.UserView, "page.json", page: users_page)
   end

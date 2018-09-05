@@ -1689,6 +1689,13 @@
             "minimum": 1,
             "in": "query",
             "description": "Number of the page"
+          },
+          {
+            "type": "string",
+            "required": false,
+            "name": "word",
+            "in": "query",
+            "description": "word"
           }
         ],
         "operationId": "CSysWeb.Admin.UserController.index",
