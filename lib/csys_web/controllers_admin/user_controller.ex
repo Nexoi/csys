@@ -112,8 +112,10 @@ defmodule CSysWeb.Admin.UserController do
 
   def delete(conn, %{"id" => id}) do
     user = Auth.get_user!(id)
-    with {:ok, %User{}} <- Auth.delete_user(user) do
-      send_resp(conn, :no_content, "")
+    with {:ok, _} <- Auth.delete_user(user) do
+      conn
+      |> put_status(:no_content)
+      |> json(%{message: "Delete Successfully!"})
     end
   end
 end
