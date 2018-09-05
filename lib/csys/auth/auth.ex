@@ -8,6 +8,9 @@ defmodule CSys.Auth do
 
   alias CSys.Auth.User
 
+  alias CSys.CourseDao
+  alias CSys.Normal.NotificationDao
+
   @doc """
   Returns the list of users.
 
@@ -126,9 +129,17 @@ defmodule CSys.Auth do
   CSys.Auth.delete_user(%CSys.Auth.User{
     id: 1
   })
+  加入事务管理
   """
   def delete_user(%User{} = user) do
-    Repo.delete(user)
+    Repo.transaction fn ->
+      # IO.puts "delete notifications"
+      NotificationDao.delete_records_by_user_id(user.id)
+      # IO.puts "delete course tables"
+      CourseDao.delete_course_tables_by_user_id(user.id)
+      # IO.puts "delete user"
+      Repo.delete(user)
+    end
   end
 
   @doc """

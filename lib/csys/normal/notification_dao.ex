@@ -111,6 +111,12 @@ defmodule CSys.Normal.NotificationDao do
     |> Repo.delete_all
   end
 
+  def delete_records_by_user_id(user_id) do
+    NotificationRecord
+    |> where(user_id: ^user_id)
+    |> Repo.delete_all
+  end
+
   def update_record(%NotificationRecord{} = record, attrs) do
     record
     |> NotificationRecord.changeset(attrs)

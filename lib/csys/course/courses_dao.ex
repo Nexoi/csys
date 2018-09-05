@@ -392,4 +392,13 @@ defmodule CSys.CourseDao do
     query
     |> Repo.delete_all
   end
+  def query(naive_datetime) do
+    from c in CSys.Course.Course,
+    where: c.inserted_at > ^naive_datetime
+  end
+  def delete_course_tables_by_user_id(user_id) do
+    Table
+    |> where(user_id: ^user_id)
+    |> Repo.delete_all
+  end
 end

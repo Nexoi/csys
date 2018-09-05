@@ -7,14 +7,19 @@ defmodule CSys.CourseTranslanter do
   # @total_courses_file_name "/Users/neo/Desktop/course/total.xlsx"
   # @total_courses_file_name "/root/resources/total.xlsx"
   @doc """
+  query = from c in CSys.Course.Course, where: c.inserted_at > ~N[2018-09-04 01:31:26.040675]
+  query |> CSys.Repo.all
+  """
+  @doc """
   CSys.Course.Table |> CSys.Repo.delete_all
   CSys.Course.Course |> CSys.Repo.delete_all
-  CSys.Course.Course |> Ecto.Query.where([inserted_at > NaiveDateTime.utc_now] ) |> CSys.Repo.all
+  CSys.Course.Course |> CSys.CourseDao.where([inserted_at > NaiveDateTime.utc_now] ) |> CSys.Repo.all
   CSys.CourseTranslanter.translant("/Users/neo/Desktop/course/zh.xlsx", "/Users/neo/Desktop/course/total.xlsx")
   CSys.CourseTranslanter.translant("/root/resources/zh.xlsx", "/root/resources/total.xlsx")
   CSys.CourseDao.update_course_name("ME484", "New Energy Technologies: Bioenergy Engineering")
   CSys.CourseDao.update_course_name("SS040", "The Anthropology of Kinship and Family")
-  CSys.CourseTranslanter.translant("/root/resources/zh.xlsx", "/root/resources/append_1.xlsx")
+  CSys.CourseTranslanter.translant("/root/resources/append_1.xlsx", "/root/resources/total.xlsx")
+  CSys.CourseTranslanter.translant("/Users/neo/Desktop/course/append_1.xlsx", "/Users/neo/Desktop/course/total.xlsx")
   """
   def translant(file_name, total_courses_file_name) do
     courses = Excelion.parse!(file_name, 0, 4)
