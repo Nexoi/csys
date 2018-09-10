@@ -1702,6 +1702,30 @@
         "description": "List All"
       }
     },
+    "/admin/api/courses/import": {
+      "post": {
+        "tags": [
+          "Import"
+        ],
+        "summary": "",
+        "responses": {
+          "201": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "schema": "file",
+            "required": true,
+            "name": "file",
+            "in": "body",
+            "description": "file"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.Course.ImportController.import",
+        "description": "导入课程 xlsx"
+      }
+    },
     "/admin/api/courses/{course_id}/tables": {
       "get": {
         "tags": [
@@ -2013,5 +2037,6 @@
     "title": "Jwxt-En",
     "host": "jwxt.sustc.seeuio.com"
   },
+  "host": "localhost:4002",
   "definitions": {}
 }
