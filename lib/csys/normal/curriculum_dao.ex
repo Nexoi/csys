@@ -13,6 +13,7 @@ defmodule CSys.Normal.CurriculumDao do
   def list_curriculums do
     Curriculum
     |> preload([:class, :major, :department])
+    |> order_by(:title)
     |> Repo.all
   end
   def create(attrs) do
