@@ -28,7 +28,7 @@ defmodule CSys.Normal.CurriculumDao do
   end
 
   def list_classes do
-    CurriculumClass |> Repo.all
+    CurriculumClass |> order_by(:name) |> Repo.all
   end
   def list_majors do
     CurriculumMajor |> Repo.all
