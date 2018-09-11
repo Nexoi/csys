@@ -154,6 +154,11 @@ defmodule CSys.CourseTranslanter.Dictor do
     "#{str} "
   end
 
+  @doc """
+  CSys.CourseTranslanter.Dictor.teacher("体育老师")
+  CSys.CourseTranslanter.Dictor.teacher("体育老师,英语老师")
+  CSys.CourseTranslanter.Dictor.teacher("Jone BB,ACC De")
+  """
   def teacher(nil), do: ""
   def teacher(""), do: ""
   def teacher(str) do
