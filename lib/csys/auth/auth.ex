@@ -23,6 +23,7 @@ defmodule CSys.Auth do
   def list_users do
     User
     |> where(role: "student")
+    |> order_by(:name)
     |> Repo.all
   end
 
@@ -30,6 +31,7 @@ defmodule CSys.Auth do
     # Repo.all(User)
     User
     |> where(role: "student")
+    |> order_by(:name)
     |> Repo.paginate(page)
   end
 
@@ -41,7 +43,7 @@ defmodule CSys.Auth do
                           or like(fragment("upper(?)", c.name), ^word_up)
                           or like(fragment("upper(?)", c.class), ^word_up)
                           or like(fragment("upper(?)", c.major), ^word_up))),
-            order_by: c.id
+            order_by: c.name
     query
     |> Repo.paginate(page)
   end

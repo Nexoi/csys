@@ -99,6 +99,8 @@ defmodule CSysWeb.Router do
     put "/courses/:id", Admin.CourseController, :update
     delete "/courses/:id", Admin.CourseController, :delete
 
+    post "/courses/import", Admin.Course.ImportController, :import
+
     post "/courses/:course_id/active", Admin.CourseController, :active
     delete "/courses/:course_id/unable", Admin.CourseController, :unable
     get "/courses/open_dates", Admin.Course.OpenDateController, :show

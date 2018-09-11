@@ -5,6 +5,27 @@ defmodule CSys.CourseScript do
 
   alias CSys.CourseDao
 
+
+  @doc """
+  CSys.CourseScript.reverse_name_single()
+  """
+  def reverse_name_single() do
+    result =
+    CourseDao.list_courses_all
+    |> Enum.filter(fn course ->
+      if course.teacher != nil
+        and not String.contains?(course.teacher, ",") do
+        t = course.teacher |> String.split(" ")
+                           |> Enum.reverse
+                           |> Enum.map(fn x -> "#{x} " end)
+                           |> List.to_string
+        IO.puts "#{course.teacher} ==> #{t}"
+        course |> CourseDao.update_course(%{teacher: t})
+      end
+    end)
+    IO.puts "<<<< Updated count: #{length(result)} >>>>"
+  end
+
   @doc """
   CSys.CourseScript.translate_location("Track and Field", "Athletic Field(GPCP Stadium)")
   """
