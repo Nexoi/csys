@@ -103,8 +103,8 @@ defmodule CSysWeb.Router do
 
     post "/courses/:course_id/active", Admin.CourseController, :active
     delete "/courses/:course_id/unable", Admin.CourseController, :unable
-    get "/courses/open_dates", Admin.Course.OpenDateController, :show
-    post "/courses/open_dates", Admin.Course.OpenDateController, :reset
+    get "/courses_open_dates", Admin.Course.OpenDateController, :show
+    post "/courses_open_dates", Admin.Course.OpenDateController, :reset
     get "/courses/:course_id/tables", Admin.CourseTableController, :index
     get "/users/:user_id/tables", Admin.CourseTableController, :user_tables
     get "/users/:user_id/terms/:term_id/tables", Admin.CourseTableController, :user_term_tables
