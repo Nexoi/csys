@@ -366,6 +366,13 @@
           {
             "type": "integer",
             "required": true,
+            "name": "term_id",
+            "in": "query",
+            "description": "number"
+          },
+          {
+            "type": "integer",
+            "required": true,
             "name": "id",
             "in": "path",
             "description": "9999"
@@ -1387,6 +1394,13 @@
         },
         "parameters": [
           {
+            "type": "integer",
+            "required": true,
+            "name": "term_id",
+            "in": "query",
+            "description": "number"
+          },
+          {
             "type": "string",
             "required": true,
             "name": "code",
@@ -1559,6 +1573,13 @@
             "name": "word",
             "in": "query",
             "description": "搜索关键词，可选"
+          },
+          {
+            "type": "integer",
+            "required": true,
+            "name": "term_id",
+            "in": "query",
+            "description": "term_id"
           }
         ],
         "operationId": "CSysWeb.Admin.CourseController.index",
@@ -1720,6 +1741,13 @@
             "name": "file",
             "in": "body",
             "description": "file"
+          },
+          {
+            "type": "integer",
+            "required": true,
+            "name": "term_id",
+            "in": "query",
+            "description": "term_id"
           }
         ],
         "operationId": "CSysWeb.Admin.Course.ImportController.import",

@@ -43,7 +43,7 @@ defmodule CSys.CourseDao do
            |> Repo.paginate(page)
   end
   def list_courses(page, word) do
-    word_s = "%#{word}%"
+    # word_s = "%#{word}%"
     word_up = "%#{word |> String.upcase}%"
     query = from c in Course,
             where: ((c.is_active == true)
@@ -57,7 +57,56 @@ defmodule CSys.CourseDao do
             #               or like(upcase(c.name), ^word_up)
             #               or like(upcase(c.unit), ^word_up)
             #               or like(upcase(c.class_name), ^word_up))),
-            order_by: c.id
+            order_by: c.inserted_at
+    query
+    |> Repo.paginate(page)
+  end
+  @doc """
+  查看可选课的课程信息
+  CSys.CourseDao.list_courses(%{page: 0, page_size: 10})
+  """
+  def list_courses_by_term(page, term_id) do
+    Course |> where([is_active: true, term_id: ^term_id])
+           |> order_by(:id)
+           |> Repo.paginate(page)
+  end
+  def list_courses_by_term(page, term_id, word) do
+    # word_s = "%#{word}%"
+    word_up = "%#{word |> String.upcase}%"
+    query = from c in Course,
+            where: ((c.is_active == true)
+                     and (c.term_id == ^term_id)
+                     and (like(c.code, ^word_up)
+                          or like(fragment("upper(?)", c.name), ^word_up)
+                          or like(fragment("upper(?)", c.unit), ^word_up)
+                          or like(fragment("upper(?)", c.teacher), ^word_up)
+                          or like(fragment("upper(?)", c.class_name), ^word_up))),
+            # where: ((c.is_active == true)
+            #           and (like(c.code, ^word_up)
+            #               or like(upcase(c.name), ^word_up)
+            #               or like(upcase(c.unit), ^word_up)
+            #               or like(upcase(c.class_name), ^word_up))),
+            order_by: c.inserted_at
+    query
+    |> Repo.paginate(page)
+  end
+  def list_courses_admin_by_term(page, term_id) do
+    Course |> where(term_id: ^term_id)
+           |> order_by(:id)
+           |> Repo.paginate(page)
+  end
+  def list_courses_admin_by_term(page, term_id, word) do
+    # word_s = "%#{word}%"
+    word_up = "%#{word |> String.upcase}%"
+    query = from c in Course,
+            # where: like(c.code, ^word_s) or like(c.name, ^word_s),
+            where: ((c.term_id == ^term_id)
+                      and (like(c.code, ^word_up)
+                          or like(fragment("upper(?)", c.name), ^word_up)
+                          or like(fragment("upper(?)", c.unit), ^word_up)
+                          or like(fragment("upper(?)", c.teacher), ^word_up)
+                          or like(fragment("upper(?)", c.class_name), ^word_up))),
+            order_by: c.inserted_at
     query
     |> Repo.paginate(page)
   end
@@ -66,7 +115,7 @@ defmodule CSys.CourseDao do
            |> Repo.paginate(page)
   end
   def list_courses_admin(page, word) do
-    word_s = "%#{word}%"
+    # word_s = "%#{word}%"
     word_up = "%#{word |> String.upcase}%"
     query = from c in Course,
             # where: like(c.code, ^word_s) or like(c.name, ^word_s),
@@ -75,7 +124,7 @@ defmodule CSys.CourseDao do
                           or like(fragment("upper(?)", c.unit), ^word_up)
                           or like(fragment("upper(?)", c.teacher), ^word_up)
                           or like(fragment("upper(?)", c.class_name), ^word_up))),
-            order_by: c.id
+            order_by: c.inserted_at
     query
     |> Repo.paginate(page)
   end

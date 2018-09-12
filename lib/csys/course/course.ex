@@ -4,6 +4,7 @@ defmodule CSys.Course.Course do
   @moduledoc """
   可选课程列表
   """
+  alias CSys.Course.Term
 
   schema "courses" do
     field :code, :string # GELS02
@@ -26,18 +27,20 @@ defmodule CSys.Course.Course do
     field :is_active, :boolean
     field :venue, {:array, :map}, default: [] # {times:[] locations:[]}
 
+    belongs_to :term, Term
+
     timestamps()
   end
 
   @doc false
   def changeset(course, attrs) do
     course
-    |> cast(attrs, [:code, :name, :class_name, :group_name,
+    |> cast(attrs, [:term_id, :code, :name, :class_name, :group_name,
       :compus, :unit, :time, :credit, :property, :teacher,
       :seat_num, :limit_num, :current_num, :notification_cate,
       :suzhi_cate, :gender_req, :is_stop, :is_active, :venue
       ])
-    |> validate_required([:code, :name, :class_name, :group_name,
+    |> validate_required([:term_id, :code, :name, :class_name, :group_name,
     :time, :credit, :property,
     :seat_num, :limit_num, :current_num, :is_stop, :is_active
     ])

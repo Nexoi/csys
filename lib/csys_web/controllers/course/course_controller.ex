@@ -72,10 +72,10 @@ defmodule CSysWeb.CourseController do
       page_size: page_size
     }
     courses = if word do
-      CourseDao.list_courses(page, word)
+      CourseDao.list_courses_by_term(page, current_term_id, word)
       |> conflict_append(current_term_id, current_user_id)
     else
-      CourseDao.list_courses(page)
+      CourseDao.list_courses_by_term(page, current_term_id)
       |> conflict_append(current_term_id, current_user_id)
     end
 

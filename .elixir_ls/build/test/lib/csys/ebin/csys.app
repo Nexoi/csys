@@ -54,7 +54,6 @@
                         'Elixir.CSysWeb.Course.LogController',
                         'Elixir.CSysWeb.Course.TermController',
                         'Elixir.CSysWeb.CourseController',
-                        'Elixir.CSysWeb.CourseImporter',
                         'Elixir.CSysWeb.CourseView','Elixir.CSysWeb.Endpoint',
                         'Elixir.CSysWeb.ErrorHelpers',
                         'Elixir.CSysWeb.ErrorView',

@@ -10,15 +10,16 @@ defmodule CSysWeb.Admin.Course.ImportController do
     description "导入课程 xlsx"
     parameters do
       file :body, :file, "file", required: true
+      term_id :query, :integer, "term_id", required: true
     end
     response 201, "success"
   end
 
-  def import(conn, params) do
+  def import(conn, %{"term_id" => term_id} = params) do
     # IO.inspect params
     if upload = params["file"] do
       try do
-        CSys.CourseTranslanter.translant(upload.path, "/root/resources/total.xlsx")
+        CSys.CourseTranslanter.translant(term_id, upload.path, "/root/resources/total.xlsx")
         conn
         |> put_status(:created)
         |> json(%{message: "success"})

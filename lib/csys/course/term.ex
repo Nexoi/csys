@@ -3,6 +3,7 @@ defmodule CSys.Course.Term do
   import Ecto.Changeset
 
   alias CSys.Course.Table
+  alias CSys.Course.Course
 
   schema "terms" do
     field :term, :string # default: "2018-2019-1" ?
@@ -10,6 +11,7 @@ defmodule CSys.Course.Term do
     field :is_default, :boolean, default: false # 是否默认
 
     has_many :course, Table
+    has_many :courses, Course
 
     timestamps()
   end

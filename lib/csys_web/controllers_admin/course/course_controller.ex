@@ -13,6 +13,7 @@ defmodule CSysWeb.Admin.CourseController do
     paging
     parameters do
       word :query, :string, "搜索关键词，可选", required: false
+      term_id :query, :integer, "term_id", required: true
     end
     response 200, "success"
     response 204, "empty"
@@ -30,6 +31,7 @@ defmodule CSysWeb.Admin.CourseController do
   swagger_path :create do
     post "/admin/api/courses"
     parameters do
+      term_id :query, :integer, "number", required: true
       code :query, :string, "GELS02", required: true
       name :query, :string, "TOEFL Preparation", required: true
       class_name :query, :string, "英文3班", required: true
@@ -56,6 +58,7 @@ defmodule CSysWeb.Admin.CourseController do
   swagger_path :update do
     put "/admin/api/courses/{id}"
     parameters do
+      term_id :query, :integer, "number", required: true
       id :path, :integer, "9999", required: true
       code :query, :string, "GELS02", required: false
       name :query, :string, "TOEFL Preparation", required: false
@@ -111,16 +114,21 @@ defmodule CSysWeb.Admin.CourseController do
     word = params |> Dict.get("word", nil)
     page_number = params |> Dict.get("page", "1") |> String.to_integer
     page_size = params |> Dict.get("page_size", "10") |> String.to_integer
-
+    term_id_str = params |> Dict.get("term_id", nil)
+    term_id = if term_id_str do
+      term_id_str |> String.to_integer
+    else
+      CourseDao.find_current_term_id()
+    end
     page =
     %{
       page: page_number,
       page_size: page_size
     }
     courses = if word do
-      CourseDao.list_courses_admin(page, word)
+      CourseDao.list_courses_admin_by_term(page, term_id, word)
     else
-      CourseDao.list_courses_admin(page)
+      CourseDao.list_courses_admin_by_term(page, term_id)
     end
     conn
     |> render(CourseView, "courses_page.json", courses_page: courses)

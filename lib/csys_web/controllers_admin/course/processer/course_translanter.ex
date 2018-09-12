@@ -21,7 +21,7 @@ defmodule CSys.CourseTranslanter do
   CSys.CourseTranslanter.translant("/root/resources/append_1.xlsx", "/root/resources/total.xlsx")
   CSys.CourseTranslanter.translant("/Users/neo/Desktop/course/append_1.xlsx", "/Users/neo/Desktop/course/total.xlsx")
   """
-  def translant(file_name, total_courses_file_name) do
+  def translant(term_id, file_name, total_courses_file_name) do
     courses = Excelion.parse!(file_name, 0, 4)
 
     total_courses =
@@ -39,6 +39,7 @@ defmodule CSys.CourseTranslanter do
     |> Enum.map(fn line ->
       code = line |> at(0) |> CourseProcesser.to_string()
       %{
+        term_id: term_id,
         code: code,
         name: line |> at(1) |> en_name(code, total_courses) |> String.trim,
         class_name: line |> at(2) |> CourseTranslanter.Dictor.group() |> String.trim,

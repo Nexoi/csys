@@ -5,6 +5,17 @@ defmodule CSys.CourseScript do
 
   alias CSys.CourseDao
 
+  @doc """
+  CSys.CourseScript.add_term_id_to_courses(1)
+  """
+  def add_term_id_to_courses(term_id) do
+    result =
+    CourseDao.list_courses_all
+    |> Enum.filter(fn course ->
+      course |> CourseDao.update_course(%{term_id: term_id})
+    end)
+    IO.puts "<<<< Updated count: #{length(result)} >>>>"
+  end
 
   @doc """
   CSys.CourseScript.reverse_name_single()

@@ -17,7 +17,9 @@ defmodule CSysWeb.LogView do
     %{
       id: log.id,
       property: log.property,
-      detail: log.detail
+      detail: log.detail,
+      updated_at: log.updated_at,
+      inserted_at: log.inserted_at
     }
   end
 
@@ -28,7 +30,9 @@ defmodule CSysWeb.LogView do
       detail: log.detail,
       user_id: log.user.id,
       user_uid: log.user.uid,
-      user_name: log.user.name
+      user_name: log.user.name,
+      updated_at: log.updated_at,
+      inserted_at: log.inserted_at
     }
   end
 
