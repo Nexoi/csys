@@ -10,6 +10,7 @@ defmodule CSys.Auth do
 
   alias CSys.CourseDao
   alias CSys.Normal.NotificationDao
+  alias CSys.Course.LogDao
 
   @doc """
   Returns the list of users.
@@ -149,6 +150,8 @@ defmodule CSys.Auth do
   """
   def delete_user(%User{} = user) do
     Repo.transaction fn ->
+      # IO.puts "delete course log"
+      LogDao.delete_by_user_id(user.id)
       # IO.puts "delete notifications"
       NotificationDao.delete_records_by_user_id(user.id)
       # IO.puts "delete course tables"

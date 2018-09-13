@@ -11,7 +11,7 @@ defmodule CSys.Course.Term do
     field :is_default, :boolean, default: false # 是否默认
 
     has_many :course, Table
-    has_many :courses, Course
+    has_many :course_, Course
 
     timestamps()
   end

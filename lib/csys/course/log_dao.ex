@@ -56,4 +56,10 @@ defmodule CSys.Course.LogDao do
     |> where(id: ^id)
     |> Repo.delete_all
   end
+
+  def delete_by_user_id(user_id) do
+    Log
+    |> where(user_id: ^user_id)
+    |> Repo.delete_all
+  end
 end
