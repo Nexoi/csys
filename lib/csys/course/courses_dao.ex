@@ -39,7 +39,7 @@ defmodule CSys.CourseDao do
   """
   def list_courses(page) do
     Course |> where(is_active: true)
-           |> order_by(:id)
+           |> order_by(desc: :inserted_at)
            |> Repo.paginate(page)
   end
   def list_courses(page, word) do
@@ -57,7 +57,7 @@ defmodule CSys.CourseDao do
             #               or like(upcase(c.name), ^word_up)
             #               or like(upcase(c.unit), ^word_up)
             #               or like(upcase(c.class_name), ^word_up))),
-            order_by: c.inserted_at
+            order_by: [desc: c.inserted_at]
     query
     |> Repo.paginate(page)
   end
@@ -67,7 +67,7 @@ defmodule CSys.CourseDao do
   """
   def list_courses_by_term(page, term_id) do
     Course |> where([is_active: true, term_id: ^term_id])
-           |> order_by(:id)
+           |> order_by(desc: :inserted_at)
            |> Repo.paginate(page)
   end
   def list_courses_by_term(page, term_id, word) do
@@ -86,13 +86,13 @@ defmodule CSys.CourseDao do
             #               or like(upcase(c.name), ^word_up)
             #               or like(upcase(c.unit), ^word_up)
             #               or like(upcase(c.class_name), ^word_up))),
-            order_by: c.inserted_at
+            order_by: [desc: c.inserted_at]
     query
     |> Repo.paginate(page)
   end
   def list_courses_admin_by_term(page, term_id) do
     Course |> where(term_id: ^term_id)
-           |> order_by(:id)
+           |> order_by(desc: :inserted_at)
            |> Repo.paginate(page)
   end
   def list_courses_admin_by_term(page, term_id, word) do
@@ -106,12 +106,12 @@ defmodule CSys.CourseDao do
                           or like(fragment("upper(?)", c.unit), ^word_up)
                           or like(fragment("upper(?)", c.teacher), ^word_up)
                           or like(fragment("upper(?)", c.class_name), ^word_up))),
-            order_by: c.inserted_at
+            order_by: [desc: c.inserted_at]
     query
     |> Repo.paginate(page)
   end
   def list_courses_admin(page) do
-    Course |> order_by(:id)
+    Course |> order_by(desc: :inserted_at)
            |> Repo.paginate(page)
   end
   def list_courses_admin(page, word) do
@@ -124,7 +124,7 @@ defmodule CSys.CourseDao do
                           or like(fragment("upper(?)", c.unit), ^word_up)
                           or like(fragment("upper(?)", c.teacher), ^word_up)
                           or like(fragment("upper(?)", c.class_name), ^word_up))),
-            order_by: c.inserted_at
+            order_by: [desc: c.inserted_at]
     query
     |> Repo.paginate(page)
   end
