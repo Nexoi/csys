@@ -39,7 +39,7 @@ defmodule CSysWeb.Admin.CourseController do
       compus :query, :string, "default: 一期校区", required: false
       unit :query, :string, "语言中心", required: true
       time :query, :integer, "32", required: true
-      credit :query, :integer, "0.5", required: true
+      credit :query, :float, "0.5", required: true
       property :query, :string, "选修", required: true
       teacher :query, :string, "Joseph Poniatowski", required: true
       seat_num :query, :integer, "50", required: true
@@ -67,7 +67,7 @@ defmodule CSysWeb.Admin.CourseController do
       compus :query, :string, "一期校区", required: false
       unit :query, :string, "语言中心", required: false
       time :query, :integer, "32", required: false
-      credit :query, :integer, "0.5", required: false
+      credit :query, :float, "0.5", required: false
       property :query, :string, "选修", required: false
       teacher :query, :string, "Joseph Poniatowski", required: false
       seat_num :query, :integer, "50", required: false
@@ -111,10 +111,10 @@ defmodule CSysWeb.Admin.CourseController do
   end
 
   def index(conn, params) do
-    word = params |> Dict.get("word", nil)
-    page_number = params |> Dict.get("page", "1") |> String.to_integer
-    page_size = params |> Dict.get("page_size", "10") |> String.to_integer
-    term_id_str = params |> Dict.get("term_id", nil)
+    word = params |> Map.get("word", nil)
+    page_number = params |> Map.get("page", "1") |> String.to_integer
+    page_size = params |> Map.get("page_size", "10") |> String.to_integer
+    term_id_str = params |> Map.get("term_id", nil)
     term_id = if term_id_str do
       term_id_str |> String.to_integer
     else
@@ -158,6 +158,7 @@ defmodule CSysWeb.Admin.CourseController do
 
   #### course create/update/get/delete
   def create(conn, %{
+      "term_id" => term_id,
       "code" => code,
       "name" => name,
       "class_name" => class_name,
@@ -182,6 +183,7 @@ defmodule CSysWeb.Admin.CourseController do
     try do
       venue = venue_str |> encode_venue()
       case %{
+        term_id: term_id,
         code: code,
         name: name,
         class_name: class_name,
