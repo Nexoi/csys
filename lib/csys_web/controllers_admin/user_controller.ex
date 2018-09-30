@@ -37,6 +37,15 @@ defmodule CSysWeb.Admin.UserController do
     end
   end
 
+  swagger_path :create_admin do
+    post "/admin/api/users/admin"
+    description "Add Admin"
+    parameters do
+      uid :query, :string, "SID", required: true, example: "30010001"
+      name :query, :string, "name", required: true, example: "xxx"
+    end
+  end
+
   swagger_path :update do
     put "/admin/api/users/{id}"
     description "Edit User"
@@ -89,6 +98,26 @@ defmodule CSysWeb.Admin.UserController do
       major: major,
       password: "yangxiaosu",
       is_active: true
+    }
+    # |> IO.inspect(label: ">> User.create")
+    with {:ok, %User{} = user} <- Auth.create_user(attr) do
+      conn
+      |> put_status(:created)
+      # |> put_resp_header("location", user_path(conn, :show, user))
+      |> render(CSysWeb.UserView,"show.json", user: user)
+    end
+  end
+
+  def create_admin(conn, %{"uid" => uid, "name" => name}) do
+    # user_params |> IO.inspect(label: ">>>> CSysWeb.Admin.UserController#create\n")
+    attr = %{
+      uid: uid,
+      name: name,
+      class: "none",
+      major: "none",
+      password: "yangxiaosu",
+      is_active: true,
+      role: "admin"
     }
     # |> IO.inspect(label: ">> User.create")
     with {:ok, %User{} = user} <- Auth.create_user(attr) do

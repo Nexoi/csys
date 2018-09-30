@@ -58,12 +58,13 @@ defmodule CSysWeb.Router do
   scope "/api/courses", CSysWeb do
     pipe_through [:api, :api_auth, :api_auth_course_preview]
     get "", CourseController, :index
-    post "/courses/:course_id", CourseController, :chose
-    delete "/courses/:course_id", CourseController, :cancel
+    # ??????
+    # post "/courses/:course_id", CourseController, :chose
+    # delete "/courses/:course_id", CourseController, :cancel
   end
   scope "/api/courses/", CSysWeb do
     pipe_through [:api, :api_auth, :api_auth_course_open]
-    get "", CourseController, :index
+    # get "", CourseController, :index # ??????
     post ":course_id", CourseController, :chose
     delete ":course_id", CourseController, :cancel
   end
@@ -75,6 +76,7 @@ defmodule CSysWeb.Router do
     get "/exports/terms.csv", ExportController, :export_terms
     # pipe_through :api
     resources "/users", Admin.UserController, only: [:index, :show, :create, :update, :delete]
+    post "/users/admin", Admin.UserController, only: [:create_admin]
     # resources "/normal/training_programs", Admin.Normal.TrainingProgramController, only: [:index, :show, :create, :update, :delete]
     # resources "/normal/training_program/items", Admin.Normal.TrainingProgramItemController, only: [:update, :delete]
     resources "/normal/curriculums", Admin.Normal.CurriculumController, only: [:index, :create, :delete]
