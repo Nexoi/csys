@@ -33,6 +33,16 @@ defmodule CSysWeb.UserController do
     response 200, "success"
   end
 
+  swagger_path :update do
+    put "/api/users/me"
+    description "Edit Me"
+    parameters do
+      name :query, :string, "name", required: true, example: "xxx"
+      class :query, :string, "class", required: true, example: "1601"
+      major :query, :string, "major", required: true, example: "CS"
+    end
+  end
+
   def sign_in(conn, %{"uid" => uid, "password" => password}) do
     case CSys.Auth.authenticate_user(uid, password) do
       {:ok, user} ->
@@ -63,6 +73,21 @@ defmodule CSysWeb.UserController do
     user = Auth.get_user!(current_user_id)
     conn
     |> render(CSysWeb.UserView,"show.json", user: user)
+  end
+
+  def update(conn, %{"name" => name, "class" => class, "major" => major}) do
+    current_user_id = get_session(conn, :current_user_id)
+    user = Auth.get_user!(current_user_id)
+    user_params = %{
+      # id: id,
+      # uid: uid,
+      name: name,
+      class: class,
+      major: major
+    }
+    with {:ok, %User{} = user} <- Auth.update_user(user, user_params) do
+      render(conn, CSysWeb.UserView, "show.json", user: user)
+    end
   end
 
 end

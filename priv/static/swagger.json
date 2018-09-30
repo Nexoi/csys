@@ -2025,6 +2025,41 @@
       }
     },
     "/api/users/me": {
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "summary": "",
+        "responses": {},
+        "parameters": [
+          {
+            "x-example": "xxx",
+            "type": "string",
+            "required": true,
+            "name": "name",
+            "in": "query",
+            "description": "name"
+          },
+          {
+            "x-example": "1601",
+            "type": "string",
+            "required": true,
+            "name": "class",
+            "in": "query",
+            "description": "class"
+          },
+          {
+            "x-example": "CS",
+            "type": "string",
+            "required": true,
+            "name": "major",
+            "in": "query",
+            "description": "major"
+          }
+        ],
+        "operationId": "CSysWeb.UserController.update",
+        "description": "Edit Me"
+      },
       "get": {
         "tags": [
           "SIGN IN"

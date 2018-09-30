@@ -40,6 +40,7 @@ defmodule CSysWeb.Router do
     pipe_through [:api, :api_auth]
     post "/users/sign_out", UserController, :sign_out
     get "/users/me", UserController, :show
+    put "/users/me", UserController, :update
     # get "/normal/training_programs", Normal.TrainingProgramController, :index
     get "/normal/curriculums", Normal.CurriculumController, :index
     get "/normal/xiaoli", Normal.XiaoliController, :index
