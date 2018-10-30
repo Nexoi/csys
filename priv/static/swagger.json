@@ -1381,6 +1381,35 @@
         "description": "获取简介文件的url链接"
       }
     },
+    "/admin/api/users/admin": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "",
+        "responses": {},
+        "parameters": [
+          {
+            "x-example": "30010001",
+            "type": "string",
+            "required": true,
+            "name": "uid",
+            "in": "query",
+            "description": "SID"
+          },
+          {
+            "x-example": "xxx",
+            "type": "string",
+            "required": true,
+            "name": "name",
+            "in": "query",
+            "description": "name"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.UserController.create_admin",
+        "description": "Add Admin"
+      }
+    },
     "/admin/api/courses": {
       "post": {
         "tags": [
