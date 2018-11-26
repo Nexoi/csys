@@ -29,8 +29,11 @@ defmodule CSys.CourseProcesser do
 
   def convert_week(src_str) do
     str = src_str |> String.replace("周", "")
+    IO.inspect str
     if str |> String.contains?("-") do
+      IO.puts "含有 -"
       if str |> String.contains?("<br>") do
+        IO.puts "含有 <br>"
         weeks_ = str |> String.split("<br>")
         Enum.map(weeks_, fn x ->
           weeks = x |> String.split("-")
@@ -39,20 +42,25 @@ defmodule CSys.CourseProcesser do
           start_num = start_ |> String.to_integer
           end_num = end_ |> String.to_integer
           # start_num..end_num
+          IO.inspect [start_num, end_num]
           Enum.map(start_num..end_num, fn x -> x end)
         end)
       else
+        IO.puts "点到点打，4-8、9-16"
         weeks = str |> String.split("-")
         {start_, _} = weeks |> List.pop_at(0)
         {end_, _} = weeks |> List.pop_at(1)
         start_num = start_ |> String.to_integer
         end_num = end_ |> String.to_integer
         # start_num..end_num
+        IO.inspect [start_num, end_num]
         Enum.map(start_num..end_num, fn x -> x end)
       end
     else
+      IO.puts "直接一串打，1、3、5、7、9..."
       if str |> String.contains?("<br>") do
         weeks = str |> String.split("<br>")
+        IO.inspect weeks
         Enum.map(weeks, fn x -> x |> String.to_integer end)
       else
         [str |> to_integer]
