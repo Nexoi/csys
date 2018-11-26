@@ -36,14 +36,18 @@ defmodule CSys.CourseProcesser do
         IO.puts "含有 <br>"
         weeks_ = str |> String.split("<br>")
         Enum.map(weeks_, fn x ->
-          weeks = x |> String.split("-")
-          {start_, _} = weeks |> List.pop_at(0)
-          {end_, _} = weeks |> List.pop_at(1)
-          start_num = start_ |> String.to_integer
-          end_num = end_ |> String.to_integer
-          # start_num..end_num
-          IO.inspect [start_num, end_num]
-          Enum.map(start_num..end_num, fn x -> x end)
+          if x |> String.contains?("-") do
+            weeks = x |> String.split("-")
+            {start_, _} = weeks |> List.pop_at(0)
+            {end_, _} = weeks |> List.pop_at(1)
+            start_num = start_ |> String.to_integer
+            end_num = end_ |> String.to_integer
+            # start_num..end_num
+            IO.inspect [start_num, end_num]
+            Enum.map(start_num..end_num, fn x -> x end)
+          else
+            [x |> String.to_integer]
+          end
         end)
       else
         IO.puts "点到点打，4-8、9-16"
