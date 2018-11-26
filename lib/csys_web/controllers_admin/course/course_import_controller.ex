@@ -24,7 +24,8 @@ defmodule CSysWeb.Admin.Course.ImportController do
         |> put_status(:created)
         |> json(%{message: "success"})
       rescue
-        _ ->
+        err ->
+          IO.inspect err
           conn
           |> put_status(:bad_request)
           |> json(%{message: "上传课程格式异常！【文件格式必须为 .xlsx，且必须配表格标题、表头信息，正文需在第4行开始】"})
