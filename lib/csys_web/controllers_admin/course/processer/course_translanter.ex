@@ -93,5 +93,6 @@ defmodule CSys.CourseTranslanter do
   defp property_en("限选"), do: "Limit Electives"
   defp property_en("通识必修课"), do: "GER"
   defp property_en("通识选修课"), do: "GEE"
+  defp property_en(other), do: other
 
 end
