@@ -90,6 +90,7 @@ defmodule CSys.CourseTranslanter do
   defp property_en("必修"), do: "MR"
   defp property_en("选修"), do: "ME"
   defp property_en("任选"), do: "Free Electives"
+  defp property_en("限选"), do: "Limit Electives"
   defp property_en("通识必修课"), do: "GER"
   defp property_en("通识选修课"), do: "GEE"
 
