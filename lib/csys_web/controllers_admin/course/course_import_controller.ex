@@ -15,11 +15,14 @@ defmodule CSysWeb.Admin.Course.ImportController do
     response 201, "success"
   end
 
+  
   def import(conn, %{"term_id" => term_id} = params) do
     # IO.inspect params
     if upload = params["file"] do
       try do
-        CSys.CourseTranslanter.translant(term_id, upload.path, "/root/resources/total.xlsx")
+        temp_path = "/seeu/csys_store/temp_courses#{DateTime.utc_now |> DateTime.to_unix}.xlsx"
+        File.cp(upload.path, temp_path)
+        CSys.CourseTranslanter.translant(term_id, temp_path, "/root/resources/total.xlsx")
         conn
         |> put_status(:created)
         |> json(%{message: "success"})
