@@ -37,6 +37,7 @@ defmodule CSys.CourseTranslanter do
     result =
     courses
     |> Enum.map(fn line ->
+      line |> IO.inspect
       code = line |> at(0) |> CourseProcesser.to_string()
       %{
         term_id: term_id,
@@ -60,6 +61,7 @@ defmodule CSys.CourseTranslanter do
         is_active: line |> at(19) |> CourseProcesser.convert_boolean(),
         venue: CourseProcesser.convert(line |> at(10), line |> at(11) |> CourseTranslanter.Dictor.location_detail())
       }
+      |> IO.inspect
       |> CourseDao.create_course()
     end)
     |> Enum.filter(fn x ->
