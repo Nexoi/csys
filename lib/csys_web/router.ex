@@ -60,8 +60,8 @@ defmodule CSysWeb.Router do
     delete "/pre_courses/:course_id", CoursePreController, :cancel
 
     get "/training/majors", TrainingMajorController, :index
-    get "/training/majors/:major_id/courses", TrainingCourseController, :index
     get "/training/majors/:id", TrainingMajorController, :show
+    get "/training/majors/:major_id/courses", TrainingCourseController, :index
     get "/training/majors/:major_id/courses/:id", TrainingCourseController, :show
   end
 

@@ -47,6 +47,8 @@ defmodule CSysWeb.Endpoint do
       "http://tis.sustc.edu.cn:8000",
       "http://localhost:4000",
       "http://172.18.8.156:8000",
+      "http://oop.sustc.seeuio.com",
+      "http://oop.sustc.seeuio.com:4003",
       "http://jwxt.sustc.seeuio.com",
       "http://jwxt.sustc.seeuio.com:4002"],
     log: [rejected: :error, invalid: :warn, accepted: :debug],
