@@ -58,6 +58,11 @@ defmodule CSysWeb.Router do
     get "/pre_tables", CoursePreController, :current_table
     post "/pre_courses/:course_id", CoursePreController, :chose
     delete "/pre_courses/:course_id", CoursePreController, :cancel
+
+    get "/training/majors", TrainingMajorController, :index
+    get "/training/majors/:major_id/courses", TrainingCourseController, :index
+    get "/training/majors/:id", TrainingMajorController, :show
+    get "/training/majors/:major_id/courses/:id", TrainingCourseController, :show
   end
 
   # 需要特定时刻开放的 API
@@ -124,6 +129,8 @@ defmodule CSysWeb.Router do
     get "/users/:user_id/courses/logs", Admin.Course.LogController, :index
     delete "/users/:user_id/courses/logs/:log_id", Admin.Course.LogController, :delete
 
+    resources "/training/majors", AdminTrainingMajorController, only: [:index, :show, :update, :create, :delete]
+    resources "/training/majors/:major_id/courses", AdminTrainingCourseController, only: [:index, :show, :update, :create, :delete]
   end
 
   # 权限验证，普通用户
