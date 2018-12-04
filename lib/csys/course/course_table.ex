@@ -17,13 +17,15 @@ defmodule CSys.Course.Table do
     belongs_to :user, User
     belongs_to :term, Term
 
+    field :course_code, :string
+
     timestamps()
   end
 
   @doc false
   def changeset(course_table, attrs) do
     course_table
-    |> cast(attrs, [:user_id, :term_id, :course_id])
+    |> cast(attrs, [:user_id, :term_id, :course_id, :course_code])
     |> validate_required([:user_id, :course_id])
   end
 

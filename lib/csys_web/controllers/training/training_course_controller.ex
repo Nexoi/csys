@@ -35,8 +35,10 @@ defmodule CSysWeb.TrainingCourseController do
       page: page_number,
       page_size: page_size
     }
-    training_courses = Training.page_training_courses(major_id, page)
-    render(conn, "index.json", training_courses: training_courses)
+    current_user_id = get_session(conn, :current_user_id)
+
+    training_courses = Training.page_my_training_courses(current_user_id, major_id, page)
+    render(conn, "index_with_status.json", training_courses: training_courses)
   end
 
   def show(conn, %{"id" => id}) do

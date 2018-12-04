@@ -188,6 +188,14 @@ defmodule CSys.CourseDao do
     Course |> Repo.get(course_id)
   end
 
+  def find_course_code(course_id) do
+    if c = Course |> Repo.get(course_id) do
+      c.code
+    else
+      nil
+    end
+  end
+
   def find_course_by_name!(course_name) do
     Course
     |> where([c], like(c.name, ^course_name))
@@ -266,7 +274,7 @@ defmodule CSys.CourseDao do
     if course_table do
       {:error, "You have selected this course!"}
     else
-      # course_table |> IO.inspect(label: ">> Chose Course")
+      # 预选课不算为选课，所以 course_code 为空，否则会被加入培养方案的计算列里
       attrs = %{
         user_id: user_id,
         course_id: course_id,
@@ -315,10 +323,12 @@ defmodule CSys.CourseDao do
     else
       if c = course_rest_plus(course_id) do
         c |> IO.inspect(label: ">> Chose Course")
+        # course_code = find_course_code(course_id)
         attrs = %{
           user_id: user_id,
           course_id: course_id,
-          term_id: term_id
+          term_id: term_id,
+          course_code: c.code # 便于培养方案索引
         }
         create_course_table(attrs)
         LogDao.log(user_id, "选课", "#{c.id}/[#{c.code}] #{c.name}")
@@ -354,6 +364,7 @@ defmodule CSys.CourseDao do
     end
   end
 
+  # CSys.CourseDao.inject_course(1, 1, 9756)
   def inject_course(user_id, term_id, course_id) do
     course_tables =
     Table
@@ -364,11 +375,13 @@ defmodule CSys.CourseDao do
     if course_tables do
       {:error, "You have selected this course!"}
     else
-      if course_rest_inject_plus(course_id) do
+      if c = course_rest_inject_plus(course_id) do
+        # find_course_code(course_id)
         attrs = %{
           user_id: user_id,
           course_id: course_id,
-          term_id: term_id
+          term_id: term_id,
+          course_code: c.code # 便于培养方案索引
         }
         create_course_table(attrs)
         {:ok, "Select Successfully!"}

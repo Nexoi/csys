@@ -7,6 +7,7 @@ defmodule CSys.Training do
   alias CSys.Repo
 
   alias CSys.Training.TrainingCourse
+  alias CSys.Course.Table
 
 
   def page_training_courses(major_id, page) do
@@ -16,12 +17,46 @@ defmodule CSys.Training do
     |> Repo.paginate(page)
   end
 
-  # 会增加已经选读过的课程
+  # 会join已经选读过的课程
+  # CSys.Training.page_my_training_courses(1, 1, %{page: 1, page_size: 10})
   def page_my_training_courses(user_id, major_id, page) do
-    TrainingCourse
-    |> where([major_id: ^major_id])
-    |> preload([:major])
+    query = from c in TrainingCourse,
+            left_join: t in Table, on: (c.course_code == t.course_code),
+            where: c.major_id == ^major_id,
+            select: {c, fragment("(? IS NOT NULL) as status", t.id)}
+    query
     |> Repo.paginate(page)
+    |> page_it()
+  end
+
+  defp page_it(page_) do
+    %{
+      entries: page_.entries |> actived_filter,
+      page_number: page_.page_number,
+      page_size: page_.page_size,
+      total_entries: page_.total_entries,
+      total_pages: page_.total_pages
+    }
+  end
+  # 过滤
+  defp actived_filter([]), do: []
+  defp actived_filter(normalized_questions) do
+    normalized_questions
+    |> Enum.map(fn entrie ->
+      {training_course, status} = entrie
+      %{
+        major_id: training_course.id,
+        id: training_course.id,
+        course_code: training_course.id,
+        course_credit: training_course.id,
+        course_name: training_course.id,
+        course_property: training_course.id,
+        course_time: training_course.id,
+        inserted_at: training_course.id,
+        updated_at: training_course.id,
+        status: status
+      }
+    end)
   end
 
   @doc """
