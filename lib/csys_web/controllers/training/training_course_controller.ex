@@ -9,6 +9,7 @@ defmodule CSysWeb.TrainingCourseController do
 
   swagger_path :index do
     get "/api/training/majors/{major_id}/courses"
+    tag "培养方案课程"
     description "获取全部专业课程"
     parameters do
       major_id :path, :integer, "major_id", required: true
@@ -19,6 +20,7 @@ defmodule CSysWeb.TrainingCourseController do
 
   swagger_path :show do
     get "/api/training/majors/{major_id}/courses/{course_id}"
+    tag "培养方案课程"
     description "获取某一专业下的某一课程"
     parameters do
       major_id :path, :integer, "major_id", required: true

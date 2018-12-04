@@ -9,12 +9,14 @@ defmodule CSysWeb.TrainingMajorController do
 
   swagger_path :index do
     get "/api/training/majors"
+    tag "培养方案课程"
     description "获取全部专业"
     response 200, "success"
   end
 
   swagger_path :show do
     get "/api/training/majors/{major_id}"
+    tag "培养方案课程"
     description "获取某一专业"
     parameters do
       id :path, :integer, "major_id", required: true

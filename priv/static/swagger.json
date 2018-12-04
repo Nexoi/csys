@@ -598,7 +598,7 @@
     "/api/training/majors/{major_id}/courses": {
       "get": {
         "tags": [
-          "TrainingCourse"
+          "培养方案课程"
         ],
         "summary": "",
         "responses": {
@@ -668,6 +668,30 @@
         "parameters": [],
         "operationId": "CSysWeb.CourseController.current_table",
         "description": "获取全部已选课程（当前课表）"
+      }
+    },
+    "/api/training/majors/{major_id}": {
+      "get": {
+        "tags": [
+          "TrainingMajor"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "major_id"
+          }
+        ],
+        "operationId": "CSysWeb.TrainingMajorController.show",
+        "description": "获取某一专业"
       }
     },
     "/api/normal/xiaoli": {
@@ -2406,7 +2430,7 @@
     "/api/training/majors/{major_id}/courses/{course_id}": {
       "get": {
         "tags": [
-          "TrainingCourse"
+          "培养方案课程"
         ],
         "summary": "",
         "responses": {
