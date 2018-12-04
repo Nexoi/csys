@@ -8,13 +8,13 @@ defmodule CSysWeb.TrainingMajorController do
   action_fallback CSysWeb.FallbackController
 
   swagger_path :index do
-    get "/admin/api/training/majors"
+    get "/api/training/majors"
     description "获取全部专业"
     response 200, "success"
   end
 
   swagger_path :show do
-    get "/admin/api/training/majors/{major_id}"
+    get "/api/training/majors/{major_id}"
     description "获取某一专业"
     parameters do
       id :path, :integer, "major_id", required: true

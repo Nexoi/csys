@@ -595,6 +595,46 @@
         "description": "Sign In"
       }
     },
+    "/api/training/majors/{major_id}/courses": {
+      "get": {
+        "tags": [
+          "TrainingCourse"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "major_id",
+            "in": "path",
+            "description": "major_id"
+          },
+          {
+            "type": "integer",
+            "required": false,
+            "name": "page_size",
+            "minimum": 1,
+            "in": "query",
+            "description": "Number of elements per page"
+          },
+          {
+            "type": "integer",
+            "required": false,
+            "name": "page",
+            "minimum": 1,
+            "in": "query",
+            "description": "Number of the page"
+          }
+        ],
+        "operationId": "CSysWeb.TrainingCourseController.index",
+        "description": "获取全部专业课程"
+      }
+    },
     "/api/users/sign_out": {
       "post": {
         "tags": [
@@ -884,6 +924,22 @@
         ],
         "operationId": "CSysWeb.Admin.CourseTableController.user_term_tables",
         "description": "获取该学生该学期全部课程"
+      }
+    },
+    "/api/training/majors": {
+      "get": {
+        "tags": [
+          "TrainingMajor"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [],
+        "operationId": "CSysWeb.TrainingMajorController.index",
+        "description": "获取全部专业"
       }
     },
     "/admin/api/users/{id}": {
@@ -2345,6 +2401,37 @@
         ],
         "operationId": "CSysWeb.Admin.CourseTableController.delete",
         "description": "移除课程"
+      }
+    },
+    "/api/training/majors/{major_id}/courses/{course_id}": {
+      "get": {
+        "tags": [
+          "TrainingCourse"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "major_id",
+            "in": "path",
+            "description": "major_id"
+          },
+          {
+            "type": "integer",
+            "required": true,
+            "name": "course_id",
+            "in": "path",
+            "description": "course_id"
+          }
+        ],
+        "operationId": "CSysWeb.TrainingCourseController.show",
+        "description": "获取某一专业下的某一课程"
       }
     },
     "/admin/api/normal/curriculums": {

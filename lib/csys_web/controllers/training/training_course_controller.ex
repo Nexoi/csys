@@ -8,7 +8,7 @@ defmodule CSysWeb.TrainingCourseController do
   action_fallback CSysWeb.FallbackController
 
   swagger_path :index do
-    get "/admin/api/training/majors/{major_id}/courses"
+    get "/api/training/majors/{major_id}/courses"
     description "获取全部专业课程"
     parameters do
       major_id :path, :integer, "major_id", required: true
@@ -18,7 +18,7 @@ defmodule CSysWeb.TrainingCourseController do
   end
 
   swagger_path :show do
-    get "/admin/api/training/majors/{major_id}/courses/{course_id}"
+    get "/api/training/majors/{major_id}/courses/{course_id}"
     description "获取某一专业下的某一课程"
     parameters do
       major_id :path, :integer, "major_id", required: true
