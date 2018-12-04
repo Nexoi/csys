@@ -24,7 +24,7 @@ defmodule CSys.Course.Table do
   def changeset(course_table, attrs) do
     course_table
     |> cast(attrs, [:user_id, :term_id, :course_id])
-    |> validate_required([:user_id, :term_id, :course_id])
+    |> validate_required([:user_id, :course_id])
   end
 
 end

@@ -53,6 +53,11 @@ defmodule CSysWeb.Router do
     get "/tables/history/:term_id", CourseController, :table
     get "/terms", Course.TermController, :index
     get "/courses/logs", Course.LogController, :index
+
+    get "/pre_courses", CoursePreController, :index
+    get "/pre_tables", CoursePreController, :current_table
+    post "/pre_courses/:course_id", CoursePreController, :chose
+    delete "/pre_courses/:course_id", CoursePreController, :cancel
   end
 
   # 需要特定时刻开放的 API
@@ -194,8 +199,8 @@ defmodule CSysWeb.Router do
     %{
       info: %{
         version: "1.0",
-        title: "Jwxt-En",
-        host: "jwxt.sustc.seeuio.com"
+        title: "Jwxt-En-OOP",
+        host: "oop.sustc.seeuio.com"
       }
     }
   end

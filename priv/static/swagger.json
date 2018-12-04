@@ -1182,6 +1182,25 @@
         "description": "列出所有的培养方案Major"
       }
     },
+    "/api/pre_tables": {
+      "get": {
+        "tags": [
+          "CoursePre"
+        ],
+        "summary": "",
+        "responses": {
+          "204": {
+            "description": "empty"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [],
+        "operationId": "CSysWeb.CoursePreController.current_table",
+        "description": "获取全部已选课程（预选课表）"
+      }
+    },
     "/admin/api/normal/curriculums/class": {
       "post": {
         "tags": [
@@ -1207,6 +1226,49 @@
         ],
         "operationId": "CSysWeb.Admin.Normal.CurriculumController.create_class",
         "description": ""
+      }
+    },
+    "/api/pre_courses": {
+      "get": {
+        "tags": [
+          "CoursePre"
+        ],
+        "summary": "",
+        "responses": {
+          "204": {
+            "description": "empty"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": false,
+            "name": "page_size",
+            "minimum": 1,
+            "in": "query",
+            "description": "Number of elements per page"
+          },
+          {
+            "type": "integer",
+            "required": false,
+            "name": "page",
+            "minimum": 1,
+            "in": "query",
+            "description": "Number of the page"
+          },
+          {
+            "type": "string",
+            "required": false,
+            "name": "word",
+            "in": "query",
+            "description": "搜索关键词，可选"
+          }
+        ],
+        "operationId": "CSysWeb.CoursePreController.index",
+        "description": "获取全部课程"
       }
     },
     "/admin/api/normal/curriculums/major": {
@@ -1267,6 +1329,58 @@
         ],
         "operationId": "CSysWeb.Course.LogController.index",
         "description": "获取全部课程日志"
+      }
+    },
+    "/api/pre_courses/{course_id}": {
+      "post": {
+        "tags": [
+          "CoursePre"
+        ],
+        "summary": "",
+        "responses": {
+          "204": {
+            "description": "empty"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "course_id",
+            "in": "path",
+            "description": "课程id"
+          }
+        ],
+        "operationId": "CSysWeb.CoursePreController.chose",
+        "description": "选课"
+      },
+      "delete": {
+        "tags": [
+          "CoursePre"
+        ],
+        "summary": "",
+        "responses": {
+          "204": {
+            "description": "empty"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "course_id",
+            "in": "path",
+            "description": "课程id"
+          }
+        ],
+        "operationId": "CSysWeb.CoursePreController.cancel",
+        "description": "退课"
       }
     },
     "/api/normal/notifications": {
@@ -2126,8 +2240,9 @@
   },
   "info": {
     "version": "1.0",
-    "title": "Jwxt-En",
-    "host": "jwxt.sustc.seeuio.com"
+    "title": "Jwxt-En-OOP",
+    "host": "oop.sustc.seeuio.com"
   },
+  "host": "oop.sustc.seeuio.com:4003",
   "definitions": {}
 }

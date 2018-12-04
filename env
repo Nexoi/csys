@@ -1,6 +1,6 @@
 #export ENV=test
 #export MIX_ENV=test
-export SUSTC_JWXT_HOSTNAME=jwxt.sustc.seeuio.com
-export SUSTC_JWXT_PORT=4002
+export SUSTC_JWXT_HOSTNAME=oop.sustc.seeuio.com
+export SUSTC_JWXT_PORT=4003
 export USERNAME=postgres
 export PASSWORD=postgres

@@ -137,6 +137,16 @@ defmodule CSys.CourseDao do
   end
 
   @doc """
+  查看学生预选课课表
+  """
+  def list_course_tables(user_id) do
+    query = from t in Table,
+            where: t.user_id == ^user_id and is_nil(t.term_id)
+    query
+    |> preload([:term, :course])
+    |> Repo.all
+  end
+  @doc """
   查看学生课表
   CSys.CourseDao.list_course_tables(1, 1)
   """
@@ -243,6 +253,49 @@ defmodule CSys.CourseDao do
   def update_course_rest() do
     Course
     |> Repo.update_all(set: [current_num: 0])
+  end
+
+  @doc """
+  预选课
+  """
+  def chose_precourse(user_id, course_id) do
+    query = from t in Table,
+            where: t.user_id == ^user_id and t.course_id == ^course_id and is_nil(t.term_id)
+    course_table = query |> Repo.all |> List.first
+
+    if course_table do
+      {:error, "You have selected this course!"}
+    else
+      # course_table |> IO.inspect(label: ">> Chose Course")
+      attrs = %{
+        user_id: user_id,
+        course_id: course_id,
+        term_id: nil
+      }
+      create_course_table(attrs)
+      {:ok, "Select Successfully!"}
+    end
+  end
+
+  def cancel_precourse(user_id, course_id) do
+    query = from t in Table,
+            where: t.user_id == ^user_id and t.course_id == ^course_id and is_nil(t.term_id)
+    course_table = query |> Repo.all |> List.first
+
+    if course_table do
+        # delete
+        # Table
+        # |> where([user_id: ^user_id, course_id: ^course_id])
+        # |> is_nil(p, [p.term_id])
+        # |> Repo.delete_all
+        query = from t in Table,
+                where: t.user_id == ^user_id and t.course_id == ^course_id and is_nil(t.term_id)
+        query |> Repo.delete_all
+
+        {:ok, "Withdraw Successfully!"}
+    else
+      {:error, "You have not selected this course!"}
+    end
   end
 
   #### 退选课 ####
