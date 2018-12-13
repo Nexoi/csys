@@ -22,6 +22,7 @@ defmodule CSys.CourseTranslanter.Dictor do
       "语言中心" -> "Center For Language Education"
       "社会科学中心" -> "Social Science Center"
       "人文中心" -> "Center for the Humanities"
+      "体育中心" -> "PE Center"
       _ -> str
     end
   end
@@ -43,7 +44,7 @@ defmodule CSys.CourseTranslanter.Dictor do
     |> String.replace("沿湖健身房", "Lakeside Gym ")
     |> String.replace("排球场", "Volleyball Court ")
     |> String.replace("棒球场", "Baseball Field ")
-    |> String.replace("田径场", "Track and Field ")
+    |> String.replace("田径场", "Athletic Field (GPCP Stadium) ")
     |> String.replace("篮球场", "Basketball Courts ")
     |> String.replace("一科", "Faculty Research Building 1 ")
     |> String.replace("二科", "Faculty Research Building 2 ")
