@@ -23,6 +23,8 @@ defmodule CSys.CourseTranslanter.Dictor do
       "社会科学中心" -> "Social Science Center"
       "人文中心" -> "Center for the Humanities"
       "体育中心" -> "PE Center"
+      "高教中心" -> "Center for Higher Education Research"
+      "创新创业学院" -> "School of Innovation and Entrepreneurship"
       _ -> str
     end
   end
