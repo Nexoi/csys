@@ -595,6 +595,46 @@
         "description": "Sign In"
       }
     },
+    "/api/training/majors/{major_id}/courses": {
+      "get": {
+        "tags": [
+          "培养方案课程"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "major_id",
+            "in": "path",
+            "description": "major_id"
+          },
+          {
+            "type": "integer",
+            "required": false,
+            "name": "page_size",
+            "minimum": 1,
+            "in": "query",
+            "description": "Number of elements per page"
+          },
+          {
+            "type": "integer",
+            "required": false,
+            "name": "page",
+            "minimum": 1,
+            "in": "query",
+            "description": "Number of the page"
+          }
+        ],
+        "operationId": "CSysWeb.TrainingCourseController.index",
+        "description": "获取全部专业课程"
+      }
+    },
     "/api/users/sign_out": {
       "post": {
         "tags": [
@@ -628,6 +668,30 @@
         "parameters": [],
         "operationId": "CSysWeb.CourseController.current_table",
         "description": "获取全部已选课程（当前课表）"
+      }
+    },
+    "/api/training/majors/{major_id}": {
+      "get": {
+        "tags": [
+          "培养方案课程"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "major_id"
+          }
+        ],
+        "operationId": "CSysWeb.TrainingMajorController.show",
+        "description": "获取某一专业"
       }
     },
     "/api/normal/xiaoli": {
@@ -884,6 +948,22 @@
         ],
         "operationId": "CSysWeb.Admin.CourseTableController.user_term_tables",
         "description": "获取该学生该学期全部课程"
+      }
+    },
+    "/api/training/majors": {
+      "get": {
+        "tags": [
+          "培养方案课程"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [],
+        "operationId": "CSysWeb.TrainingMajorController.index",
+        "description": "获取全部专业"
       }
     },
     "/admin/api/users/{id}": {
@@ -1182,6 +1262,25 @@
         "description": "列出所有的培养方案Major"
       }
     },
+    "/api/pre_tables": {
+      "get": {
+        "tags": [
+          "CoursePre"
+        ],
+        "summary": "",
+        "responses": {
+          "204": {
+            "description": "empty"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [],
+        "operationId": "CSysWeb.CoursePreController.current_table",
+        "description": "获取全部已选课程（预选课表）"
+      }
+    },
     "/admin/api/normal/curriculums/class": {
       "post": {
         "tags": [
@@ -1207,6 +1306,49 @@
         ],
         "operationId": "CSysWeb.Admin.Normal.CurriculumController.create_class",
         "description": ""
+      }
+    },
+    "/api/pre_courses": {
+      "get": {
+        "tags": [
+          "CoursePre"
+        ],
+        "summary": "",
+        "responses": {
+          "204": {
+            "description": "empty"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": false,
+            "name": "page_size",
+            "minimum": 1,
+            "in": "query",
+            "description": "Number of elements per page"
+          },
+          {
+            "type": "integer",
+            "required": false,
+            "name": "page",
+            "minimum": 1,
+            "in": "query",
+            "description": "Number of the page"
+          },
+          {
+            "type": "string",
+            "required": false,
+            "name": "word",
+            "in": "query",
+            "description": "搜索关键词，可选"
+          }
+        ],
+        "operationId": "CSysWeb.CoursePreController.index",
+        "description": "获取全部课程"
       }
     },
     "/admin/api/normal/curriculums/major": {
@@ -1269,6 +1411,58 @@
         "description": "获取全部课程日志"
       }
     },
+    "/api/pre_courses/{course_id}": {
+      "post": {
+        "tags": [
+          "CoursePre"
+        ],
+        "summary": "",
+        "responses": {
+          "204": {
+            "description": "empty"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "course_id",
+            "in": "path",
+            "description": "课程id"
+          }
+        ],
+        "operationId": "CSysWeb.CoursePreController.chose",
+        "description": "选课"
+      },
+      "delete": {
+        "tags": [
+          "CoursePre"
+        ],
+        "summary": "",
+        "responses": {
+          "204": {
+            "description": "empty"
+          },
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "course_id",
+            "in": "path",
+            "description": "课程id"
+          }
+        ],
+        "operationId": "CSysWeb.CoursePreController.cancel",
+        "description": "退课"
+      }
+    },
     "/api/normal/notifications": {
       "get": {
         "tags": [
@@ -1305,6 +1499,44 @@
         "parameters": [],
         "operationId": "CSysWeb.Admin.Normal.CurriculumController.index_class",
         "description": "列出所有的培养方案Class"
+      }
+    },
+    "/admin/api/training/majors": {
+      "post": {
+        "tags": [
+          "AdminTrainingMajor"
+        ],
+        "summary": "",
+        "responses": {
+          "201": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "name",
+            "in": "query",
+            "description": "计算机科学与技术"
+          }
+        ],
+        "operationId": "CSysWeb.AdminTrainingMajorController.create",
+        "description": ""
+      },
+      "get": {
+        "tags": [
+          "AdminTrainingMajor"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [],
+        "operationId": "CSysWeb.AdminTrainingMajorController.index",
+        "description": "获取全部专业"
       }
     },
     "/admin/api/courses/{course_id}/unable": {
@@ -1360,6 +1592,220 @@
         ],
         "operationId": "CSysWeb.Admin.Course.LogController.delete",
         "description": "删除课程日志"
+      }
+    },
+    "/admin/api/training/majors/{major_id}/courses/{course_id}": {
+      "put": {
+        "tags": [
+          "AdminTrainingCourse"
+        ],
+        "summary": "",
+        "responses": {
+          "201": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "major_id",
+            "in": "path",
+            "description": "major_id"
+          },
+          {
+            "type": "integer",
+            "required": true,
+            "name": "course_id",
+            "in": "path",
+            "description": "course_id"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "course_code",
+            "in": "query",
+            "description": "CS101"
+          },
+          {
+            "type": "float",
+            "required": true,
+            "name": "course_credit",
+            "in": "query",
+            "description": "3.0"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "course_name",
+            "in": "query",
+            "description": "计算机科学与技术"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "course_property",
+            "in": "query",
+            "description": "MR"
+          },
+          {
+            "type": "integer",
+            "required": true,
+            "name": "course_time",
+            "in": "query",
+            "description": "60"
+          }
+        ],
+        "operationId": "CSysWeb.AdminTrainingCourseController.update",
+        "description": ""
+      },
+      "get": {
+        "tags": [
+          "AdminTrainingCourse"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "major_id",
+            "in": "path",
+            "description": "major_id"
+          },
+          {
+            "type": "integer",
+            "required": true,
+            "name": "course_id",
+            "in": "path",
+            "description": "course_id"
+          }
+        ],
+        "operationId": "CSysWeb.AdminTrainingCourseController.show",
+        "description": "获取某一专业课程"
+      },
+      "delete": {
+        "tags": [
+          "AdminTrainingCourse"
+        ],
+        "summary": "",
+        "responses": {
+          "204": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "course_id",
+            "in": "path",
+            "description": "course_id"
+          }
+        ],
+        "operationId": "CSysWeb.AdminTrainingCourseController.delete",
+        "description": "删除专业课程"
+      }
+    },
+    "/admin/api/training/majors/{major_id}/courses": {
+      "post": {
+        "tags": [
+          "AdminTrainingCourse"
+        ],
+        "summary": "",
+        "responses": {
+          "201": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "major_id",
+            "in": "path",
+            "description": "专业ID"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "course_code",
+            "in": "query",
+            "description": "CS101"
+          },
+          {
+            "type": "float",
+            "required": true,
+            "name": "course_credit",
+            "in": "query",
+            "description": "3.0"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "course_name",
+            "in": "query",
+            "description": "计算机科学与技术"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "course_property",
+            "in": "query",
+            "description": "MR"
+          },
+          {
+            "type": "integer",
+            "required": true,
+            "name": "course_time",
+            "in": "query",
+            "description": "60"
+          }
+        ],
+        "operationId": "CSysWeb.AdminTrainingCourseController.create",
+        "description": ""
+      },
+      "get": {
+        "tags": [
+          "AdminTrainingCourse"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "major_id",
+            "in": "path",
+            "description": "major_id"
+          },
+          {
+            "type": "integer",
+            "required": false,
+            "name": "page_size",
+            "minimum": 1,
+            "in": "query",
+            "description": "Number of elements per page"
+          },
+          {
+            "type": "integer",
+            "required": false,
+            "name": "page",
+            "minimum": 1,
+            "in": "query",
+            "description": "Number of the page"
+          }
+        ],
+        "operationId": "CSysWeb.AdminTrainingCourseController.index",
+        "description": "获取全部专业课程"
       }
     },
     "/api/normal/jianjie": {
@@ -1981,6 +2427,37 @@
         "description": "移除课程"
       }
     },
+    "/api/training/majors/{major_id}/courses/{course_id}": {
+      "get": {
+        "tags": [
+          "培养方案课程"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "major_id",
+            "in": "path",
+            "description": "major_id"
+          },
+          {
+            "type": "integer",
+            "required": true,
+            "name": "course_id",
+            "in": "path",
+            "description": "course_id"
+          }
+        ],
+        "operationId": "CSysWeb.TrainingCourseController.show",
+        "description": "获取某一专业下的某一课程"
+      }
+    },
     "/admin/api/normal/curriculums": {
       "post": {
         "tags": [
@@ -2122,12 +2599,87 @@
         "operationId": "CSysWeb.Normal.CurriculumController.index",
         "description": "列出所有的培养方案"
       }
+    },
+    "/admin/api/training/majors/{major_id}": {
+      "put": {
+        "tags": [
+          "AdminTrainingMajor"
+        ],
+        "summary": "",
+        "responses": {
+          "201": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "major_id"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "name",
+            "in": "query",
+            "description": "计算机科学与技术"
+          }
+        ],
+        "operationId": "CSysWeb.AdminTrainingMajorController.update",
+        "description": ""
+      },
+      "get": {
+        "tags": [
+          "AdminTrainingMajor"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "major_id"
+          }
+        ],
+        "operationId": "CSysWeb.AdminTrainingMajorController.show",
+        "description": "获取某一专业"
+      },
+      "delete": {
+        "tags": [
+          "AdminTrainingMajor"
+        ],
+        "summary": "",
+        "responses": {
+          "204": {
+            "description": "success"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "major_id"
+          }
+        ],
+        "operationId": "CSysWeb.AdminTrainingMajorController.delete",
+        "description": "删除专业"
+      }
     }
   },
   "info": {
     "version": "1.0",
-    "title": "Jwxt-En",
-    "host": "jwxt.sustc.seeuio.com"
+    "title": "Jwxt-En-OOP",
+    "host": "oop.sustc.seeuio.com"
   },
   "definitions": {}
 }
