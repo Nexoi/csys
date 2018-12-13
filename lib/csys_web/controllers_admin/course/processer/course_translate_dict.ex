@@ -24,6 +24,7 @@ defmodule CSys.CourseTranslanter.Dictor do
       "人文中心" -> "Center for the Humanities"
       "体育中心" -> "PE Center"
       "高教中心" -> "Center for Higher Education Research"
+      "高等教育中心" -> "Center for Higher Education Research"
       "创新创业学院" -> "School of Innovation and Entrepreneurship"
       _ -> str
     end
@@ -70,10 +71,15 @@ defmodule CSys.CourseTranslanter.Dictor do
     |> String.replace("实验", "Lab ")
     |> String.replace("中英双语", "Bilingual ")
     |> String.replace("中英", "Bilingual ")
+    |> String.replace("高级汉语", "Advanced Chinese ")
     |> String.replace("基础课", "General ")
+    |> String.replace("搏击", "Boxing ")
+    |> String.replace("轮滑", "Roller Skating ")
+    |> String.replace("跆拳道", "Taekwondo ")
     |> String.replace("网球", "Tennis ")
     |> String.replace("乒乓球", "Table Tennis ")
-    |> String.replace("运动与体能", "Sports and Stamina ")
+    |> String.replace("运动与体能", "Sports and Fitness ")
+    |> String.replace("运动和体能", "Sports and Fitness ")
     |> String.replace("武术", "Martial Arts ")
     |> String.replace("游泳", "Swimming ")
     |> String.replace("篮球", "Basketball ")
