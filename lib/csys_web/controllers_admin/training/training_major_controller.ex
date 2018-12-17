@@ -4,6 +4,7 @@ defmodule CSysWeb.AdminTrainingMajorController do
 
   alias CSys.Training
   alias CSys.Training.TrainingMajor
+  alias CSysWeb.TrainingMajorView
 
   action_fallback CSysWeb.FallbackController
 
@@ -50,27 +51,27 @@ defmodule CSysWeb.AdminTrainingMajorController do
 
   def index(conn, _params) do
     training_majors = Training.list_training_majors()
-    render(conn, "index.json", training_majors: training_majors)
+    render(conn, TrainingMajorView, "index.json", training_majors: training_majors)
   end
 
   def create(conn, params) do
     with {:ok, %TrainingMajor{} = training_major} <- Training.create_training_major(params) do
       conn
       |> put_status(:created)
-      |> render("show.json", training_major: training_major)
+      |> render(TrainingMajorView, "show.json", training_major: training_major)
     end
   end
 
   def show(conn, %{"id" => id}) do
     training_major = Training.get_training_major!(id)
-    render(conn, "show.json", training_major: training_major)
+    render(conn, TrainingMajorView, "show.json", training_major: training_major)
   end
 
   def update(conn, %{"id" => id} = params) do
     training_major = Training.get_training_major!(id)
 
     with {:ok, %TrainingMajor{} = training_major} <- Training.update_training_major(training_major, params) do
-      render(conn, "show.json", training_major: training_major)
+      render(conn, TrainingMajorView, "show.json", training_major: training_major)
     end
   end
 

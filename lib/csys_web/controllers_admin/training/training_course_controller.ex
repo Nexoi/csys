@@ -4,6 +4,7 @@ defmodule CSysWeb.AdminTrainingCourseController do
 
   alias CSys.Training
   alias CSys.Training.TrainingCourse
+  alias CSysWeb.TrainingCourseView
 
   action_fallback CSysWeb.FallbackController
 
@@ -72,27 +73,27 @@ defmodule CSysWeb.AdminTrainingCourseController do
       page_size: page_size
     }
     training_courses = Training.page_training_courses(major_id, page)
-    render(conn, "index.json", training_courses: training_courses)
+    render(conn, TrainingCourseView, "index.json", training_courses: training_courses)
   end
 
   def create(conn, params) do
     with {:ok, %TrainingCourse{} = training_course} <- Training.create_training_course(params) do
       conn
       |> put_status(:created)
-      |> render("show.json", training_course: training_course)
+      |> render(TrainingCourseView, "show.json", training_course: training_course)
     end
   end
 
   def show(conn, %{"id" => id}) do
     training_course = Training.get_training_course!(id)
-    render(conn, "show.json", training_course: training_course)
+    render(conn, TrainingCourseView, "show.json", training_course: training_course)
   end
 
   def update(conn, %{"id" => id} = params) do
     training_course = Training.get_training_course!(id)
 
     with {:ok, %TrainingCourse{} = training_course} <- Training.update_training_course(training_course, params) do
-      render(conn, "show.json", training_course: training_course)
+      render(conn, TrainingCourseView, "show.json", training_course: training_course)
     end
   end
 

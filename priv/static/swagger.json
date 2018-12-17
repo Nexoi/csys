@@ -673,7 +673,7 @@
     "/api/training/majors/{major_id}": {
       "get": {
         "tags": [
-          "TrainingMajor"
+          "培养方案课程"
         ],
         "summary": "",
         "responses": {
@@ -953,7 +953,7 @@
     "/api/training/majors": {
       "get": {
         "tags": [
-          "TrainingMajor"
+          "培养方案课程"
         ],
         "summary": "",
         "responses": {
