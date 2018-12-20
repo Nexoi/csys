@@ -80,7 +80,8 @@ defmodule CSysWeb.AdminTrainingCourseController do
     with {:ok, %TrainingCourse{} = training_course} <- Training.create_training_course(params) do
       conn
       |> put_status(:created)
-      |> render(TrainingCourseView, "show.json", training_course: training_course)
+      |> json(%{message: "create success"})
+      # |> render(TrainingCourseView, "show.json", training_course: training_course)
     end
   end
 
