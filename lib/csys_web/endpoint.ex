@@ -41,6 +41,10 @@ defmodule CSysWeb.Endpoint do
   # 自定义的 CORS 配置
   plug Corsica,
     origins: [
+      "http://oop.project.seeuio.com",
+      "http://oop.project.seeuio.com:81",
+      "http://oop.project.seeuio.com:8000",
+      "http://oop.project.seeuio.com:8080",
       "http://localhost:4002",
       "http://localhost:8000",
       "http://tis.sustc.edu.cn",
