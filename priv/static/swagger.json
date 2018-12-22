@@ -1501,44 +1501,6 @@
         "description": "列出所有的培养方案Class"
       }
     },
-    "/admin/api/training/majors": {
-      "post": {
-        "tags": [
-          "AdminTrainingMajor"
-        ],
-        "summary": "",
-        "responses": {
-          "201": {
-            "description": "success"
-          }
-        },
-        "parameters": [
-          {
-            "type": "string",
-            "required": true,
-            "name": "name",
-            "in": "query",
-            "description": "计算机科学与技术"
-          }
-        ],
-        "operationId": "CSysWeb.AdminTrainingMajorController.create",
-        "description": ""
-      },
-      "get": {
-        "tags": [
-          "AdminTrainingMajor"
-        ],
-        "summary": "",
-        "responses": {
-          "200": {
-            "description": "success"
-          }
-        },
-        "parameters": [],
-        "operationId": "CSysWeb.AdminTrainingMajorController.index",
-        "description": "获取全部专业"
-      }
-    },
     "/admin/api/courses/{course_id}/unable": {
       "delete": {
         "tags": [
@@ -2598,81 +2560,6 @@
         "parameters": [],
         "operationId": "CSysWeb.Normal.CurriculumController.index",
         "description": "列出所有的培养方案"
-      }
-    },
-    "/admin/api/training/majors/{major_id}": {
-      "put": {
-        "tags": [
-          "AdminTrainingMajor"
-        ],
-        "summary": "",
-        "responses": {
-          "201": {
-            "description": "success"
-          }
-        },
-        "parameters": [
-          {
-            "type": "integer",
-            "required": true,
-            "name": "id",
-            "in": "path",
-            "description": "major_id"
-          },
-          {
-            "type": "string",
-            "required": true,
-            "name": "name",
-            "in": "query",
-            "description": "计算机科学与技术"
-          }
-        ],
-        "operationId": "CSysWeb.AdminTrainingMajorController.update",
-        "description": ""
-      },
-      "get": {
-        "tags": [
-          "AdminTrainingMajor"
-        ],
-        "summary": "",
-        "responses": {
-          "200": {
-            "description": "success"
-          }
-        },
-        "parameters": [
-          {
-            "type": "integer",
-            "required": true,
-            "name": "id",
-            "in": "path",
-            "description": "major_id"
-          }
-        ],
-        "operationId": "CSysWeb.AdminTrainingMajorController.show",
-        "description": "获取某一专业"
-      },
-      "delete": {
-        "tags": [
-          "AdminTrainingMajor"
-        ],
-        "summary": "",
-        "responses": {
-          "204": {
-            "description": "success"
-          }
-        },
-        "parameters": [
-          {
-            "type": "integer",
-            "required": true,
-            "name": "id",
-            "in": "path",
-            "description": "major_id"
-          }
-        ],
-        "operationId": "CSysWeb.AdminTrainingMajorController.delete",
-        "description": "删除专业"
       }
     }
   },

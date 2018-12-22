@@ -77,8 +77,12 @@ defmodule CSysWeb.AdminTrainingMajorController do
 
   def delete(conn, %{"id" => id}) do
     training_major = Training.get_training_major!(id)
-    with {:ok, %TrainingMajor{}} <- Training.delete_training_major(training_major) do
-      send_resp(conn, :no_content, "")
+    case Training.delete_training_major(training_major) do
+      {:ok, _} -> send_resp(conn, :no_content, "")
+      _ -> json(conn, %{message: "Please remove all course under this major before."})
     end
+    # with {:ok, %TrainingMajor{}} <-  do
+    #   send_resp(conn, :no_content, "")
+    # end
   end
 end
