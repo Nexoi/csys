@@ -40,26 +40,30 @@ defmodule CSysWeb.ExportController do
   end
 
   defp to_csv_course_tables(src_tables) do
-    src_tables
-    |> Enum.map(fn line ->
-      "#{line.term.id}," <>            # id
-      "#{line.term.term}," <>          # 学期名
-      "#{line.term.name}," <>          # 2018-2019-1
-      "#{line.user.uid}," <>           # 学号
-      "#{line.user.name |> replace}," <>          # 姓名
-      "#{line.course.code}," <>                   # CS101
-      "#{line.course.name |> replace}," <>        # 计算机网络
-      "#{line.course.class_name |> replace}," <>  # A班
-      "#{line.course.group_name |> replace}," <>  # 临班23
-      "#{line.course.teacher |> replace}," <>     # 老师
-      "#{line.course.unit |> replace}," <>        # 计算机系
-      "#{line.course.property |> replace}," <>    # 专业必修
-      "#{line.course.time}," <>        # 学时
-      "#{line.course.credit}"          # 学分
-    end)
-    |> Enum.reduce(fn line1, line2 ->
-      "#{line1}\n#{line2}"
-    end)
+    if src_tables == [] do
+      []
+    else
+      src_tables
+      |> Enum.map(fn line ->
+        "#{line.term.id}," <>            # id
+        "#{line.term.term}," <>          # 学期名
+        "#{line.term.name}," <>          # 2018-2019-1
+        "#{line.user.uid}," <>           # 学号
+        "#{line.user.name |> replace}," <>          # 姓名
+        "#{line.course.code}," <>                   # CS101
+        "#{line.course.name |> replace}," <>        # 计算机网络
+        "#{line.course.class_name |> replace}," <>  # A班
+        "#{line.course.group_name |> replace}," <>  # 临班23
+        "#{line.course.teacher |> replace}," <>     # 老师
+        "#{line.course.unit |> replace}," <>        # 计算机系
+        "#{line.course.property |> replace}," <>    # 专业必修
+        "#{line.course.time}," <>        # 学时
+        "#{line.course.credit}"          # 学分
+      end)
+      |> Enum.reduce(fn line1, line2 ->
+        "#{line1}\n#{line2}"
+      end)
+    end
   end
   defp replace(nil), do: nil
   defp replace(src) do
