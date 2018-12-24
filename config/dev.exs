@@ -41,6 +41,6 @@ config :csys, CSys.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: System.get_env("USERNAME") || "neo",
   password: System.get_env("PASSWORD") || "",
-  database: "csys_oop",
+  database: "csys_oop_new",
   hostname: "localhost",
   pool_size: 10
