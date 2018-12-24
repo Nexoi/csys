@@ -25,7 +25,7 @@ defmodule CSysWeb.Router do
   end
 
   pipeline :api_auth_course_open do
-    # plug :is_open_day
+    plug :is_open_day
   end
 
   # 不需要任何权限验证
