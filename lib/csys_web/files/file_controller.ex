@@ -24,7 +24,7 @@ defmodule CSysWeb.FileController do
     if upload = params["file"] do
       # extension = Path.extname(upload.filename)
       # filename = "/media/#{DateTime.utc_now |> DateTime.to_unix}-profile#{extension}"
-      filename = "/#{DateTime.utc_now |> DateTime.to_unix}-#{upload.filename}" # |> URI.encode
+      filename = "/#{DateTime.utc_now |> DateTime.to_unix}-#{:rand.uniform(99999)}" # |> URI.encode
       File.cp(upload.path, "#{@file_path}#{filename}")
       conn
       |> put_status(:created)
