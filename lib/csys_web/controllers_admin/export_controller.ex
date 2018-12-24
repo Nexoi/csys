@@ -41,7 +41,7 @@ defmodule CSysWeb.ExportController do
 
   defp to_csv_course_tables(src_tables) do
     if src_tables == [] do
-      []
+      ["没人选课"]
     else
       src_tables
       |> Enum.map(fn line ->
