@@ -6,8 +6,8 @@ defmodule CSys.Repo.Migrations.CreateCurriculumClass do
       add :title, :string
       add :res_url, :string
 
-      add :major_id, references(:curriculum_majors, on_delete: :nothing)
-      add :class_id, references(:curriculum_classes, on_delete: :nothing)
+      add :major_id, references(:curriculum_majors, on_delete: :delete_all)
+      add :class_id, references(:curriculum_classes, on_delete: :delete_all)
 
       timestamps()
     end

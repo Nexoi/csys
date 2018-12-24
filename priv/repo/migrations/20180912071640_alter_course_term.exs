@@ -3,7 +3,7 @@ defmodule CSys.Repo.Migrations.AlterCourseTerm do
 
   def change do
     alter table(:courses) do
-      add :term_id, references(:terms, on_delete: :nothing)
+      add :term_id, references(:terms, on_delete: :delete_all)
     end
   end
 end

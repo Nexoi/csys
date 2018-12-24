@@ -8,10 +8,11 @@ defmodule CSys.Repo.Migrations.CreateTrainingMajors do
       add :course_time, :integer
       add :course_credit, :integer
       add :course_property, :string
-      add :major_id, references(:training_majors, on_delete: :nothing)
+      add :major_id, references(:training_majors, on_delete: :delete_all)
 
       timestamps()
     end
 
+    create unique_index(:training_courses, [:course_code])
   end
 end

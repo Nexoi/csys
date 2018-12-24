@@ -3,7 +3,7 @@ defmodule CSys.Repo.Migrations.AddCurriculumDepartment do
 
   def change do
     alter table(:curriculums) do
-      add :department_id, references(:curriculum_departments, on_delete: :nothing)
+      add :department_id, references(:curriculum_departments, on_delete: :delete_all)
     end
   end
 end
