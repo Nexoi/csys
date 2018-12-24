@@ -14,8 +14,18 @@ defmodule CSysWeb.ErrorView do
     %{errors: %{detail: Phoenix.Controller.status_message_from_template(template)}}
   end
 
-  def render("400.json", %{message: message}) do
-    %{errors: %{detail: message}}
+  # def render("400.json", %{message: message}) do
+  #   %{errors: %{detail: message}}
+  # end
+
+  def render("400.json", %{reason: reason}) do
+    message = case reason do
+      %Phoenix.Router.NoRouteError{} -> "Route not found"
+      %Ecto.NoResultsError{} -> "Resource not found"
+      %Ecto.ConstraintError{} -> "Constraint should be unique"
+      _ -> "Uncaught exception"
+    end
+    %{error: message}
   end
 
   def render("401.json", %{message: message}) do
