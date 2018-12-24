@@ -23,8 +23,9 @@ defmodule CSysWeb.FileController do
     IO.inspect params
     if upload = params["file"] do
       # extension = Path.extname(upload.filename)
+      
       # filename = "/media/#{DateTime.utc_now |> DateTime.to_unix}-profile#{extension}"
-      filename = "/#{DateTime.utc_now |> DateTime.to_unix}-#{:rand.uniform(99999)}" # |> URI.encode
+      filename = "/#{DateTime.utc_now |> DateTime.to_unix}-#{:rand.uniform(99999)}#{upload.filename |> fetch_suffix()}" # |> URI.encode
       File.cp(upload.path, "#{@file_path}#{filename}")
       conn
       |> put_status(:created)
@@ -38,6 +39,16 @@ defmodule CSysWeb.FileController do
       |> json(%{
         messgae: "upload fail"
       })
+    end
+  end
+
+  defp fetch_suffix(""), do: ""
+  defp fetch_suffix(str) do
+    if String.contains?(str, ".") do
+      result = str |> String.split(".") |> List.last
+      ".#{result}"
+    else
+      str
     end
   end
 end
