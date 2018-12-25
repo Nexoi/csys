@@ -45,15 +45,15 @@ defmodule CSys.Training do
     |> Enum.map(fn entrie ->
       {training_course, status} = entrie
       %{
-        major_id: training_course.id,
+        major_id: training_course.major_id,
         id: training_course.id,
-        course_code: training_course.id,
-        course_credit: training_course.id,
-        course_name: training_course.id,
-        course_property: training_course.id,
-        course_time: training_course.id,
-        inserted_at: training_course.id,
-        updated_at: training_course.id,
+        course_code: training_course.course_code,
+        course_credit: training_course.course_credit,
+        course_name: training_course.course_name,
+        course_property: training_course.course_property,
+        course_time: training_course.course_time,
+        inserted_at: training_course.inserted_at,
+        updated_at: training_course.updated_at,
         status: status
       }
     end)
