@@ -54,11 +54,15 @@ defmodule CSysWeb.AdminTrainingMajorController do
     render(conn, TrainingMajorView, "index.json", training_majors: training_majors)
   end
 
-  def create(conn, params) do
-    with {:ok, %TrainingMajor{} = training_major} <- Training.create_training_major(params) do
-      conn
-      |> put_status(:created)
-      |> render(TrainingMajorView, "show.json", training_major: training_major)
+  def create(conn, %{"name" => name} = params) do
+    if major = Training.find_training_major_by_name(name) do
+      conn |> put_status(400) |> json(%{error: "已经存在专业：#{major.name}"})
+    else
+      with {:ok, %TrainingMajor{} = training_major} <- Training.create_training_major(params) do
+        conn
+        |> put_status(:created)
+        |> render(TrainingMajorView, "show.json", training_major: training_major)
+      end
     end
   end
 

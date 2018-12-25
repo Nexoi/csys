@@ -7,8 +7,15 @@ defmodule CSys.Training do
   alias CSys.Repo
 
   alias CSys.Training.TrainingCourse
+  alias CSys.Training.TrainingMajor
   alias CSys.Course.Table
 
+  def find_training_major_by_name(name) do
+    TrainingMajor
+    |> where(name: ^name)
+    |> Repo.all
+    |> List.first
+  end
 
   def page_training_courses(major_id, page) do
     TrainingCourse
@@ -155,7 +162,6 @@ defmodule CSys.Training do
     TrainingCourse.changeset(training_course, %{})
   end
 
-  alias CSys.Training.TrainingMajor
 
   @doc """
   Returns the list of training_majors.

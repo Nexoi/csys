@@ -156,16 +156,28 @@ defmodule CSysWeb.Admin.Normal.CurriculumController do
   end
 
   def create_class(conn, %{"name" => name}) do
-    CurriculumDao.create_class(name |> String.trim)
-    conn |> success
+    if CurriculumDao.fetch_curriculum_class_by_name(name) do
+      conn |> json(%{error: "已有年级：#{name}"})
+    else
+      CurriculumDao.create_class(name |> String.trim)
+      conn |> success
+    end
   end
   def create_major(conn, %{"name" => name}) do
-    CurriculumDao.create_major(name |> String.trim)
-    conn |> success
+    if CurriculumDao.fetch_curriculum_major_by_name(name) do
+      conn |> json(%{error: "已有专业：#{name}"})
+    else
+      CurriculumDao.create_major(name |> String.trim)
+      conn |> success
+    end
   end
   def create_department(conn, %{"name" => name}) do
-    CurriculumDao.create_department(name |> String.trim)
-    conn |> success
+    if CurriculumDao.fetch_curriculum_department_by_name(name) do
+      conn |> json(%{error: "已有院系：#{name}"})
+    else
+      CurriculumDao.create_department(name |> String.trim)
+      conn |> success
+    end
   end
 
   def delete_class(conn, %{"id" => id}) do

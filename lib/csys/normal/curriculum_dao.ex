@@ -10,6 +10,27 @@ defmodule CSys.Normal.CurriculumDao do
   alias CSys.Normal.CurriculumMajor
   alias CSys.Normal.CurriculumDepartment
 
+  def fetch_curriculum_class_by_name(name) do
+    CurriculumClass
+    |> where(name: ^name)
+    |> Repo.all
+    |> List.first
+  end
+
+  def fetch_curriculum_major_by_name(name) do
+    CurriculumMajor
+    |> where(name: ^name)
+    |> Repo.all
+    |> List.first
+  end
+
+  def fetch_curriculum_department_by_name(name) do
+    CurriculumDepartment
+    |> where(name: ^name)
+    |> Repo.all
+    |> List.first
+  end
+
   def list_curriculums do
     Curriculum
     |> preload([:class, :major, :department])
