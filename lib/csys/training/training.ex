@@ -28,7 +28,7 @@ defmodule CSys.Training do
   # CSys.Training.page_my_training_courses(1, 1, %{page: 1, page_size: 10})
   def page_my_training_courses(user_id, major_id, page) do
     query = from c in TrainingCourse,
-            left_join: t in Table, on: (c.course_code == t.course_code),
+            left_join: t in Table, on: (c.course_code == t.course_code and t.user_id == ^user_id),
             where: c.major_id == ^major_id,
             select: {c, fragment("(? IS NOT NULL) as status", t.id)}
     query
