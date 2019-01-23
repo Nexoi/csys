@@ -257,21 +257,44 @@ defmodule CSys.CourseDao do
     |> Repo.all
     |> List.first
 
-    if course_tables do
-      {:error, "You have selected this course!"}
+    has_choiced_credit =
+    Table
+    |> where([user_id: ^user_id, term_id: ^term_id])
+    |> preload([:course])
+    |> Repo.all
+    |> Enum.map(fn x ->
+      x.course.credit
+    end)
+    |> Enum.reduce(fn x, acc ->
+      x + acc
+    end)
+
+    total_credit = if course = Course |> Repo.get(course_id) do
+      # has_choiced_credit |> IO.inspect(label: ">><<")
+      course.credit + has_choiced_credit # |> IO.inspect
     else
-      if c = course_rest_plus(course_id) do
-        c |> IO.inspect(label: ">> Chose Course")
-        attrs = %{
-          user_id: user_id,
-          course_id: course_id,
-          term_id: term_id
-        }
-        create_course_table(attrs)
-        LogDao.log(user_id, "选课", "#{c.id}/[#{c.code}] #{c.name}")
-        {:ok, "Select Successfully!"}
+      has_choiced_credit # |> IO.inspect
+    end
+
+    if total_credit > 25 do
+      {:error, "All course credits cannot exceed 25"}
+    else
+      if course_tables do
+        {:error, "You have selected this course!"}
       else
-        {:error, "None Vacancies left!"}
+        if c = course_rest_plus(course_id) do
+          c |> IO.inspect(label: ">> Chose Course")
+          attrs = %{
+            user_id: user_id,
+            course_id: course_id,
+            term_id: term_id
+          }
+          create_course_table(attrs)
+          LogDao.log(user_id, "选课", "#{c.id}/[#{c.code}] #{c.name}")
+          {:ok, "Select Successfully!"}
+        else
+          {:error, "None Vacancies left!"}
+        end
       end
     end
   end
