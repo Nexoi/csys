@@ -257,17 +257,23 @@ defmodule CSys.CourseDao do
     |> Repo.all
     |> List.first
 
+    choiced_credits =
+      Table
+      |> where([user_id: ^user_id, term_id: ^term_id])
+      |> preload([:course])
+      |> Repo.all
+      |> Enum.map(fn x ->
+        x.course.credit
+      end)
     has_choiced_credit =
-    Table
-    |> where([user_id: ^user_id, term_id: ^term_id])
-    |> preload([:course])
-    |> Repo.all
-    |> Enum.map(fn x ->
-      x.course.credit
-    end)
-    |> Enum.reduce(fn x, acc ->
-      x + acc
-    end)
+      if length(choiced_credits) === 0 do
+        0
+      else
+        choiced_credits
+        |> Enum.reduce(fn x, acc ->
+          x + acc
+        end)
+      end
 
     total_credit = if course = Course |> Repo.get(course_id) do
       # has_choiced_credit |> IO.inspect(label: ">><<")
