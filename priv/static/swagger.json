@@ -2053,6 +2053,26 @@
         "description": "列出所有的培养方案"
       }
     },
+    "/admin/api/users/{id}/disable": {
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "summary": "",
+        "responses": {},
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "id, not uid"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.UserController.disable",
+        "description": "Disable User | 修改为：不可选课状态"
+      }
+    },
     "/api/users/me": {
       "put": {
         "tags": [
@@ -2102,6 +2122,26 @@
         "parameters": [],
         "operationId": "CSysWeb.UserController.show",
         "description": "Sign In"
+      }
+    },
+    "/admin/api/users/{id}/enable": {
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "summary": "",
+        "responses": {},
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "id, not uid"
+          }
+        ],
+        "operationId": "CSysWeb.Admin.UserController.enable",
+        "description": "Enable User | 修改为：可选课状态"
       }
     },
     "/api/normal/curriculums": {

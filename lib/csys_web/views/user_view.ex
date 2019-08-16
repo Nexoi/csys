@@ -28,7 +28,8 @@ defmodule CSysWeb.UserView do
       name: user.name,
       major: user.major,
       class: user.class,
-      is_active: user.is_active
+      is_active: user.is_active,
+      status: if user.status == 1 do "可选课" else "禁止选课" end
     }
   end
 

@@ -211,4 +211,13 @@ defmodule CSys.Auth do
         {:error} -> {:error, "Wrong Password"}
       end
   end
+
+  ## CSys.Auth.can_enroll_course(1)
+  def can_enroll_course(user_id) do
+    if user =  User |> where(id: ^user_id) |> Repo.all |> List.first do
+      user.status == 1
+    else
+      false
+    end
+  end
 end

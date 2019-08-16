@@ -8,6 +8,8 @@ defmodule CSysWeb.CourseController do
 
   alias CSys.Course.ConflictProcesser
 
+  alias CSys.Auth
+
   action_fallback CSysWeb.FallbackController
 
   swagger_path :index do
@@ -98,28 +100,32 @@ defmodule CSysWeb.CourseController do
     current_term_id = CourseDao.find_current_term_id()
     current_user_id = get_session(conn, :current_user_id)
 
-    if current_term_id do
-      case ConflictProcesser.judge_dup(current_user_id, current_term_id, course_id) |> IO.inspect  do
-        {:ok, msg} ->
-          # IO.puts(msg)
-          case CourseDao.chose_course(current_user_id, current_term_id, course_id) do
-            {:ok, msg} ->
-              conn
-              |> json(%{message: msg})
-            {:error, msg} ->
-              conn
-              |> put_status(:bad_request)
-              |> json(%{message: msg})
-          end
-        {:error, msg} ->
-          conn
-              |> put_status(:bad_request)
-              |> json(%{message: msg})
+    if Auth.can_enroll_course(current_user_id) do
+      if current_term_id do
+        case ConflictProcesser.judge_dup(current_user_id, current_term_id, course_id) |> IO.inspect  do
+          {:ok, msg} ->
+            # IO.puts(msg)
+            case CourseDao.chose_course(current_user_id, current_term_id, course_id) do
+              {:ok, msg} ->
+                conn
+                |> json(%{message: msg})
+              {:error, msg} ->
+                conn
+                |> put_status(:bad_request)
+                |> json(%{message: msg})
+            end
+          {:error, msg} ->
+            conn
+                |> put_status(:bad_request)
+                |> json(%{message: msg})
+        end
+      else
+        conn
+        |> put_status(:bad_request)
+        |> json(%{message: "Current Term Unset, Please contact admin."})
       end
     else
-      conn
-      |> put_status(:bad_request)
-      |> json(%{message: "Current Term Unset, Please contact admin."})
+      conn |> put_status(:bad_request) |> json(%{message: "Forbidden! You can not select any course now."})
     end
   end
 
@@ -127,20 +133,24 @@ defmodule CSysWeb.CourseController do
     current_term_id = CourseDao.find_current_term_id()
     current_user_id = get_session(conn, :current_user_id)
 
-    if current_term_id do
-      case CourseDao.cancel_course(current_user_id, current_term_id, course_id) do
-        {:ok, msg} ->
-          conn
-          |> json(%{message: msg})
-        {:error, msg} ->
-          conn
-          |> put_status(:bad_request)
-          |> json(%{message: msg})
+    if Auth.can_enroll_course(current_user_id) do
+      if current_term_id do
+        case CourseDao.cancel_course(current_user_id, current_term_id, course_id) do
+          {:ok, msg} ->
+            conn
+            |> json(%{message: msg})
+          {:error, msg} ->
+            conn
+            |> put_status(:bad_request)
+            |> json(%{message: msg})
+        end
+      else
+        conn
+        |> put_status(:bad_request)
+        |> json(%{message: "Current Term Unset, Please contact admin."})
       end
     else
-      conn
-      |> put_status(:bad_request)
-      |> json(%{message: "Current Term Unset, Please contact admin."})
+      conn |> put_status(:bad_request) |> json(%{message: "Forbidden! You can not withdraw any course now."})
     end
   end
 

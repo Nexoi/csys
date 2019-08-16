@@ -66,6 +66,22 @@ defmodule CSysWeb.Admin.UserController do
     end
   end
 
+  swagger_path :disable do
+    put "/admin/api/users/{id}/disable"
+    description "Disable User | 修改为：不可选课状态"
+    parameters do
+      id :path, :integer, "id, not uid", required: true
+    end
+  end
+
+  swagger_path :enable do
+    put "/admin/api/users/{id}/enable"
+    description "Enable User | 修改为：可选课状态"
+    parameters do
+      id :path, :integer, "id, not uid", required: true
+    end
+  end
+
   """
 
   """
@@ -153,6 +169,20 @@ defmodule CSysWeb.Admin.UserController do
       conn
       |> put_status(:no_content)
       |> json(%{message: "Delete Successfully!"})
+    end
+  end
+
+  def disable(conn, %{"id" => id}) do
+    user = Auth.get_user!(id)
+    with {:ok, %User{} = user} <- Auth.update_user(user, %{status: 2}) do
+      render(conn, CSysWeb.UserView, "show.json", user: user)
+    end
+  end
+
+  def enable(conn, %{"id" => id}) do
+    user = Auth.get_user!(id)
+    with {:ok, %User{} = user} <- Auth.update_user(user, %{status: 1}) do
+      render(conn, CSysWeb.UserView, "show.json", user: user)
     end
   end
 end

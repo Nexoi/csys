@@ -6,6 +6,8 @@ defmodule CSys.Auth.User do
   alias CSys.Course.Log
 
   schema "users" do
+    field :status, :integer, default: 1 # 1: 可选课；2: 禁止选课
+
     field :is_active, :boolean, default: false
     field :uid, :string
     field :name, :string
@@ -25,7 +27,7 @@ defmodule CSys.Auth.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:uid, :is_active, :password, :name, :class, :major, :role])
+    |> cast(attrs, [:uid, :is_active, :password, :name, :class, :major, :role, :status])
     |> validate_required([:uid, :is_active, :name, :class, :major])
     |> unique_constraint(:uid)
     |> put_password_hash()
