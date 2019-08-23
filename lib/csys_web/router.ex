@@ -77,8 +77,8 @@ defmodule CSysWeb.Router do
     get "/exports/terms.csv", ExportController, :export_terms
     # pipe_through :api
     resources "/users", Admin.UserController, only: [:index, :show, :create, :update, :delete]
-    put "/admin/api/users/:id/disable", Admin.UserController, :disable
-    put "/admin/api/users/:id/enable", Admin.UserController, :enable
+    put "/users/:id/disable", Admin.UserController, :disable
+    put "/users/:id/enable", Admin.UserController, :enable
     post "/users/admin", Admin.UserController, :create_admin
     # resources "/normal/training_programs", Admin.Normal.TrainingProgramController, only: [:index, :show, :create, :update, :delete]
     # resources "/normal/training_program/items", Admin.Normal.TrainingProgramItemController, only: [:update, :delete]
